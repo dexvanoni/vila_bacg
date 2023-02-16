@@ -54,3 +54,6 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
+
+
+Route::get('/qrcode/{usuario}/qrcode', 'QrCodeController@qr_organico')->name('qrcode_organico');
