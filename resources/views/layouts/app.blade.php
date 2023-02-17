@@ -103,6 +103,25 @@
             padding: 5px;
             background: pink;
         }
+         @media print and (color) {
+        @page {
+          margin: 5mm;
+          size: A4 portrait;
+        }
+
+        .printable {
+          display: none;
+        }
+/* print styles*/
+@media print {
+    .printable {
+        display: block;
+    }
+    .screen {
+        display: none;
+    }
+}
+        
     </style>
     <!--DATATABLES-->
       @yield('datatables')
@@ -164,9 +183,14 @@
               }
             ?>
             @foreach($perfis as $p)
-              {{$p}}<br>
+              {{$p}}<br><br>
             @endforeach
-            <br>
+            @if(!$perfis->contains('Portaria'))
+              <a title="QR-Code" href="{{ route('qrcode_organico', [Auth::user()->id]) }}">
+               <i class="fas fa-qrcode"></i> Meu QR-Code
+              </a>
+              <br>
+            @endif
             @isset(Auth::user()->local)
               Local de Acesso: {{Auth::user()->local}}
             @endisset
@@ -526,6 +550,8 @@
       value = value.replace(/(\d)(\d{4})$/,"$1-$2")
       return value
     }
+
+    
 </script>
 
 </body>

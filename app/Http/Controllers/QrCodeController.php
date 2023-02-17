@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use App\User;
 
 class QrCodeController extends Controller
 {
-    public function qrcode_organico($usuario)
+    public function qr_organico($usuario)
     {
-      //não funcionando. O QRCode vai aparecer em uma modal na tela de lista de usuários.
-      return view('qrcode');
+        $usuario = User::find($usuario);
+      return view('usuarios.print_qr', compact('usuario'));
     }
 }

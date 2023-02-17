@@ -100,4 +100,34 @@ class UsuariosController extends Controller
                     ->with('success', 'Usuário excluído com sucesso!');
 
     }
+
+    public function desabilitar($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'status' => '0',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Usuário DESABILITADO com sucesso!');
+
+    }
+
+    public function habilitar($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'status' => '1',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Usuário HABILITADO com sucesso!');
+
+    }
 }
