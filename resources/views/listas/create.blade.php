@@ -7,14 +7,14 @@
             <img src="/imagens/sisvila.png" width="100px" height="70px">        
         </div>
         <div class="col-md-10">
-            <h2>Inserir LISTA DE INGRESSO</h2>
+            <h2>Lista de Convidados</h2>
         </div>
     </div>
     <hr>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Preencha o formulário</div>
+                <div class="card-header">Preencha os campos e faça upload do arquivo</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -22,14 +22,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <hr>
                     <a title="Baixar arquivo" href="{{ route('listas.modelo') }}">
                             <i class="fas fa-download" style="blue"></i> Baixe aqui um modelo de LISTA DE INGRESSO.
                     </a>
                     <hr>
-                    <form method="POST" action="{{ route('lista_ingresso.store') }}" enctype="multipart/form-data">
-                            @csrf
+                    <!--se o rádio for marcado "Evento Área de Lazer" vai cadastrar e colocar em qual clube"-->
+                    <div id="conv">
+                    <form method="POST" action="{{ route('liberacao.import') }}" enctype="multipart/form-data">
+                        @csrf
                         <h6>Após o preenchimento da lista, salve o aquivo e faça upload aqui</h6>
-                        <small class="form-text text-muted">Somente arquivos PDF, DOC/DOCX (Word) ou XLS/XLSX (Excel)</small>
+                        <small class="form-text text-muted">XLSX (Excel)</small>
                         <div class="row">
                             <div class="col-md-12">
                                  <div class="form-group">
@@ -37,7 +40,7 @@
                                       <div class="input-group-prepend">
                                       </div>
                                       <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="arquivo" aria-describedby="inputGroupFileAddon01" name="arquivo" accept=".pdf, .doc, .docx, .xls, .xlsx" required>
+                                        <input type="file" class="custom-file-input" id="arquivo" aria-describedby="inputGroupFileAddon01" name="arquivo" accept=".xlsx" required>
                                         <label class="custom-file-label" for="arquivo">Clique aqui...</label>
                                       </div>
                                     </div>  
@@ -48,79 +51,106 @@
                         <div class="row">
                             <div class="nomeArquivo" style="margin-left: 20px;"></div>
                         </div>
-                        <hr>
-                            <div class="row">
-                                <div class="col-md-5">
-                                  <div class="form-group">
-                                    <label for="portaria">Portaria</label>
-                                    <select class="form-control" id="portaria" name="portaria" required>
-                                      <option>Selecione...</option>
-                                      <option>PVO - Vila dos Oficiais (Duque de Caxias)</option>
-                                      <option>PVSS - Vila dos Suboficiais e Sargentos (Taveirópolis)</option>
-                                      <option>Portão Principal - Duque de Caxias</option>
-                                      <option>Portão Interno - Área Administrativa</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="qtn">Nº de Convidados</label>
-                                      <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                          <div class="input-group-text"><i class="fas fa-person-booth"></i></div>
-                                        </div>
-                                        <input type="number" name="qtn" class="form-control" id="qtn">
-                                      </div>
-                                </div>
-                                <div class="col-md-4">
-                                  <div class="form-group">
-                                    <label for="local_evento">Local do Evento</label>
-                                    <select class="form-control" id="local_evento" name="local_evento" required>
-                                      <option>Selecione...</option>
-                                      <option>ALOF</option>
+
+                        <label for="mensagem">Preencha o formulário</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select class="form-control" id="destino" name="destino">
+                                      <option>Selecione o local do envento...</option>  
+                                      <option>ALOF</option>  
                                       <option>ALSS</option>
                                       <option>ALCTS</option>
-                                      <option>PNR</option>
                                       <option>CASARÃO</option>
-                                      <option>GINÁSIO DE ESPORTES</option>
-                                      <option>ESQUADRÃO</option>
-                                      <option>ÁREA ADMINISTRATIVA</option>
                                     </select>
                                   </div>
-                                </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-4">
-                                 <label for="dt_evento">Data do Evento</label><label style="color: red;">*</label>
+                        </div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                     <label for="observacao">Observação</label>
+                                      <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text"><i class="fas fa-comment-dots"></i></div>
+                                        </div>
+                                        <input type="text" name="observacao" class="form-control" id="observacao">
+                                      </div>
+                                </div>
+                        </div>
+                        <br>
+                        
+                        <!--TRECHO COMUM PARA TODOS-->
+                                 <div class="row">
+                                <div class="col-md-3">
+                                 <label for="dt_entrada">Data Entrada</label><label style="color: red;">*</label>
                                   <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text"><i class="fas fa-sign-in-alt"></i></div>
                                     </div>
-                                    <input type="date" class="form-control" name="dt_evento" id="dt_evento" required>
+                                    <input type="date" class="form-control" name="dt_entrada" id="dt_entrada" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required>
                                   </div>
                                 </div>
                                 <div class="col-md-3">
-                                 <label for="hr_evento">Hora do Evento</label><label style="color: red;">*</label>
+                                 <label for="hr_entrada">Hora Entrada</label><label style="color: red;">*</label>
                                   <div class="input-group mb-2">
                                     <div class="input-group-prepend">
                                       <div class="input-group-text"><i class="fas fa-clock"></i></div>
                                     </div>
-                                    <input type="time" class="form-control" name="hr_evento" id="hr_evento" required>
+                                    <input type="time" class="form-control" name="hr_entrada" id="hr_entrada" value="{{Carbon\Carbon::now()->format('H:i')}}" required>
                                   </div>
                                 </div>
-                                <div class="col-md-5 align-self-end">
-                                    <div class="form-group">
-                                        <div class="col-md-7">
-                                            <button type="submit" class="btn btn-primary">
-                                                Enviar
-                                            </button>
-                                        </div>
+                                <div class="col-md-3">
+                                 <label for="dt_saida">Data Saída</label><label style="color: red;">*</label>
+                                  <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text"><i class="fas fa-sign-out-alt"></i></div>
                                     </div>
+                                    <input type="date" class="form-control" name="dt_saida" id="dt_saida" value="{{Carbon\Carbon::now()->format('Y-m-d')}}" required>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                 <label for="hr_saida">Hora Saída</label><label style="color: red;">*</label>
+                                  <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                      <div class="input-group-text"><i class="fas fa-stopwatch"></i></div>
+                                    </div>
+                                    <input type="time" class="form-control" name="hr_saida" id="hr_saida" required>
+                                  </div>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="row justify-content-md-center">
+                                <div class="col-md-4 align-self-center text-center">
+                                    <div class="form-check ">
+                                      <input class="form-check-input" type="radio" name="status" id="status_l" value="Liberado" required checked>
+                                      <label class="form-check-label" for="tipo" style="color: green;">
+                                        <i class="fas fa-user-check fa-2x" style="color: green;"></i> <font size="5"> Liberado</font>
+                                      </label>
+                                    </div>                            
+                                </div> 
+                                <div class="col-md-4 align-self-center text-center">
+                                    <div class="form-check ">
+                                      <input class="form-check-input" type="radio" name="status" id="status_b" value="Bloqueado">
+                                      <label class="form-check-label" for="tipo" style="color: red;">
+                                        <i class="fas fa-user-slash fa-2x" style="color: red;"></i><font size="5"> Bloqueado</font>
+                                      </label>
+                                    </div>                            
+                                </div> 
+                            </div>
+                            <br>
+                            <!--FIM-->
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
                     </form>
-
-
+                    <hr>
+                    </div>
+                    <!--fecha "Visitante já cadastrado" -->
                 </div>
             </div>
         </div>
@@ -130,46 +160,80 @@
 @endsection
 
 @section('script_adicional')
-
     <script type="text/javascript">
-        $(function () {
-        $('#arquivo').change(function() {
-             $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-        });
-    });
-    </script>
-    
-    <script type="module">
+         $(function () {
+            $('#arquivo').change(function() {
+                 $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+            });
+         });
 
-    const permission = await Notification.requestPermission()
-        if( permission !== "granted") {
-          throw new Error('Permissão negada')
-        }
-            //cria a notificação
+        $(document).ready(function(){
 
-            function novaOcorrencia(opcoes) {
-            var n = new Notification(opcoes.title, opcoes.opt);
-            
-            if (opcoes.link !== '') {
-                    n.addEventListener("click", function() {               
-                        n.close();
-                        window.focus();
-                        window.location.href = opcoes.link;
-                    });
+            //esconder todos os forms
+            $("#anterior").hide();
+            $("#entrega").hide();
+            $("#transp").hide();
+            $("#new").hide();
+            //$("#conv").hide();
+
+            $("input[id$='a']").click(function() {
+                var tipos = $(this).val();
+                if (tipos === 'anterior') {
+                    $("#anterior").show();
+                    $("#entrega").hide();
+                    $("#transp").hide();
+                    $("#new").hide();
+                    $("#conv").hide();
                 }
-            }
+            });
 
-            //aparece a notificação ao clicar
-            document.getElementById("btn_push").onclick = evt => {
-                novaOcorrencia({
-                    opt: {
-                        body: "Criando nova notificação",
-                        icon: "notification-flat.png"
-                    },
-                    title: "Olá mundo!",
-                    link: "https://www.google.com.br/"
-                })
-            }
+            $("input[id$='b']").click(function() {
+                var tipos = $(this).val();
+                if (tipos === 'novo') {
+                    $("#anterior").hide();
+                    $("#entrega").hide();
+                    $("#transp").hide();
+                    $("#new").show();
+                    $("#conv").hide();
+                }
+            });
 
-  </script>
+            $("input[id$='c']").click(function() {
+                var tipos = $(this).val();
+                if (tipos === 'entregador') {
+                    $("#anterior").hide();
+                    $("#entrega").show();
+                    $("#transp").hide();
+                    $("#new").hide();
+                    $("#conv").hide();
+                }
+
+            });
+
+            $("input[id$='d']").click(function() {
+                var tipos = $(this).val();
+                if (tipos === 'transporte') {
+                    $("#anterior").hide();
+                    $("#entrega").hide();
+                    $("#transp").show();
+                    $("#new").hide();
+                    $("#conv").hide();
+                }
+
+            });
+
+            $("input[id$='e']").click(function() {
+                var tipos = $(this).val();
+                if (tipos === 'convidado') {
+                    $("#anterior").hide();
+                    $("#entrega").hide();
+                    $("#transp").hide();
+                    $("#new").hide();
+                    $("#conv").show();
+                }       
+
+            });
+            
+        });
+    </script>
 @endsection

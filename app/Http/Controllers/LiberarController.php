@@ -8,6 +8,11 @@ use App\Liberar;
 use Auth;
 use Carbon\Carbon;
 
+use Maatwebsite\Excel\Excel as ExcelExcel;
+
+use App\Imports\VisitanteImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class LiberarController extends Controller
 {
     public function __construct()
@@ -19,6 +24,18 @@ class LiberarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function import(Request $request)
+    {
+        Excel::import(new VisitanteImport($request->apelido,$request->destino,
+            $request->observacao,$request->dt_entrada,$request->hr_entrada,$request->dt_saida,$request->hr_saida,$request->status), $request->file('arquivo'));
+        
+       // exit;
+       // Excel::import(new VisitanteImport, $request->file('arquivo'));
+        
+        return redirect('home')->with('success', 'Convidados liberados. Bom evento!');
+    }
+
     public function index()
     {
           $perfis = collect([]);
