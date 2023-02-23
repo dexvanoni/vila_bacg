@@ -32,7 +32,7 @@
                     <form method="POST" action="{{ route('liberacao.import') }}" enctype="multipart/form-data">
                         @csrf
                         <h6>Após o preenchimento da lista, salve o aquivo e faça upload aqui</h6>
-                        <small class="form-text text-muted">XLSX (Excel)</small>
+                        <small class="form-text text-muted">**Importante: Somente arquivos XLSX (Excel) preenchidos conforme modelo!</small>
                         <div class="row">
                             <div class="col-md-12">
                                  <div class="form-group">
@@ -51,13 +51,14 @@
                         <div class="row">
                             <div class="nomeArquivo" style="margin-left: 20px;"></div>
                         </div>
-
+                        <hr>
                         <label for="mensagem">Preencha o formulário</label>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <label for="lista">Local do Evento</label>
                                     <select class="form-control" id="destino" name="destino">
-                                      <option>Selecione o local do envento...</option>  
+                                      <option>Selecione...</option>  
                                       <option>ALOF</option>  
                                       <option>ALSS</option>
                                       <option>ALCTS</option>
@@ -65,7 +66,15 @@
                                     </select>
                                   </div>
                             </div>
-
+                            <div class="col-md-9">
+                                    <label for="lista">Nome da Lista (título do seu evento)</label>
+                                      <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text"><i class="fas fa-clipboard-list"></i></div>
+                                        </div>
+                                        <input type="text" name="lista" class="form-control" id="lista" placeholder="Exemplo: Aniversário do João">
+                                      </div>
+                            </div>
                         </div>
                         <div class="row">
                                 <div class="col-md-12">
@@ -149,8 +158,28 @@
                         </div>
                     </form>
                     <hr>
+                    <!--RELAÇÃO DE LISTAS DO USUÁRIO LOGADO-->
+                      <table id="lista_listas" class="table table-striped table-bordered nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nome da Lista</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(($listas) as $a => $b)
+                                <tr>
+                                    <td>{{$a}}</td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{route('ver_lista', ['lista' => $a])}}">
+                                            <i class="fas fa-book-open"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     </div>
-                    <!--fecha "Visitante já cadastrado" -->
                 </div>
             </div>
         </div>
@@ -236,4 +265,28 @@
             
         });
     </script>
+@endsection
+
+@section('script_datatable')
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lista_listas').DataTable({
+                 responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal( {
+                            header: function ( row ) {
+                                var data = row.data();
+                                return 'Details for '+data[0]+' '+data[1];
+                            }
+                        } ),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                            tableClass: 'table'
+                        } )
+                    }
+                }
+            });
+        });
+    </script>
+
 @endsection

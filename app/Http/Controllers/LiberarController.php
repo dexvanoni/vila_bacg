@@ -27,12 +27,20 @@ class LiberarController extends Controller
 
     public function import(Request $request)
     {
-        Excel::import(new VisitanteImport($request->apelido,$request->destino,
-            $request->observacao,$request->dt_entrada,$request->hr_entrada,$request->dt_saida,$request->hr_saida,$request->status), $request->file('arquivo'));
-        
-       // exit;
-       // Excel::import(new VisitanteImport, $request->file('arquivo'));
-        
+
+       // importação da lista de convidados junto com insputs do formulário.
+        // vai para o controller VisitanteController
+
+       Excel::import(new VisitanteImport($request->lista, $request->destino, $request->observacao, $request->dt_entrada, $request->hr_entrada, $request->dt_saida, $request->hr_saida, $request->status), $request->file('arquivo'));
+
+       // gerar qrcode de cada convidado
+
+       
+
+       // envio do qr-code para cada convidado que tenha celular com whats cadastrado na lista
+
+       
+
         return redirect('home')->with('success', 'Convidados liberados. Bom evento!');
     }
 

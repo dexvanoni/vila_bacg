@@ -24,8 +24,32 @@ class ListaController extends Controller
      */
     public function index()
     {
+        /* antigo
         $listas = Lista::paginate(10);
         return view('listas.create', compact('listas'));
+        */
+
+        
+        $list = DB::table('cad_vis_entrada')
+                    ->where('onesignal_id', Auth::user()->id)
+                    ->whereNotNull('lista')
+                    ->get();
+
+        $listas = $list->groupBy('lista');
+
+        $listas->toArray() ;
+        
+
+        return view('listas.create', compact('listas'));
+    }
+
+    public function ver_lista($lista){
+
+        $lista = DB::table('cad_vis_entrada')
+                    ->where('lista', $lista)
+                    ->get();
+
+        return view('listas.ver_lista', compact('lista'));
     }
 
     /**

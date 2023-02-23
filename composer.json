@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "jhowbhz/package-apigratis": "^0.2.8",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "4.4.1",
         "laravel/tinker": "^1.0",

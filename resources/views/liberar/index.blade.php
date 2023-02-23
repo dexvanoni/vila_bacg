@@ -108,7 +108,7 @@ $perfis = collect([]);
                                 <i class="fas fa-user-check">{{'  '.$a->liberador}}</i>  
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                Visitante: {{'  '.$a->nome_completo}}
+                                Visitante: {{'  '.$a->nome_completo}} Contato: {{' '.$a->contato}}
                             </div>
                         </button>
                       </h5>
@@ -149,7 +149,7 @@ $perfis = collect([]);
                                         <i class="fas fa-user-check">{{'  '.$a->liberador}}</i>  
                                     </div>
                                     <div class="row" style="margin-top: 5px;">
-                                        Visitante: {{'  '.$a->nome_completo.'   '}}
+                                        Visitante: {{'  '.$a->nome_completo.'   '}} Contato: {{' '.$a->contato}}
                                         @php
                                             $dt_hoje = Carbon\Carbon::now()->format('Y-m-d');
                                             $hora = Carbon\Carbon::now()->format('H:i:s');

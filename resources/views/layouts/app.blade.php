@@ -121,7 +121,8 @@
         display: none;
     }
 }
-        
+ 
+    
     </style>
     <!--DATATABLES-->
       @yield('datatables')
@@ -524,8 +525,7 @@
   $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     $('#listas').DataTable();
-
-
+    $('#lista_listas').DataTable();
 });
 </script>
 
