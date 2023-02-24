@@ -6,7 +6,7 @@
         <div class="col-md-2">
             <img src="/imagens/sisvila.png" width="100px" height="70px">        
         </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <h2>Lista de Convidados</h2>
         </div>
     </div>
@@ -22,29 +22,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
-                    <!--RELAÇÃO DE LISTAS DO USUÁRIO LOGADO-->
-                      <table id="lista_listas" class="table table-striped table-bordered nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Nome da Lista</th>
-                                <th>Contato</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($lista as $a)
-                                <tr>
-                                    <td>{{$a->nome_completo}}</td>
-                                    <td>{{$a->contato}}</td>
-                                    <td>
-                                        <a title="QR-Code" href="#" data-toggle="modal" data-target="#QRView-<?php echo $a->id; ?>">
-                                            <i class="fas fa-qrcode" style="color: green; margin-left: 1rem;"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                               <!--MODAL QUE EXIBE O QR-CODE-->
+                    <ul>
+                        @foreach($lista as $a)
+                        <li>
+                            <strong>Nome:</strong> {{$a->nome_completo}} - <strong>QR-CODE</strong> 
+                                <a title="QR-Code" href="#" data-toggle="modal" data-target="#QRView-<?php echo $a->id; ?>">
+                                    <i class="fas fa-qrcode" style="color: green; margin-left: 1rem;"></i>
+                                </a>
+                        </li>
+                        <!--MODAL QUE EXIBE O QR-CODE-->
                                 <div class="modal fade" id="QRView-<?=$a->id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
@@ -55,23 +47,30 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                         {!! QrCode::size(300)->generate($a->id) !!}
+                                         {!! QrCode::size(180)->generate($a->id) !!}
                                          
                                       </div>
                                       <div class="modal-footer">
 
-                                        <a title="QR-Code" href="{{ route('qrcode_organico', [$a->id]) }}">
-                                           Imprimir
+                                        <a title="QR-Code" href="{{ route('qrcode_convidado', [$a->id]) }}">
+                                           Imprimir Cartão
                                         </a>
+                                        @if($a->contato)
+                                            <!--<a title="Enviar QR-Code" href="https://api.whatsapp.com/send?phone=55{{$a->contato}}&text=http://192.168.100.74:8000/qrcode/{{$a->id}}/qrcode/convidado">
+                                               Enviar Cartão
+                                            </a>-->
+                                        @endif
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                             <!--FIM DO MODAL-->
-                            @endforeach
-                        </tbody>
-                    </table>
+                        @endforeach
+                    </ul>
+
+                    <!--RELAÇÃO DE LISTAS DO USUÁRIO LOGADO-->
+
                 </div>
             </div>
         </div>

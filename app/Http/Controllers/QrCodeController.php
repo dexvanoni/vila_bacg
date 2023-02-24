@@ -19,13 +19,19 @@ class QrCodeController extends Controller
       return view('usuarios.print_qr', compact('usuario'));
     }
 
+
     public function qr_convidado($convidado)
     {
         $convidado = Liberar::find($convidado);
+        return view('usuarios.print_qr_conv', compact('convidado'));
+        
+    }
 
-        //envia qr para convidado
+    public function qr_whats($convidado)
+    {
+        //envia qr para whatsapp do convidado
+        
+        return redirect()->back()->with('success', 'QR-Code enviado com sucesso!');   
 
-
-      return redirect()->back()->with('success', 'QR-Code enviado com sucesso!');   
     }
 }

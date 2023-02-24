@@ -22,6 +22,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if(session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <hr>
                     <a title="Baixar arquivo" href="{{ route('listas.modelo') }}">
                             <i class="fas fa-download" style="blue"></i> Baixe aqui um modelo de LISTA DE INGRESSO.

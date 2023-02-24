@@ -41,7 +41,7 @@ class LiberarController extends Controller
 
        
 
-        return redirect('home')->with('success', 'Convidados liberados. Bom evento!');
+        return redirect('lista_ingresso.index')->with('success', 'Convidados liberados. Bom evento!');
     }
 
     public function index()

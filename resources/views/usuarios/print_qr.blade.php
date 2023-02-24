@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Impressão de QR-Code</title>
+	<title>Impressão de QR-Code - Cadastrados</title>
 	<style type="text/css">
 		.cartao {
 		 width:250px;
