@@ -66,3 +66,7 @@ Route::get('/qrcode/{usuario}/qrcode', 'QrCodeController@qr_organico')->name('qr
 Route::get('/qrcode/{convidado}/qrcode/convidado', 'QrCodeController@qr_convidado')->name('qrcode_convidado');
 Route::get('/qrcode/{convidado}/qrcode/whats', 'QrCodeController@qr_whats')->name('qrcode_whats')->middleware('auth');
 Route::get('/ver_lista/{lista}', 'ListaController@ver_lista')->name('ver_lista')->middleware('auth');
+
+use App\Http\Controllers\SendEmailController;
+
+Route::get('send-email-pdf/{convidado}', [SendEmailController::class, 'sendmail'])->name('email_qrcode');

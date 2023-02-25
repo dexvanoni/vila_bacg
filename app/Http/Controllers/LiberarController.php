@@ -40,8 +40,9 @@ class LiberarController extends Controller
        // envio do qr-code para cada convidado que tenha celular com whats cadastrado na lista
 
        
-
-        return redirect('lista_ingresso.index')->with('success', 'Convidados liberados. Bom evento!');
+       return redirect()
+                    ->route('lista_ingresso.include_external_user_ids')
+                    ->with('success', 'Convidados liberados. Bom evento!!');
     }
 
     public function index()
@@ -220,9 +221,12 @@ class LiberarController extends Controller
           'movimentacao' => 'A'
         ]);
 
+
+
+        //ENVIAR QR-CODE do visitante para email do liberador
+    
         return redirect()
-                    ->route('home')
-                    ->with('success', 'Visitante cadastrado com sucesso!');
+                    ->route('email_qrcode', $onesignal_id);
     }
 
     public function anterior(Request $request)

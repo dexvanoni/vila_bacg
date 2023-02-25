@@ -6,7 +6,9 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'niklasravnsborg\\LaravelPdf\\' => array($vendorDir . '/niklasravnsborg/laravel-pdf/src/LaravelPdf'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Zend\\Diactoros\\' => array($vendorDir . '/zendframework/zend-diactoros/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
@@ -58,6 +60,7 @@ return array(
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Nexmo\\' => array($vendorDir . '/nexmo/client-core/src'),
     'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
+    'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Maatwebsite\\Excel\\' => array($vendorDir . '/maatwebsite/excel/src'),
@@ -74,6 +77,7 @@ return array(
     'Illuminate\\Notifications\\' => array($vendorDir . '/laravel/nexmo-notification-channel/src', $vendorDir . '/laravel/slack-notification-channel/src'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
     'Http\\Promise\\' => array($vendorDir . '/php-http/promise/src'),
+    'Http\\Message\\' => array($vendorDir . '/php-http/message-factory/src'),
     'Http\\Client\\' => array($vendorDir . '/php-http/httplug/src'),
     'Http\\Adapter\\Guzzle6\\' => array($vendorDir . '/php-http/guzzle6-adapter/src'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),

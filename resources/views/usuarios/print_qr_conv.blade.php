@@ -51,9 +51,9 @@
 			        link.href = dataUrl;
 			        link.click();
 
-			        var link2 = document.createElement('a');
-			        link2.href = 'https://api.whatsapp.com/send?phone=55{{$convidado->contato}}&text=Você foi convidado para um evento na Vila da Base Aérea. Solicite o cartão com QR-Code para entrada na portaria!';
-			        link2.click();
+			        //var link2 = document.createElement('a');
+			        //link2.href = 'https://api.whatsapp.com/send?phone=55{{$convidado->contato}}&text=Você foi convidado para um evento na Vila da Base Aérea. Solicite o cartão com QR-Code para entrada na portaria!';
+			        //link2.click();
 			   });
     }
     

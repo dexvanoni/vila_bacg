@@ -8,13 +8,21 @@
 		.cartao {
 		 width:250px;
 		 height:580px;
+		 font-family: Arial;
 		 border: 8px solid; /* As 4 bordas sólidas com 25px de espessura */
-		 border-color: #00f #00f #00f #00f; /* cores: topo, direita, inferior, esquerda */
+		 border-color: red; /* cores: topo, direita, inferior, esquerda */
 		 padding: 3px;
+		 background-color: white;
 		 }
+		 @media print {
+               .notprint {
+                  visibility: hidden;
+               }
+           }
 	</style>
 </head>
 <body>
+	<div id="cartao" class="cartao">
 	@php
 			$perfis = collect([]);
               foreach(explode(',',  $usuario->autorizacao) as $info){
@@ -43,7 +51,7 @@
               };
               
 			@endphp
-	<div class="cartao">
+	
 		<div class="conteudo" style="text-align: center;">
 			{!! QrCode::size(250)->generate($usuario->id) !!}
 		</div>
@@ -56,10 +64,22 @@
             	@endforeach
 			</p>
 			<p style="font-size: 12px;">Suporte SISVila: (67) 98167-5854</p>
-			<a style="padding-left: 40%;" href='{{$_SERVER['HTTP_REFERER']}}'>Voltar</a>
+			<a style="padding-left: 40%;" href='{{$_SERVER['HTTP_REFERER']}}'>Voltar</a><br>
+			<button type="button" class="btn btn-primary" style="align-items: center;" id="notprint" onclick="gerarImagem()">Download</button>
 	</div>
 </body>
-<script type="text/javascript">
-	//alert('Aperte Ctrl+P para imprimir seu QR-Code')
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">	
+    function gerarImagem(){
+            domtoimage.toJpeg(document.getElementById('cartao'), { quality: 1})
+			    .then(function (dataUrl) {
+			        var link = document.createElement('a');
+			        link.download = 'meu_cartao_sisvila.jpeg';
+			        link.href = dataUrl;
+			        link.click();
+			   });
+    }
+    
 </script>
 </html>

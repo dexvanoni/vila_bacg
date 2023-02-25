@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -176,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -227,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
 
     ],
 
