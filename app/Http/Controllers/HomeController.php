@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Aviso;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -26,8 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
-            return view('home');    
+            $avisos = Aviso::all();
+            return view('home', compact('avisos'));    
     
     }
 
