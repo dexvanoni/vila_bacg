@@ -46,9 +46,9 @@ $perfis = collect([]);
             <div class="col-md-6">
                 <a href="{{route('liberacao.completa')}}" class="btn btn-success" title="Ver movimentações">Clique aqui para ver todas as movimentações</a>    
             </div>
-            <div class="col-md-6 align-self-end">
+            <!--<div class="col-md-6 align-self-end">
                 <a href="{{route('lista_ingresso.lista')}}" class="btn btn-warning" title="Ver movimentações">Ver listas de ingresso</a>    
-            </div>
+            </div>-->
         </div>
     @endif
     <hr>
@@ -93,7 +93,11 @@ $perfis = collect([]);
                                 @if($a->movimentacao == 'E')
                                     <label style="color: red;">Este visitante já entrou!</label>
                                 @elseif($a->movimentacao == 'A')
-                                    <label>Liberação de visitante nº {{$a->id}}</label>
+                                    @if($a->status == 'Liberado')                                
+                                        <label>Liberação de visitante nº {{$a->id}}</label>
+                                    @else
+                                        <label style="background-color: red; color: white;">VISITANTE BLOQUEADO</label>
+                                    @endif    
                                     @if($a->dt_entrada < \Carbon\Carbon::now()->format('Y-m-d') || $a->dt_saida < \Carbon\Carbon::now()->format('Y-m-d'))
                                         <i class="fas fa-exclamation-triangle" style="color: darkred;" title="INVALIDAR ESTA LIBERAÇÃO"></i>
                                     @endif

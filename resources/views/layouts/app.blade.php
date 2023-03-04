@@ -273,7 +273,7 @@
                 </li>
                 @endif
                 <li>
-                  <a href="#">Animais de estimação</a>
+                  <a href="{{route('pets.index')}}">Animais de estimação</a>
                 </li>
               </ul>
             </div>
