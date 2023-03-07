@@ -142,7 +142,7 @@
                               </div>
 
                         <!--TÉRMINO DO MÓDULO DE AUTORIZAÇÕES-->
-
+                        <input type="hidden" name="status" value="1">
                         <div class="form-group row mb-0">
                             <div class="col-md-7 offset-md-5">
                                 <button type="submit" class="btn btn-primary">

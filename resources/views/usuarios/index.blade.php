@@ -66,7 +66,10 @@
                     <td>{{$l->email}}</td>
                     <td>{{$l->local}}</td>
                     <td>{{$l->telefone}} / {{$l->ramal}}</td>
-                    <td>{{$l->autorizacao}}</td>
+                    <td>@foreach($perfis as $p)
+                          {{$p}}<br><br>
+                        @endforeach
+                    </td>
                     <td>{{$l->cpf}}</td>
                     @if($l->status == 1)
                     <td>

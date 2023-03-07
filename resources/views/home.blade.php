@@ -124,6 +124,15 @@
     padding-top: 19px;
 }
 
+.qrcode {
+    width: 320px !important;
+  height: auto !important;
+  font-size: 11px;
+  text-align: center;
+    vertical-align: middle;
+    padding-top: 19px;
+}
+
 .btn-sq-xs {
   width: 25px !important;
   height: 25px !important;
@@ -206,6 +215,16 @@
           </p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12 d-flex justify-content-center text-center">
+          <p>
+            <a href="{{ route('qrcode_organico', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: black; border-color: black; color: white;">
+              <i class="fa fa-qrcode fa-2x"></i><br/>
+                MEU QRCODE
+            </a>
+          </p>
+        </div>
+    </div>
     
 @foreach($avisos as $a)
     <div class="row">
@@ -276,6 +295,7 @@
     </div>
 @endforeach
 
+    
 </div>
 
   <!-- page-content" -->
