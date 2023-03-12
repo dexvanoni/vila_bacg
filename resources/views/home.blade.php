@@ -125,7 +125,7 @@
 }
 
 .qrcode {
-    width: 320px !important;
+    width: 160px !important;
   height: auto !important;
   font-size: 11px;
   text-align: center;
@@ -149,6 +149,12 @@
     </div>
 
 <div class="container">
+  @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+        <hr>
+    @endif
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
@@ -171,14 +177,15 @@
           </p>
         </div>
     </div>
+    @if (Auth::user()->autorizacao == 'ad')
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
-            <a href="#" class="btn visitante btn-secondary" style="background-color: indianred; border-color: indianred;">
+            <a href="{{route('usuarios.index')}}" class="btn visitante btn-secondary" style="background-color: indianred; border-color: indianred;">
               <i class="fa fa-user-secret fa-2x"></i><br/>
                 Usuários
             </a>
-            <a href="#" class="btn btn-sq-sm btn-dark">
+            <a href="{{ route('register') }}" class="btn btn-sq-sm btn-dark">
                 <i class="fas fa-user-cog fa-2x"></i>
                Cadastrar 
             </a>
@@ -186,13 +193,14 @@
               <i class="fa fa-warehouse fa-2x"></i><br/>
               Portaria
             </a>
-            <a href="#" class="btn btn-warning pq" style="background-color: orange; border-color: orange;">
+            <a href="{{route('locais.index')}}" class="btn btn-warning pq" style="background-color: orange; border-color: orange;">
               <i class="fa fa-building fa-2x"></i><br/>
               Edificações
             </a>
           </p>
         </div>
     </div>
+    @endif
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
@@ -221,6 +229,10 @@
             <a href="{{ route('qrcode_organico', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: black; border-color: black; color: white;">
               <i class="fa fa-qrcode fa-2x"></i><br/>
                 MEU QRCODE
+            </a>
+            <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: grey; border-color: black; color: white;">
+              <i class="fa fa-key fa-2x"></i><br/>
+                SENHA
             </a>
           </p>
         </div>

@@ -73,3 +73,6 @@ Route::get('send-email-pdf/{convidado}', [SendEmailController::class, 'sendmail'
 
 Route::resource('pets', PetsController::class)->middleware('auth');
 Route::get('/pets/{pets}/delete', 'PetsController@delete')->name('pets.delete')->middleware('auth');
+
+Route::get('/reset', 'UserSettingsController@update')->name('senha.update')->middleware('auth');
+Route::get('/resetSenha/{id}', 'UserSettingsController@create')->name('form.senha')->middleware('auth');

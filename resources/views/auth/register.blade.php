@@ -127,17 +127,13 @@
                              <div class="form-group">
                                 <label for="local">Local onde o cadastrado terá acesso</label>
                                 <select class="form-control" id="local" name="local">
-                                  <option>PNR - F.2018</option>
-                                  <option>PNR - F.2017</option>
-                                  <option>ESCOLA YP</option>
-                                  <option>CRECHE</option>
-                                  <option>ALSS</option>
-                                  <option>ALOF</option>
-                                  <option>ALCTS</option>
-                                  <option>ACVBACG</option>
-                                  <option>AALMACG</option>
-                                  <option>PREFEITURA</option>
-                                  <option>EXTERNO</option>
+                                  @php
+                                    $locais = App\Local::all();
+                                  @endphp
+                                  <option>Selecione...</option>
+                                  @foreach ($locais as $l)
+                                    <option>{{$l->local}}</option>
+                                  @endforeach
                                 </select>
                               </div>
 

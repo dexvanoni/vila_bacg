@@ -24,7 +24,6 @@
         <thead>
             <tr>
                 <th>Nome Completo</th>
-                <th>Email(login)</th>
                 <th>Local</th>
                 <th>Contatos</th>
                 <th>Perfil</th>
@@ -63,7 +62,6 @@
                 @endphp
                 <tr>
                     <td>{{$l->name}}</td>
-                    <td>{{$l->email}}</td>
                     <td>{{$l->local}}</td>
                     <td>{{$l->telefone}} / {{$l->ramal}}</td>
                     <td>@foreach($perfis as $p)
@@ -77,17 +75,17 @@
                             <i class="fas fa-home" style="blue"></i>
                         </a>
                         <a title="Excluir Usuário" href="{{ route('usuarios.delete', [$l->id]) }}">
-                                <i class="fas fa-trash-alt" style="color: red; margin-left: 10PX;"></i>
+                                <i class="fas fa-trash-alt" style="color: red; margin-left: 3PX;"></i>
                         </a>
                         <a title="Desabilitar Usuário" href="{{ route('usuarios.desab', [$l->id]) }}">
-                                <i class="fas fa-dizzy" style="color: black; margin-left: 10PX;"></i>
+                                <i class="fas fa-dizzy" style="color: black; margin-left: 3PX;"></i>
                         </a>
                         <!--<a title="QR-Code" href="{{ route('qrcode_organico', [$l->id]) }}">
                                 <i class="fas fa-qrcode" style="color: green; margin-left: 10PX;"></i>
                         </a>-->
                         @if(!$perfis->contains('Portaria'))
                             <a title="QR-Code" href="#" data-toggle="modal" data-target="#QRView-<?php echo $l->id; ?>">
-                                <i class="fas fa-qrcode" style="color: green; margin-left: 1rem;"></i>
+                                <i class="fas fa-qrcode" style="color: green; margin-left: 3PX;"></i>
                             </a>
                         @endif
                     </td>
@@ -130,7 +128,5 @@
             @endforeach
         </tbody>
     </table>
-
-    
 </div>
 @endsection

@@ -31,7 +31,9 @@
                         @php
                             $contato = DB::table('users')->where('name', $l->responsavel)->first();
                         @endphp
-                        - Contatos: {{$contato->telefone}} / {{$contato->ramal}}
+                        @isset($contato->telefone)
+                            - Contatos: {{$contato->telefone}} / {{$contato->ramal}}
+                        @endisset
                     </td>
                     <td>{{$l->status}}</td>
                     <td>
