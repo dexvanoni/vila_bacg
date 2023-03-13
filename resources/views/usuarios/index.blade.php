@@ -20,54 +20,20 @@
         </div>
         <hr>
     @endif
-    <table id="listas" class="table table-striped table-bordered" style="width:100%">
+    <table id="lista_usuarios" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Nome Completo</th>
                 <th>Local</th>
-                <th>Contatos</th>
-                <th>Perfil</th>
                 <th>CPF</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             @foreach($usuarios as $l)
-                @php
-                    $perfis = collect([]);
-                      foreach(explode(',',  $l->autorizacao) as $info){
-                        if ($info == 'pe') {
-                          $perfis->push('Permissionário');
-                        } elseif ($info == 'de') {
-                          $perfis->push('Dependente');
-                        } elseif ($info == 'st') {
-                          $perfis->push('Sócio-Titular');
-                        } elseif ($info == 'sd') {
-                          $perfis->push('Sócio-Dependente');
-                        } elseif ($info == 'fe') {
-                          $perfis->push('Funcionário da Escola');
-                        } elseif ($info == 'ra') {
-                          $perfis->push('Responsável por Aluno');
-                        } elseif ($info == 'ps') {
-                          $perfis->push('Prestador de Serviço');
-                        } elseif ($info == 'po') {
-                          $perfis->push('Portaria');
-                        } elseif ($info == 'si') {
-                          $perfis->push('Síndico');
-                        } elseif ($info == 'ad') {
-                          $perfis->push('Administrador');
-                        }
-                        $perfis->all();
-                      }
-                @endphp
                 <tr>
                     <td>{{$l->name}}</td>
                     <td>{{$l->local}}</td>
-                    <td>{{$l->telefone}} / {{$l->ramal}}</td>
-                    <td>@foreach($perfis as $p)
-                          {{$p}}<br><br>
-                        @endforeach
-                    </td>
                     <td>{{$l->cpf}}</td>
                     @if($l->status == 1)
                     <td>
@@ -83,7 +49,7 @@
                         <!--<a title="QR-Code" href="{{ route('qrcode_organico', [$l->id]) }}">
                                 <i class="fas fa-qrcode" style="color: green; margin-left: 10PX;"></i>
                         </a>-->
-                        @if(!$perfis->contains('Portaria'))
+                        @if($l->autorizacao <> 'po')
                             <a title="QR-Code" href="#" data-toggle="modal" data-target="#QRView-<?php echo $l->id; ?>">
                                 <i class="fas fa-qrcode" style="color: green; margin-left: 3PX;"></i>
                             </a>
@@ -129,4 +95,22 @@
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('script_adicional')
+<script type="text/javascript">
+    $('#lista_usuarios').DataTable({
+        displayLength: 15,
+        paginate: true,
+        processing: true,
+        serverSide: true,
+        filter: true,
+        ajax: '../scripts/server_processing.php',
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>
 @endsection

@@ -19,7 +19,8 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all();
+        //$usuarios = User::all();
+        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao', 'local')->get();
         return view('usuarios.index', compact('usuarios'));
     }
 
