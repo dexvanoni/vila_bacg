@@ -264,7 +264,7 @@ class LiberarController extends Controller
 
         $transporte = Liberar::create([
           'apelido' => $request->apelido,
-          'nome_completo' => 'Nome do motorista (Uber, 99)',
+          'nome_completo' => $request->apelido,
           'doc' => 'Sem função',
           'funcao' => 'Motorista',
           'veiculo' => 'Particular',
@@ -291,7 +291,7 @@ class LiberarController extends Controller
 
         $entregador = Liberar::create([
           'apelido' => $request->apelido,
-          'nome_completo' => 'Nome do entregador',
+          'nome_completo' => $request->apelido,
           'doc' => 'Sem função',
           'funcao' => 'Entregador',
           'veiculo' => 'Particular',

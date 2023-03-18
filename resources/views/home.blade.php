@@ -204,15 +204,15 @@
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
-            <a href="#" class="btn visitante btn-secondary" style="background-color: gray; border-color: gray;">
+            <a href="{{route('desenv')}}" class="btn visitante btn-secondary" style="background-color: gray; border-color: gray;">
               <i class="fa fa-hammer fa-2x"></i><br/>
                 Manutenção
             </a>
-            <a href="#" class="btn btn-sq-sm btn-dark" style="background-color: yellowgreen; border-color: yellowgreen;">
+            <a href="{{route('desenv')}}" class="btn btn-sq-sm btn-dark" style="background-color: yellowgreen; border-color: yellowgreen;">
                 <i class="fas fa-clipboard-list fa-2x"></i>
                Enquetes 
             </a>
-            <a href="#" class="btn btn-warning pq" style="background-color: burlywood; border-color: burlywood;">
+            <a href="{{route('desenv')}}" class="btn btn-warning pq" style="background-color: burlywood; border-color: burlywood;">
               <i class="fa fa-comments fa-2x"></i><br/>
               Fale com
             </a>

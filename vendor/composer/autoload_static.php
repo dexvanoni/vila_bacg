@@ -35,6 +35,7 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         '2a3c2110e8e0295330dc3d11a4cbc4cb' => __DIR__ . '/..' . '/php-webdriver/webdriver/lib/Exception/TimeoutException.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -208,6 +209,7 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
             'Composer\\CaBundle\\' => 18,
             'Composer\\' => 9,
             'Complex\\' => 8,
+            'Collective\\Html\\' => 16,
         ),
         'B' => 
         array (
@@ -614,6 +616,10 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'BeyondCode\\DumpServer\\' => 
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
@@ -637,6 +643,13 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
     );
 
     public static $prefixesPsr0 = array (
+        'y' => 
+        array (
+            'yajra\\Datatables' => 
+            array (
+                0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
+            ),
+        ),
         'U' => 
         array (
             'UpdateHelper\\' => 
@@ -688,8 +701,10 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         'App\\Http\\Controllers\\ListaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ListaController.php',
         'App\\Http\\Controllers\\LocaisController' => __DIR__ . '/../..' . '/app/Http/Controllers/LocaisController.php',
         'App\\Http\\Controllers\\OcorrenciasController' => __DIR__ . '/../..' . '/app/Http/Controllers/OcorrenciasController.php',
+        'App\\Http\\Controllers\\PetsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PetsController.php',
         'App\\Http\\Controllers\\QrCodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/QrCodeController.php',
         'App\\Http\\Controllers\\SendEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/SendEmailController.php',
+        'App\\Http\\Controllers\\UserSettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserSettingsController.php',
         'App\\Http\\Controllers\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuariosController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Administrador' => __DIR__ . '/../..' . '/app/Http/Middleware/Administrador.php',
@@ -714,6 +729,7 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         'App\\Lista' => __DIR__ . '/../..' . '/app/Lista.php',
         'App\\Local' => __DIR__ . '/../..' . '/app/Local.php',
         'App\\Ocorrencia' => __DIR__ . '/../..' . '/app/Ocorrencia.php',
+        'App\\Pet' => __DIR__ . '/../..' . '/app/Pet.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -792,6 +808,13 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Carbon\\Upgrade' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Upgrade.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Complex\\Complex' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Complex.php',
         'Complex\\Exception' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Exception.php',
         'Complex\\Functions' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Functions.php',
@@ -6680,6 +6703,26 @@ class ComposerStaticInit8e8d8db28a57d62d011f9750a6041611
         'setasign\\Fpdi\\Tcpdf\\Fpdi' => __DIR__ . '/..' . '/setasign/fpdi/src/Tcpdf/Fpdi.php',
         'setasign\\Fpdi\\Tfpdf\\FpdfTpl' => __DIR__ . '/..' . '/setasign/fpdi/src/Tfpdf/FpdfTpl.php',
         'setasign\\Fpdi\\Tfpdf\\Fpdi' => __DIR__ . '/..' . '/setasign/fpdi/src/Tfpdf/Fpdi.php',
+        'yajra\\Datatables\\Contracts\\DataTableButtonsContract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Contracts/DataTableButtonsContract.php',
+        'yajra\\Datatables\\Contracts\\DataTableContract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Contracts/DataTableContract.php',
+        'yajra\\Datatables\\Contracts\\DataTableEngineContract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Contracts/DataTableEngineContract.php',
+        'yajra\\Datatables\\Contracts\\DataTableScopeContract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Contracts/DataTableScopeContract.php',
+        'yajra\\Datatables\\Datatables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Datatables.php',
+        'yajra\\Datatables\\DatatablesServiceProvider' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/DatatablesServiceProvider.php',
+        'yajra\\Datatables\\Engines\\BaseEngine' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Engines/BaseEngine.php',
+        'yajra\\Datatables\\Engines\\CollectionEngine' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Engines/CollectionEngine.php',
+        'yajra\\Datatables\\Engines\\EloquentEngine' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Engines/EloquentEngine.php',
+        'yajra\\Datatables\\Engines\\QueryBuilderEngine' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Engines/QueryBuilderEngine.php',
+        'yajra\\Datatables\\Generators\\DataTablesMakeCommand' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Generators/DataTablesMakeCommand.php',
+        'yajra\\Datatables\\Generators\\DataTablesScopeCommand' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Generators/DataTablesScopeCommand.php',
+        'yajra\\Datatables\\Helper' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Helper.php',
+        'yajra\\Datatables\\Html\\Builder' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Html/Builder.php',
+        'yajra\\Datatables\\Html\\Column' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Html/Column.php',
+        'yajra\\Datatables\\Html\\Parameters' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Html/Parameters.php',
+        'yajra\\Datatables\\Processors\\DataProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Processors/DataProcessor.php',
+        'yajra\\Datatables\\Processors\\RowProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Processors/RowProcessor.php',
+        'yajra\\Datatables\\Request' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Request.php',
+        'yajra\\Datatables\\Services\\DataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/yajra/Datatables/Services/DataTable.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

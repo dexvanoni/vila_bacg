@@ -99,18 +99,6 @@
 
 @section('script_adicional')
 <script type="text/javascript">
-    $('#lista_usuarios').DataTable({
-        displayLength: 15,
-        paginate: true,
-        processing: true,
-        serverSide: true,
-        filter: true,
-        ajax: '../scripts/server_processing.php',
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        responsive: true
-    });
+    
 </script>
 @endsection

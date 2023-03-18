@@ -52,7 +52,7 @@
               
 			@endphp
 	
-		<div class="conteudo" style="text-align: center;">
+		<div style="text-align: center;">
 			{!! QrCode::size(250)->generate($usuario->id) !!}
 		</div>
 			<p style="font-size: 12px;"><strong>Nome:</strong> {{$usuario->name}}</p>
@@ -69,7 +69,16 @@
 	</div>
 </body>
 <script src=" https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.min.js"></script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script type="text/javascript">	
     function gerarImagem(){
             domtoimage.toJpeg(document.getElementById('cartao'), { quality: 1})
@@ -79,7 +88,31 @@
 			        link.href = dataUrl;
 			        link.click();
 			   });
-    }
+    };
+
+			
+    function getPDF(){
+    	 var doc = new jsPDF();
+ 
+			  // We'll make our own renderer to skip this editor
+			  var specialElementHandlers = {
+			    '#getPDF': function(element, renderer){
+			      return true;
+			    },
+			    '.controls': function(element, renderer){
+			      return true;
+			    }
+			  };
+
+			  // All units are in the set measurement for the document
+			  // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+			  doc.fromHTML($('.cartao').get(0), 15, 15, {
+			    'width': 250, 
+			    'elementHandlers': specialElementHandlers
+			  });
+
+			  doc.save('meu_qrcode.pdf');
+    };
     
 </script>
 </html>

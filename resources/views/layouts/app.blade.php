@@ -244,7 +244,7 @@
           <li>
             <a href="{{ route('home') }}">
               <i class="fa fa-tachometer-alt"></i>
-              <span>Dashboard</span>
+              <span>Página Inicial</span>
               <span class="badge badge-pill badge-warning">New</span>
             </a>
           </li>
@@ -536,6 +536,14 @@
 <script type="text/javascript">
   $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
+
+    $('#lista_usuarios').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        responsive: true,
+    });
   
     $('#listas').DataTable({
         dom: 'Bfrtip',

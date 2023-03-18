@@ -85,6 +85,7 @@ $perfis = collect([]);
 
                                             $check = \Carbon\Carbon::now()->between($dt_e, $dt_s);
                 @endphp
+                @if($check)
                   <div class="card" id="card_{{$i}}">
                     <div class="card-header" id="headingOne_{{$i}}">
                       <h5 class="mb-0">
@@ -94,7 +95,6 @@ $perfis = collect([]);
                                     <label style="color: red;">Este visitante já entrou!</label>
                                 @elseif($a->movimentacao == 'A')
                                     @if($a->status == 'Liberado')                                
-                                        <label>Liberação de visitante nº {{$a->id}}</label>
                                     @else
                                         <label style="background-color: red; color: white;">VISITANTE BLOQUEADO</label>
                                     @endif    
@@ -112,8 +112,13 @@ $perfis = collect([]);
                                 <i class="fas fa-user-check">{{'  '.$a->liberador}}</i>  
                             </div>
                             <div class="row" style="margin-top: 5px;">
-                                Visitante: {{'  '.$a->nome_completo}} Contato: {{' '.$a->contato}}
+                                Visitante: {{'  '.$a->apelido}} ( {{$a->nome_completo}} ) - Contato: {{' '.$a->contato}}
                             </div>
+                            @if(!is_null($a->observacao))
+                            <div class="row" style="margin-top: 5px; color: red;">
+                                Observação: {{'  '.$a->observacao}}
+                            </div>
+                            @endif
                         </button>
                       </h5>
                     </div>
@@ -131,6 +136,7 @@ $perfis = collect([]);
                       </div>
                     </div>
                   </div>
+                  @endif
                 <?php $i++;?>
                 @endforeach
             </div>

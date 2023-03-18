@@ -82,3 +82,7 @@ Route::get('/pets/{pets}/delete', 'PetsController@delete')->name('pets.delete')-
 
 Route::get('/reset', 'UserSettingsController@update')->name('senha.update')->middleware('auth');
 Route::get('/resetSenha/{id}', 'UserSettingsController@create')->name('form.senha')->middleware('auth');
+
+Route::get('/em_desenvolvimento', function () {
+    return view('desenvolvimento');
+})->name('desenv');

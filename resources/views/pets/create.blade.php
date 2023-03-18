@@ -11,6 +11,8 @@
         </div>
     </div>
     <hr>
+        <i class="fas fa-horse"></i> Ver a lista de Pets da Vila,<a href="{{route('pets.index')}}"> clique aqui!</a>
+    <hr>  
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

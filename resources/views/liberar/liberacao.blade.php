@@ -406,6 +406,8 @@
 
                     <!--se o rádio for marcado "Evento Área de Lazer" vai cadastrar e colocar em qual clube"-->
                     <div id="conv">
+                        <i class="fas fa-clipboard-list"></i> Para envio de lista de convidados,<a href="{{route('lista_ingresso.index')}}"> clique aqui!</a>
+                     <hr>  
                     <form method="POST" action="{{ route('liberacao.convidado') }}">
                         @csrf
                         <label for="mensagem">Preencha o formulário</label>
