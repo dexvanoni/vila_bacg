@@ -1,13 +1,9 @@
 <?php
  
 namespace App\Http\Controllers;
- 
 use Illuminate\Http\Request;
- 
 use Mail;
- 
 use PDF;
-
 use App\Liberar;
 use App\User;
  
@@ -26,7 +22,8 @@ class SendEmailController extends Controller
         //$data["subject"]=$request->get("subject");
         $data["subject"]='Novo visitante liberado no SISVila';
 
-        $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
+        // $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
+        $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'), ['tempDir'=>storage_path('/tmp')]);
  
         try{
             Mail::send('mails.mail', $data, function($message)use($data,$pdf) {
