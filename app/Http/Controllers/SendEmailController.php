@@ -23,7 +23,7 @@ class SendEmailController extends Controller
         $data["subject"]='Novo visitante liberado no SISVila';
 
         // $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
-        $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'), ['tempDir'=>storage_path('tempdir')]);
+        $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
  
         try{
             Mail::send('mails.mail', $data, function($message)use($data,$pdf) {

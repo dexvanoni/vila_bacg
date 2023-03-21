@@ -83,18 +83,67 @@
                         <div class="col-md-3">
                             <strong>Status:</strong>
                             @if($usuario->status == 1)
-                                ATIVO
-                                <a title="Desabilitar Usuário" href="{{ route('usuarios.desab', [$usuario->id]) }}">
-                                    <i class="fas fa-dizzy" style="color: black; margin-left: 3PX;"></i>
-                                </a>
+                                    ATIVO
                                 @else
-                                INATIVO 
-                                <a title="Habilitar Usuário" href="{{ route('usuarios.hab', [$usuario->id]) }}">
-                                    <i class="fas fa-smile" style="color: green; margin-left: 10PX;"></i>
-                                </a>
+                                    INATIVO 
                             @endif
                         </div>
                     </div>
+                    <hr>
+                    <h5>CONTROLES</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-danger" title="Excluir Usuário" href="{{ route('usuarios.delete', [$usuario->id]) }}">
+                                <i class="fas fa-trash-alt"></i> EXCLUIR
+                            </a>
+                            <a class="btn btn-secondary" title="Editar cadastro" href="{{ route('usuarios.edit', [$usuario->id]) }}">
+                                <i class="fas fa-user-edit"></i> EDITAR
+                            </a>
+                        <!--<a title="QR-Code" href="{{ route('qrcode_organico', [$usuario->id]) }}">
+                                <i class="fas fa-qrcode" style="color: green; margin-left: 10PX;"></i>
+                        </a>-->
+                        @if($usuario->autorizacao <> 'po')
+                            <a title="QR-Code" class="btn btn-success" href="#" data-toggle="modal" data-target="#QRView-<?php echo $usuario->id; ?>">
+                                <i class="fas fa-qrcode"></i> QR-CODE
+                            </a>
+                        @endif
+                        @if($usuario->status == 1)
+                                <a title="Desabilitar Usuário" class="btn btn-warning" href="{{ route('usuarios.desab', [$usuario->id]) }}">
+                                    <i class="fas fa-dizzy"></i> Desabilitar
+                                </a>
+                                @else
+                                <a title="Habilitar Usuário" class="btn btn-info" href="{{ route('usuarios.hab', [$usuario->id]) }}">
+                                    <i class="fas fa-smile"></i> Habilitar
+                                </a>
+                            @endif
+                        </div>
+                         
+                    </div>
+                    <!--MODAL QUE EXIBE O QR-CODE-->
+                                <div class="modal fade" id="QRView-<?=$usuario->id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalScrollableTitle"><strong>Usuário: {{$usuario->name}}</strong></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                         {!! QrCode::size(300)->generate($usuario->id) !!}
+                                         
+                                      </div>
+                                      <div class="modal-footer">
+
+                                        <a title="QR-Code" href="{{ route('qrcode_organico', [$usuario->id]) }}">
+                                           Imprimir
+                                        </a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            <!--FIM DO MODAL-->
 
                 </div>
             </div>

@@ -20,8 +20,9 @@ class UsuariosController extends Controller
     public function index()
     {
         //$usuarios = User::all();
-        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao', 'local')->get();
-        return view('usuarios.index', compact('usuarios'));
+
+        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status')->get();
+        return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 
     /**
@@ -65,7 +66,8 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = User::find($id);
+        return view('usuarios.edit', compact('usuario'));
     }
 
     /**
@@ -77,7 +79,14 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $usuarios = User::find($id);
+
+        $usuarios->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+        return view('usuarios.show', compact('usuarios'));
     }
 
     /**
