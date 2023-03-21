@@ -211,11 +211,15 @@
               <i class="fa fa-circle" style="color: red ;"></i>
               <span>Offline</span>
             </span>
-
+            <hr>
+            <h6>
+              <span>
+                <a href="{{route('tutorial')}}"><i class="fas fa-graduation-cap"></i>Tutorial</a>
+              </span>
+            </h6>
             @endisset
           </span>
-          
-        </div>
+      </div>
       </div>
       <!-- sidebar-header  -->
       <!--

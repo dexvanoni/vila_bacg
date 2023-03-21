@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/lista';
+    protected $redirectTo = '/home';
 
 
 
@@ -39,8 +39,10 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('administrador');
-        $this->middleware('auth');
+        // LIBERADO PARA QUALQUER PESSOA FAZER O REGISTRO
+
+        //$this->middleware('administrador');
+        //$this->middleware('auth');
     }
 
     /**
@@ -83,6 +85,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],
+            'status' => $data['status'],
         ]);
     }
 }

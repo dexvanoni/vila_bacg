@@ -11,6 +11,7 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <h6 style="color: red;">*TODOS os campos são de preenchimento OBRIGATÓRIO!</h6><br>
+                        <h5 style="color: green;">** Este cadastro passará por análise para ser EFETIVADO!</h5><br>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -50,7 +51,7 @@
                                 <label for="email">Tipo de Usuário <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="O usuário virtual não participa de Assembléias, não vota e não faz qualquer publicação!"></i></label>
                                 <select class="form-control" id="tipo" name="tipo">
                                   <option>Existente</option>
-                                  <option>Virtual</option>
+                                  <option>Virtual (SOMENTE ADMINISTRADORES)</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -138,7 +139,8 @@
                               </div>
 
                         <!--TÉRMINO DO MÓDULO DE AUTORIZAÇÕES-->
-                        <input type="hidden" name="status" value="1">
+                        <!-- O USUÁRIO REALIZA O CADASTRO E FICA COM O STATUS ZERO, OU SEJA, AINDA BLOQUEADO PARA UTILIZAÇÃO-->
+                        <input type="hidden" name="status" value="0">
                         <div class="form-group row mb-0">
                             <div class="col-md-7 offset-md-5">
                                 <button type="submit" class="btn btn-primary">

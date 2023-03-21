@@ -65,6 +65,12 @@
                             </div>                            
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="fas fa-clipboard-list"></i> Para envio de lista de convidados,<a href="{{route('lista_ingresso.index')}}"> clique aqui!</a>        
+                        </div>
+                    </div>
 
                     <hr>
 
@@ -406,8 +412,6 @@
 
                     <!--se o rádio for marcado "Evento Área de Lazer" vai cadastrar e colocar em qual clube"-->
                     <div id="conv">
-                        <i class="fas fa-clipboard-list"></i> Para envio de lista de convidados,<a href="{{route('lista_ingresso.index')}}"> clique aqui!</a>
-                     <hr>  
                     <form method="POST" action="{{ route('liberacao.convidado') }}">
                         @csrf
                         <label for="mensagem">Preencha o formulário</label>
@@ -415,7 +419,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <select class="form-control" id="destino" name="destino">
-                                      <option>Selecione o local do envento...</option>  
+                                      <option>Selecione o local do envento...</option>
+                                      <option>{{Auth::user()->local}}</option>
                                       <option>ALOF</option>  
                                       <option>ALSS</option>
                                       <option>ALCTS</option>

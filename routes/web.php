@@ -20,14 +20,22 @@ if (app()->environment('prod') && !empty($app_url)) {
 Route::get('/', function () {
     //return view('welcome');
     return redirect()->route('login');
-});
+})->name('inicial');
+
+Route::get('/alert', function () {
+    return view('alert');
+})->name('alert');
+
+Route::get('/tutorial', function () {
+    return view('tutorial');
+})->name('tutorial');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/lista', 'HomeController@lista')->name('lista');
 Route::get('sair', 'Auth\LoginController@logout')->name('sair');
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('avisos', AvisosController::class)->middleware('auth');
 Route::get('/avisos/{aviso}/download', 'AvisosController@download_arquivo')->name('avisos.download')->middleware('auth');

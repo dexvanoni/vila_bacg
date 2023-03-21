@@ -67,7 +67,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     Entrar
                                 </button>
-
+                                <a href="{{route('register')}}" class="btn btn-warning">Novo Cadastro</a>
+                                
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         Perdi minha senha!

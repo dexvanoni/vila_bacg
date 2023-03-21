@@ -27,8 +27,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-            $avisos = Aviso::all();
-            return view('home', compact('avisos'));    
+            if (Auth::user()->status == 0) {
+                return redirect()
+                    ->route('alert');                    
+            } else {
+                $avisos = Aviso::all();
+                return view('home', compact('avisos'));    
+            }
+            
     
     }
 

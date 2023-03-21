@@ -84,8 +84,14 @@
                             <strong>Status:</strong>
                             @if($usuario->status == 1)
                                 ATIVO
+                                <a title="Desabilitar Usuário" href="{{ route('usuarios.desab', [$usuario->id]) }}">
+                                    <i class="fas fa-dizzy" style="color: black; margin-left: 3PX;"></i>
+                                </a>
                                 @else
-                                INATIVO
+                                INATIVO 
+                                <a title="Habilitar Usuário" href="{{ route('usuarios.hab', [$usuario->id]) }}">
+                                    <i class="fas fa-smile" style="color: green; margin-left: 10PX;"></i>
+                                </a>
                             @endif
                         </div>
                     </div>

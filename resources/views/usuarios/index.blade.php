@@ -57,6 +57,9 @@
                     </td>
                     @else
                     <td>
+                        <a title="Ver Usuário" href="{{ route('usuarios.show', [$l->id]) }}">
+                            <i class="fas fa-home" style="blue"></i>
+                        </a>
                         <a title="Excluir Usuário" href="{{ route('usuarios.delete', [$l->id]) }}">
                                 <i class="fas fa-trash-alt" style="color: red; margin-left: 10PX;"></i>
                         </a>
