@@ -79,14 +79,19 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuarios = User::find($id);
-
-        $usuarios->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+        $usuario = User::find($id);
+        $usuario->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'autorizacao' => $request->autorizacao,
+            'local' => $request->local,
+            'telefone' => $request->telefone,
+            'ramal' => $request->ramal,
+            'cpf' => $request->cpf,
+            'rg' => $request->rg,
+            'status' => $request->status,
         ]);
-        return view('usuarios.show', compact('usuarios'));
+        return view('usuarios.show', compact('usuario'));
     }
 
     /**
