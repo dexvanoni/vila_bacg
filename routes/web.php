@@ -94,3 +94,9 @@ Route::get('/resetSenha/{id}', 'UserSettingsController@create')->name('form.senh
 Route::get('/em_desenvolvimento', function () {
     return view('desenvolvimento');
 })->name('desenv');
+
+Route::get('/leitor', 'QrCodeController@leitor')->name('leitor')->middleware('auth');
+Route::post('/qrcode_portaria', 'QrCodeController@morador')->name('qrcode_portaria')->middleware('auth');
+Route::get('/movimentacao', function () {
+    return view('liberar.morador');
+})->name('movimentacao');

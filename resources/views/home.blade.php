@@ -145,6 +145,7 @@
     <div class="jumbotron jumbotron-fluid jumbotron-with-background">
         <div class="container">
             <h3>SISVila - Base Aérea de Campo Grande</h3>
+            <!--<a href="{{route('leitor')}}">Leitor QRCODE</a>-->
         </div>
     </div>
 

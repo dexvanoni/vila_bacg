@@ -44,6 +44,9 @@ $perfis = collect([]);
     @if ($perfis->contains('Administrador') || $perfis->contains('Portaria'))
         <div class="row">
             <div class="col-md-6">
+                <a href="{{route('movimentacao')}}" class="btn btn-info" title="Movimentações">ENTRADA/SAÍDA</a>    
+            </div>
+            <div class="col-md-6">
                 <a href="{{route('liberacao.completa')}}" class="btn btn-success" title="Ver movimentações">Clique aqui para ver todas as movimentações</a>    
             </div>
             <!--<div class="col-md-6 align-self-end">
@@ -67,6 +70,7 @@ $perfis = collect([]);
         </div>
         <hr>
     @endif
+
     <div class="row select">
         <div class="col-md-6">
             <h4>Liberações para Entrada</h4>
@@ -218,6 +222,42 @@ $perfis = collect([]);
                 { className: 'a' + param }
             );
         }
+    </script>
+
+    <script>
+        document.querySelector('input').addEventListener('click', function () {
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+              // Cria um objeto de vídeo HTML e define seu atributo "srcObject"
+              var video = document.createElement('video');
+              video.srcObject = stream;
+              video.play();
+              
+              // Cria um objeto de tela de canvas HTML
+              var canvas = document.createElement('canvas');
+              var context = canvas.getContext('2d');
+              
+              // Adiciona um evento de escuta para a mudança de quadro do objeto de vídeo
+              video.addEventListener('play', function () {
+                var frameId = setInterval(function () {
+                  // Desenha o quadro atual do objeto de vídeo no canvas
+                  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                  
+                  // Obtém os dados da imagem do canvas
+                  var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                  
+                  // Chama a função de leitura de QR code e exibe o resultado
+                  var code = jsQR(imageData.data, imageData.width, imageData.height);
+                  if (code) {
+                    console.log('QR code detectado: ' + code.data);
+                  }
+                }, 100);
+              });
+            })
+            .catch(function (err) {
+              console.log('Ocorreu um erro ao acessar a câmera do dispositivo: ' + err.message);
+            });
+        });
     </script>
 @endsection
 

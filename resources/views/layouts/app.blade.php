@@ -77,7 +77,14 @@
       });   
       });
     </script>
+
+    <script src="{{ asset('/js/jsQR.js') }}"></script>
+
     <style>
+      .alerta {
+        height: 100px;
+        font-size: 32px;
+      }
         mark.a0 {
             color: black;
             padding: 5px;
@@ -539,6 +546,18 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+        var entrada = document.querySelector('#entrada');
+          entrada.addEventListener('change', function (e) {
+            // Envie o formulário
+            document.querySelector('#morador').submit();
+        });
+
+        var saida = document.querySelector('#saida');
+          saida.addEventListener('change', function (e) {
+            // Envie o formulário
+            document.querySelector('#morador').submit();      
+        });
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#lista_usuarios').DataTable({
