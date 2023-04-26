@@ -67,7 +67,7 @@
                                       </div>
                                       <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <img src = "{{ asset('storage/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 30%;">    
+                                            <img src = "{{ asset('storage/public/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 30%;">    
                                         </div>
                                         <br>
                                         <div class="row">
@@ -98,7 +98,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                        <img src = "{{ asset('storage/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
+                                        <img src = "{{ asset('storage/public/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

@@ -59,10 +59,10 @@ class RegisterController extends Controller
             'autorizacao' => ['required', 'string', 'max:255'],
             'local' => ['required', 'string', 'max:255'],
             'telefone' => ['required', 'string', 'max:255'],
-            'ramal' => ['string', 'max:4'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'cpf' => ['required', 'string', 'min:11'],
             'rg' => ['required', 'string', 'min:4'],
+            'arquivo' => ['image'],
         ]);
     }
 
@@ -75,6 +75,21 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+        // Handle File Upload
+        if(request()->hasFile('arquivo')){
+            // Get filename with the extension
+            $filenameWithExt = request()->file('arquivo')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = request()->file('arquivo')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            // Upload Image
+            $path = request()->file('arquivo')->storeAs('public/arquivo', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -86,6 +101,7 @@ class RegisterController extends Controller
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],
             'status' => $data['status'],
+            'arquivo' => $fileNameToStore
         ]);
     }
 }

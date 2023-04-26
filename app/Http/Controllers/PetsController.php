@@ -123,4 +123,16 @@ class PetsController extends Controller
     {
         //
     }
+
+    public function delete($pets)
+    {
+        $pet = Pet::find($pets);
+        
+        $pet->delete();   
+        
+        return redirect()
+                    ->route('pets.index')
+                    ->with('success', 'Pet excluído com sucesso!');
+
+    }
 }

@@ -26,7 +26,6 @@
                 {!! QrCode::size(250)->generate($convidado->id) !!}
             </div>
                 <p style="font-size: 12px;"><strong>Nome:</strong> {{$convidado->nome_completo}}</p>
-                <p style="font-size: 12px;"><strong>CPF:</strong> {{$convidado->doc}}</p>
                 <p style="font-size: 12px;"><strong>Evento:</strong> {{$convidado->lista}} ({{$convidado->destino}})</p>
                 <p style="font-size: 13px; color: white; background-color: red; text-align: center;"><strong>Validade:</strong> {{date('d/m/Y', strtotime($convidado->dt_entrada))}} {{date('H:i', strtotime($convidado->hr_entrada))}} <br>até <br> {{date('d/m/Y', strtotime($convidado->dt_saida))}} {{date('H:i', strtotime($convidado->hr_saida))}}</p>
                 @php

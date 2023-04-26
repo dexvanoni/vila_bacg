@@ -315,8 +315,7 @@ class LiberarController extends Controller
 
     public function convidado(Request $request)
     {
-
-        $convidados = Liberar::create([
+        $onesignal_id = DB::table('cad_vis_entrada')->insertGetId([
           'apelido' => $request->nome_completo,
           'nome_completo' => $request->nome_completo,
           'doc' => 'Sem função',
@@ -334,10 +333,12 @@ class LiberarController extends Controller
           'onesignal_id' => Auth::user()->id,
           'movimentacao' => 'A'
         ]);
-        
+
+    
+        //ENVIAR QR-CODE do visitante para email do liberador
+    
         return redirect()
-                    ->route('home')
-                    ->with('success', 'Convidado cadastrado com sucesso!');
+                    ->route('email_qrcode', $onesignal_id);
 
     }
 

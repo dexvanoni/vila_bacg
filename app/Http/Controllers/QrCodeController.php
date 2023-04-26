@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -50,6 +51,7 @@ class QrCodeController extends Controller
                         //NESTE LUGAR INSERIR NA TABELA A MOVIMENTAÇÃO DO MORADOR
                         //DB::table('movimentacao')->insert(['morador_id' => $request->entrada, 'movimento' => 'ENTRADA']);
                         Movimentacao::create(['morador_id' => $request->entrada, 'movimento' => 'ENTRADA']);
+                        Session::flash('arquivo', $pessoa->arquivo); 
                         return redirect()->back()->with('success', 'Entrada AUTORIZADA do Sr(a). ' . $pessoa->name . ' da ' . $pessoa->local . '!');
                     }else{
                         return redirect()->back()->with('neg', 'Entrada NÃO AUTORIZADA!');
@@ -58,13 +60,14 @@ class QrCodeController extends Controller
                     return redirect()->back()->with('neg', 'Usuário não encontrado! Entrada NÃO AUTORIZADA!');
                 };
         };
-
+        
         if (!is_null($request->saida)) {
             $pessoa = DB::table('users')->where('id', '=', $request->saida)->first();
                 if (!is_null($pessoa)) {
                     if ($pessoa->status == 1) {
                         //NESTE LUGAR INSERIR NA TABELA A MOVIMENTAÇÃO DO MORADOR
                         Movimentacao::create(['morador_id' => $request->saida, 'movimento' => 'SAÍDA']);
+                        Session::flash('arquivo', $pessoa->arquivo); 
                         return redirect()->back()->with('saida', 'Saída AUTORIZADA do Sr(a). ' . $pessoa->name . ' da ' . $pessoa->local . '!');
                     }else{
                         return redirect()->back()->with('neg', 'Saída NÃO AUTORIZADA!');

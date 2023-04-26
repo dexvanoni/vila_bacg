@@ -8,10 +8,30 @@
                 <div class="card-header">Cadastro de Usuários</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
                         <h6 style="color: red;">*TODOS os campos são de preenchimento OBRIGATÓRIO!</h6><br>
                         <h5 style="color: green;">** Este cadastro passará por análise para ser EFETIVADO!</h5><br>
+                        <h6>Faça upload da foto</h6>
+                        <div class="row">
+                            <div class="col-md-12">
+                                 <div class="form-group">
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                      </div>
+                                      <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="arquivo" aria-describedby="inputGroupFileAddon01" name="arquivo" accept="image/png, image/jpeg">
+                                        <label class="custom-file-label" for="arquivo">Clique aqui...</label>
+                                      </div>
+                                    </div>  
+                                  </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="nomeArquivo" style="margin-left: 20px;"></div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -156,7 +176,18 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
+        $(function () {
+        $('#arquivo').change(function() {
+             $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+        });
+    });
+    </script>
+
+<script type="text/javascript">
+
+
     function validarCPF() {
         cpf = $('#cpf').val();
     // Codigo relativo ao video 3   

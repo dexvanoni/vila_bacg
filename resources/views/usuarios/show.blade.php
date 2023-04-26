@@ -52,7 +52,12 @@
                             {{ session('success') }}
                         </div>
                     @endif
-
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <img src = "{{ asset('storage/public/arquivo/'.$usuario->arquivo) }}" class="img-fluid" style="max-width: 30%;">
+                        </div>
+                    </div>
+                    
                     <div class="row">
                         <div class="col-md-4">
                            <strong>Nome:</strong> {{$usuario->name}}

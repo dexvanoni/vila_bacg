@@ -22,6 +22,19 @@
         <hr>
 @endif
 
+@if(session('success'))
+<div class="row justify-content-center">
+    <img src = "{{ asset('storage/public/arquivo/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
+</div>
+<hr>
+@endif
+@if(session('saida'))
+<div class="row justify-content-center">
+    <img src = "{{ asset('storage/public/arquivo/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
+</div>
+<hr>
+@endif
+
 <!-- FORMULÁRIO DOS LEITORES DE QR-CODE DE ENTRADA E SAÍDA DE MORADORES-->
     <form method="POST" action="{{route('qrcode_portaria')}}" id="morador">
         @csrf
@@ -44,18 +57,6 @@
 
 </div>
 
-<script>
-    var entrada = document.querySelector('#entrada');
-        entrada.addEventListener('change', function (e) {
-          // Envie o formulário
-          document.querySelector('#morador').submit();
-      });
 
-    var saida = document.querySelector('#saida');
-        saida.addEventListener('change', function (e) {
-          // Envie o formulário
-          document.querySelector('#morador').submit();      
-});
-</script>
 
 @endsection

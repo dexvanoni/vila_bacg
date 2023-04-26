@@ -546,17 +546,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-        var entrada = document.querySelector('#entrada');
-          entrada.addEventListener('change', function (e) {
-            // Envie o formulário
-            document.querySelector('#morador').submit();
-        });
-
-        var saida = document.querySelector('#saida');
-          saida.addEventListener('change', function (e) {
-            // Envie o formulário
-            document.querySelector('#morador').submit();      
-        });
+        
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -583,6 +573,18 @@
         responsive: true
     } );
     $('#botao').hide();
+
+    var entrada = document.querySelector('#entrada');
+          entrada.addEventListener('change', function (e) {
+            // Envie o formulário
+            document.querySelector('#morador').submit();
+        });
+
+        var saida = document.querySelector('#saida');
+          saida.addEventListener('change', function (e) {
+            // Envie o formulário
+            document.querySelector('#morador').submit();      
+        });
 });
 </script>
 
