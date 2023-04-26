@@ -217,11 +217,12 @@ class ListaController extends Controller
     {
         $listas = Lista::find($lista);
 
-        return Storage::download('storage/arquivo/'.$listas->arquivo);
+        return Storage::download('public/arquivo/'.$listas->arquivo);
+        
     }
 
     public function download_modelo()
     {
-        return Storage::download('storage/arquivo/modelo_lista.pdf');
+        return Storage::download('public/arquivo/modelo_lista.xlsx');
     }
 }

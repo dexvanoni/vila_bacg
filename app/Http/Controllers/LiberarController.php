@@ -41,7 +41,7 @@ class LiberarController extends Controller
 
        
        return redirect()
-                    ->route('lista_ingresso.include_external_user_ids')
+                    ->route('lista_ingresso.lista')
                     ->with('success', 'Convidados liberados. Bom evento!!');
     }
 
