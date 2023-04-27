@@ -54,7 +54,7 @@
                     @endif
                     <div class="row align-items-center">
                         <div class="col-md-12">
-                            <img src = "{{ asset('storage/public/arquivo/'.$usuario->arquivo) }}" class="img-fluid" style="max-width: 30%;">
+                            <img src = "{{ asset('storage/usuarios/'.$usuario->arquivo) }}" class="img-fluid" style="max-width: 30%;">
                         </div>
                     </div>
                     

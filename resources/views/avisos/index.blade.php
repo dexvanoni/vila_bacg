@@ -60,7 +60,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                        <img src = "{{ asset('storage/public/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
+                                        <img src = "{{ asset('storage/avisos/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
                                         {!! $a->mensagem !!}
                                         <hr>
                                         <h6><strong>Data da publicação:</strong> {{date('d/m/Y', strtotime($a->created_at))}}</h6>

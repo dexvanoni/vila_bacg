@@ -44,7 +44,7 @@
                         <div class="card-text">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img src = "{{ asset('storage/arquivo/'.$a->arquivo) }}" class="rounded-circle shadow-4-strong" style="width: 40px; height: 40px;">
+                                    <img src = "{{ asset('storage/pets/'.$a->arquivo) }}" class="rounded-circle shadow-4-strong" style="width: 40px; height: 40px;">
                                 </div>
                                 <div class="col-md-9">
                                     <a title="Ver mensagem" href="#" data-toggle="modal" data-target="#ModalView-<?php echo $a->id; ?>">
@@ -70,7 +70,7 @@
                                       </div>
                                       <div class="modal-body">
                                         <div class="row justify-content-center">
-                                            <img src = "{{ asset('storage/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 30%;">    
+                                            <img src = "{{ asset('storage/pets/'.$a->arquivo) }}" class="img-fluid" style="max-width: 30%;">    
                                         </div>
                                         <hr>
                                         <h6><strong>DONO:</strong> {{$a->dono}}</h6>
@@ -105,7 +105,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                        <img src = "{{ asset('storage/arquivo/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
+                                        <img src = "{{ asset('storage/pets/'.$a->arquivo) }}" class="img-fluid" style="max-width: 100%;">
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

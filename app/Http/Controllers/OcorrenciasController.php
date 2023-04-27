@@ -54,7 +54,7 @@ class OcorrenciasController extends Controller
             // Filename to store
             $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
             // Upload Image
-            $path = $request->file('arquivo')->storeAs('public/arquivo', $fileNameToStore);
+            $path = $request->file('arquivo')->storeAs('/ocorrencias', $fileNameToStore);
         } else {
             $fileNameToStore = 'noimage.png';
         }

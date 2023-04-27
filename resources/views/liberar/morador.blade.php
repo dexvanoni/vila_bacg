@@ -24,13 +24,13 @@
 
 @if(session('success'))
 <div class="row justify-content-center">
-    <img src = "{{ asset('storage/public/arquivo/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
+    <img src = "{{ asset('storage/usuarios/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
 </div>
 <hr>
 @endif
 @if(session('saida'))
 <div class="row justify-content-center">
-    <img src = "{{ asset('storage/public/arquivo/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
+    <img src = "{{ asset('storage/usuarios/'.session('arquivo')) }}" class="img-fluid" style="max-width: 30%;" alt="SEM FOTO">    
 </div>
 <hr>
 @endif
