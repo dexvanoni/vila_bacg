@@ -105,7 +105,7 @@ class ListaController extends Controller
             // Filename to store
             $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
             // Upload Image
-            $path = $request->file('arquivo')->storeAs('public/docs', $fileNameToStore);
+            $path = $request->file('arquivo')->storeAs('docs/', $fileNameToStore);
         } else {
             $fileNameToStore = 'sem arquivo';
         }
@@ -217,12 +217,12 @@ class ListaController extends Controller
     {
         $listas = Lista::find($lista);
 
-        return Storage::download('public/docs/'.$listas->arquivo);
+        return Storage::download('docs/'.$listas->arquivo);
         
     }
 
     public function download_modelo()
     {
-        return Storage::download('public/docs/modelo_lista.xlsx');
+        return Storage::download('docs/modelo_lista.xlsx');
     }
 }
