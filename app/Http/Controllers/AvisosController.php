@@ -52,7 +52,7 @@ class AvisosController extends Controller
             
             $fields = array(
                 //'app_id' => "abb1b93c-b19d-4ce0-8fdf-6883aba60666",
-                'app_id' => "ad2874e6-498f-466d-9080-579bc4df315d",
+                'app_id' => "abb1b93c-b19d-4ce0-8fdf-6883aba60666",
                 'included_segments' => array(
                     'Subscribed Users'
                 ),

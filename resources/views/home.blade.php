@@ -57,13 +57,13 @@
         });
         
             OneSignal.init({
-              appId: "055f1abb-5ee1-443c-8cdd-d3e5879c986a",
-              safari_web_id: "web.onesignal.auto.5ecc7e9f-2540-4c26-bcd6-80ea5ac40604",
+              appId: "abb1b93c-b19d-4ce0-8fdf-6883aba60666",
+              safari_web_id: "web.onesignal.auto.3437296f-1581-4c9c-99a7-ef947df2b18c",
               notifyButton: {
                 enable: true,
               },
-              subdomainName: "sisvila1004",
-              allowLocalhostAsSecureOrigin: true,
+              //subdomainName: "sisvila1004",
+              //allowLocalhostAsSecureOrigin: true,
 
           /*
     //CÓDIGO PARA NOTIFICAÇÃO LOCALHOST
