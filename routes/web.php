@@ -97,6 +97,11 @@ Route::get('/em_desenvolvimento', function () {
 
 Route::get('/leitor', 'QrCodeController@leitor')->name('leitor')->middleware('auth');
 Route::post('/qrcode_portaria', 'QrCodeController@morador')->name('qrcode_portaria')->middleware('auth');
+
+//Route::post('/qrcode_portaria', 'RetornoController@leitura')->name('qrcode_portaria')->middleware('auth');
+//Route::post('/qrcode_portaria', [RetornoController::class, 'leitura'])->name('qrcode_portaria');
+
 Route::get('/movimentacao', function () {
     return view('liberar.morador');
 })->name('movimentacao');
+
