@@ -105,3 +105,4 @@ Route::get('/movimentacao', function () {
     return view('liberar.morador');
 })->name('movimentacao');
 
+Route::get('/cracha', 'QrCodeController@impressao')->name('crachas')->middleware('auth');

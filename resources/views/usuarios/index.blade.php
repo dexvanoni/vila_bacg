@@ -48,5 +48,9 @@
             @endforeach
         </tbody>
     </table>
+
+    <a title="Imprimir Crachás em Massa" href="{{ route('crachas') }}">
+        <i class="fas fa-print"></i> Impressão de Crachás
+    </a>
 </div>
 @endsection

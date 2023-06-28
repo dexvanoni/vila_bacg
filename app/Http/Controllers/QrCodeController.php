@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use App\User;
 use App\Liberar;
 use App\Movimentacao;
+use Dompdf\Dompdf;
 
 class QrCodeController extends Controller
 {
@@ -79,4 +80,10 @@ class QrCodeController extends Controller
             };
         };
     }
+
+    public function impressao(){
+        $crachas = User::all();
+        return view('usuarios.impressao_crachas', compact('crachas'));
+    }
+
 }
