@@ -96,7 +96,7 @@ class RegisterController extends Controller
             'autorizacao' => $data['autorizacao'],
             'local' => $data['local'],
             'telefone' => $data['telefone'],
-            'ramal' => $data['ramal'],
+            'ramal' => "0",
             'password' => Hash::make($data['password']),
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],

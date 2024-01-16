@@ -549,6 +549,10 @@
 <script type="text/javascript">
   $(document).ready(function () {
     
+    //aparece a div de cadastro dos alunos na view REGISTER    
+    $("#dados_alunos").hide();
+    $("#dados_funcionario").hide();
+    $("#dados_resp").hide();
 
     $('[data-toggle="tooltip"]').tooltip();
 
