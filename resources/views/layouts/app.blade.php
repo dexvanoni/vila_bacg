@@ -569,10 +569,13 @@
     
     //aparece a div de cadastro dos alunos na view REGISTER    
     $("#dados_alunos").hide();
+    $("#divResultados").hide();
     $("#cadastro_organico").hide();
     $("#cadastro_escolas").hide();
     $("#dados_funcionario").hide();
     $("#dados_resp").hide();
+
+    document.querySelector('#btnSubmit').disabled = true;
 
     $('[data-toggle="tooltip"]').tooltip();
 

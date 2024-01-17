@@ -17,6 +17,8 @@ if (app()->environment('prod') && !empty($app_url)) {
     URL::forceScheme($schema);
 };
 
+Route::get('/pesquisa', 'CadAlunoController@pesquisar')->name('pesquisa');
+
 Route::get('/', function () {
     //return view('welcome');
     return redirect()->route('login');

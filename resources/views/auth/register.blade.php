@@ -8,8 +8,6 @@
                     <div class="card-header">Cadastro de Usuários</div>
                     <div class="card-body">
                         <h6 style="color: red;">*TODOS os campos são de preenchimento OBRIGATÓRIO!</h6>
-                        <h5 style="color: green;">** Este cadastro passará por análise para ser EFETIVADO!</h5>
-
                         <!--MÓDULO DE AUTORIZAÇÕES (PERFIS)-->
 
                         <hr>
@@ -17,50 +15,50 @@
 
                         <div class="form-group row mb-0 offset-md-1">
                             <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input org" type="checkbox" id="ad" value="ad" onclick="aut();org();">
+                              <input name="autoriza" class="form-check-input org tod" type="checkbox" id="ad" value="ad" onclick="aut();org();">
                               <label class="form-check-label" for="ad">Administrador</label>
                           </div>
                           <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input alun" type="checkbox" id="al" value="al"  onclick ="aut();aluno()">
+                              <input name="autoriza" class="form-check-input alun tod" type="checkbox" id="al" value="al"  onclick ="aut();aluno()">
                               <label class="form-check-label" for="al">Aluno</label>
                           </div>
                           <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input org" type="checkbox" id="de" value="de" onclick="aut();org();">
+                              <input name="autoriza" class="form-check-input org tod" type="checkbox" id="de" value="de" onclick="aut();org();">
                               <label class="form-check-label" for="de">Dependente</label>
                           </div>
                           <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input org" type="checkbox" id="fe" value="fe" onclick="aut();funcionario()">
+                              <input name="autoriza" class="form-check-input alun" type="checkbox" id="fe" value="fe" onclick="aut();funcionario()">
                               <label class="form-check-label" for="fe">Funcionário Escola</label>
                           </div>     
                           <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input org" type="checkbox" id="pe" value="pe"  onclick ="aut();org();">
+                              <input name="autoriza" class="form-check-input org tod" type="checkbox" id="pe" value="pe"  onclick ="aut();org();">
                               <label class="form-check-label" for="pe">Permissionário</label>
                           </div>
                           <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input org" type="checkbox" id="po" value="po" onclick="aut();org();">
+                              <input name="autoriza" class="form-check-input org tod" type="checkbox" id="po" value="po" onclick="aut();org();">
                               <label class="form-check-label" for="po">Portaria</label>
                           </div>
                       </div>
                       <br>
                       <div class="form-group row mb-0 offset-md-1">
                         <div class="form-check form-check-inline">
-                          <input name="autoriza" class="form-check-input org" type="checkbox" id="ps" value="ps" onclick="aut();org();">
+                          <input name="autoriza" class="form-check-input org tod" type="checkbox" id="ps" value="ps" onclick="aut();org();">
                           <label class="form-check-label" for="ps">Prestador de Serviço</label>
                       </div>
                       <div class="form-check form-check-inline">
-                          <input name="autoriza" class="form-check-input alun" type="checkbox" id="ra" value="ra" onclick="aut();resp_aluno()">
+                          <input name="autoriza" class="form-check-input alun tod" type="checkbox" id="ra" value="ra" onclick="aut();resp_aluno()">
                           <label class="form-check-label" for="ra">Responsável Aluno</label>
                       </div>
                       <div class="form-check form-check-inline">
-                          <input name="autoriza" class="form-check-input org" type="checkbox" id="si" value="si" onclick="aut();org();">
+                          <input name="autoriza" class="form-check-input org tod" type="checkbox" id="si" value="si" onclick="aut();org();">
                           <label class="form-check-label" for="si">Síndico</label>
                       </div>
                       <div class="form-check form-check-inline">
-                          <input name="autoriza" class="form-check-input org" type="checkbox" id="sd" value="sd" onclick="aut();org();">
+                          <input name="autoriza" class="form-check-input org tod" type="checkbox" id="sd" value="sd" onclick="aut();org();">
                           <label class="form-check-label" for="sd">Sócio-Dependente</label>
                       </div>
                       <div class="form-check form-check-inline">
-                          <input name="autoriza" class="form-check-input org" type="checkbox" id="st" value="st" onclick="aut();org();">
+                          <input name="autoriza" class="form-check-input org tod" type="checkbox" id="st" value="st" onclick="aut();org();">
                           <label class="form-check-label" for="st">Sócio-Titular</label>
                       </div>
                   </div>
@@ -201,8 +199,8 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <label for="name_aluno">Nome Completo DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o nome completo do ALUNO"></i></label>
-                        <input class="form-control" id="name_aluno" name="name_aluno" value="{{ old('name_aluno') }}">
+                        <label for="nome_aluno">Nome Completo DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o nome completo do ALUNO"></i></label>
+                        <input class="form-control" id="nome_aluno" name="nome_aluno" value="{{ old('nome_aluno') }}">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -270,12 +268,12 @@
             <div class="row">
                 <div class="col-md-4">
                     <label for="cpf_aluno">CPF DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                    <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" required>
+                    <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" >
                     <small id="resultado"></small>
                 </div>
                 <div class="col-md-4">
                     <label for="rg_aluno">RG DO ALUNO</label>
-                    <input class="form-control" id="rg_aluno" name="rg_aluno" value="{{ old('rg_aluno') }}" required>
+                    <input class="form-control" id="rg_aluno" name="rg_aluno" value="{{ old('rg_aluno') }}" >
                 </div>
                 <div class="col-md-4">
                     <label for="cep_aluno">CEP</label>
@@ -299,89 +297,127 @@
                     <label for="cidade_aluno">Cidade</label>
                     <input class="form-control" id="cidade_aluno" name="cidade_aluno" disabled>
                 </div>
-            </div>       
-        </div>
-        <!--TERMINA ALUNOS-->
-
-        <!--RESPONSÁVEIS-->
-        <div id="dados_resp">
-            <h4>Dados Adicionais - Responsáveis por aluno EMEI ou Escola Y-Juca Pirama</h4>
+            </div>
+            <hr>
+            <h6>Faça upload do seu Documento (RG, CNH, etc)</h6>
+            <span style="color: red;">Somente arquivo JPEG, PNG ou PDF de até 2MB</span>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="name_aluno_resp">Nome Completo DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o nome completo do ALUNO"></i></label>
-                        <input class="form-control" id="name_aluno_resp" name="name_aluno_resp" value="{{ old('name_aluno_resp') }}">
+                 <div class="form-group">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="dt_nascimento_resp">Dt. Nascimento DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite a data de nascimento do ALUNO"></i></label>
-                        <input type="date" class="form-control" id="dt_nascimento_resp" name="dt_nascimento_resp">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="arquivo_aluno" aria-describedby="inputGroupFileAddon02" name="arquivo_aluno" accept="image/png, image/jpeg, .pdf" size="2000000">
+                        <label class="custom-file-label" for="arquivo_aluno">Clique aqui...</label>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="serie_resp">Série <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Selecione a série do ALUNO"></i></label>
-                        <select class="form-control" id="serie_resp" name="serie_resp">
-                            <option>Selecione...</option>
-                            <option>1º ano Fundamental - A</option>
-                            <option>1º ano Fundamental - B</option>
-                            <option>1º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>2º ano Fundamental - A</option>
-                            <option>2º ano Fundamental - B</option>
-                            <option>2º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>3º ano Fundamental - A</option>
-                            <option>3º ano Fundamental - B</option>
-                            <option>3º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>4º ano Fundamental - A</option>
-                            <option>4º ano Fundamental - B</option>
-                            <option>4º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>5º ano Fundamental - A</option>
-                            <option>5º ano Fundamental - B</option>
-                            <option>5º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>6º ano Fundamental - A</option>
-                            <option>6º ano Fundamental - B</option>
-                            <option>6º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>7º ano Fundamental - A</option>
-                            <option>7º ano Fundamental - B</option>
-                            <option>7º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>8º ano Fundamental - A</option>
-                            <option>8º ano Fundamental - B</option>
-                            <option>8º ano Fundamental - C</option>
-                            <option>----------------------</option>
-                            <option>9º ano Fundamental - A</option>
-                            <option>9º ano Fundamental - B</option>
-                            <option>9º ano Fundamental - C</option>
-                        </select>
-                    </div>
-                </div>
-            </div>        
-
-        </div>
-        <!--TERMINA RESPONSÁVEIS-->
-
-
-
-        <!--FIM DOS DADOS ADICIONAIS-->
-        <div class="form-group row mb-0">
-            <div class="col-md-7 offset-md-5">
-                <button type="submit" class="btn btn-primary">
-                    CADASTRAR
-                </button>
+                </div>  
             </div>
         </div>
     </div>
-    <!-- O USUÁRIO REALIZA O CADASTRO E FICA COM O STATUS ZERO, OU SEJA, AINDA BLOQUEADO PARA UTILIZAÇÃO-->
-    <input type="hidden" name="status" value="0">
+    <input type="hidden" name="tipo_aluno" id="tipo_aluno">
+    <div class="row">
+        <div class="nomeArquivo_aluno" style="margin-left: 20px;"></div>
+    </div>       
+</div>
+<!--TERMINA ALUNOS-->
+
+<!--RESPONSÁVEIS-->
+<div id="dados_resp">
+    <h4>Responsáveis por aluno EMEI ou Escola Y-Juca Pirama</h4>
+
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Digite o CPF do aluno e clique em PESQUISAR" id="termoPesquisa">
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-secondary" type="button" onclick="pesquisa_aluno();">Pesquisar</button>
+        </div>
+    </div>
+    <ul id="resultadosPesquisa"></ul>
+    <hr>
+
+
+    <!--SÓ ABRE PARA CONTINUAÇÃO DO PREENCHIMENTO SE O CPF DO ALUNO FOR ENCONTRADO-->
+    <div class="divResultados" id="divResultados">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name_aluno_resp">Nome Completo <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o seu nome completo"></i></label>
+                    <input class="form-control" id="name_aluno_resp" name="name_aluno_resp" value="{{ old('name_aluno_resp') }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dt_nascimento_resp">Dt. Nascimento DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite a data de nascimento do ALUNO"></i></label>
+                    <input type="date" class="form-control" id="dt_nascimento_resp" name="dt_nascimento_resp">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="serie_resp">Série <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Selecione a série do ALUNO"></i></label>
+                    <select class="form-control" id="serie_resp" name="serie_resp">
+                        <option>Selecione...</option>
+                        <option>1º ano Fundamental - A</option>
+                        <option>1º ano Fundamental - B</option>
+                        <option>1º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>2º ano Fundamental - A</option>
+                        <option>2º ano Fundamental - B</option>
+                        <option>2º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>3º ano Fundamental - A</option>
+                        <option>3º ano Fundamental - B</option>
+                        <option>3º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>4º ano Fundamental - A</option>
+                        <option>4º ano Fundamental - B</option>
+                        <option>4º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>5º ano Fundamental - A</option>
+                        <option>5º ano Fundamental - B</option>
+                        <option>5º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>6º ano Fundamental - A</option>
+                        <option>6º ano Fundamental - B</option>
+                        <option>6º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>7º ano Fundamental - A</option>
+                        <option>7º ano Fundamental - B</option>
+                        <option>7º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>8º ano Fundamental - A</option>
+                        <option>8º ano Fundamental - B</option>
+                        <option>8º ano Fundamental - C</option>
+                        <option>----------------------</option>
+                        <option>9º ano Fundamental - A</option>
+                        <option>9º ano Fundamental - B</option>
+                        <option>9º ano Fundamental - C</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+    </div> <!--INPUTS DE CADASTRO DO RESPONSÁVEL-->
+</div>
+
+<!--TERMINA RESPONSÁVEIS-->
+<!--FIM DOS DADOS ADICIONAIS-->
+<br>
+<div class="form-group row mb-0">
+    <div class="col-md-7 offset-md-5">
+        <button type="submit" class="btn btn-primary" id="btnSubmit">
+            CADASTRAR
+        </button>
+    </div>
+</div>
+</div>
+<!-- O USUÁRIO REALIZA O CADASTRO E FICA COM O STATUS ZERO, OU SEJA, AINDA BLOQUEADO PARA UTILIZAÇÃO-->
+<input type="hidden" name="status" value="0">
 </form>
 <!--TERMINA CADASTRO DE ALUNOS E RESPONSÁVEIS-->
 </div>
@@ -391,140 +427,204 @@
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        $('#arquivo').change(function() {
-         $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
-    });
+window.addEventListener('load', function() {
+  alert('IMPORTANTE: \nEste cadastro passará por análise para ser EFETIVADO!');
+       // 4th
+});
+
+</script>
+
+<script>
+//PESQUISA DE ALUNO PELO RESPONSÁVEL COM O CPF DO ALUNO
+function pesquisa_aluno() {
+
+    var termoPesquisa = $('#termoPesquisa').val();
+
+    $.ajax({
+        url: '{{ route("pesquisa") }}',
+        type: 'GET',
+        dataType: 'json',
+            data: { termo_pesquisa: $('#termoPesquisa').val() }, // Adicione o parâmetro aos dados
+            success: function (data) {
+                try {
+                    exibirResultados(data);
+                    // Habilitar ou desabilitar o botão de envio com base nos resultados
+                    $('#btnSubmit').prop('disabled', data.length === 0);
+                } catch (e) {
+                    console.error("Erro ao processar dados JSON: ", e);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro na requisição AJAX: ", error);
+                console.log("Resposta do servidor:", xhr.responseText);
+            }
+        });
+
+    function exibirResultados(resultados) {
+        var listaResultados = $('#resultadosPesquisa');
+        listaResultados.empty();
+
+            // Verificar se resultados é uma coleção iterável
+        if (Array.isArray(resultados) && resultados.length > 0) {
+            $('#btnSubmit').prop('enable');
+                // Iterar sobre os resultados
+            resultados.forEach(function (resultado) {
+                    // Verificar se o campo nome está vazio
+                var nomeAluno = resultado.nome_aluno || 'ESTE ALUNO NÃO ESTÁ CADASTRADO!';
+
+                listaResultados.append('<li> Nome do aluno: ' + nomeAluno + '</li>');
+            });
+
+                // Exibir a div se houver resultados
+            $('#divResultados').show();
+        } else {
+            listaResultados.append('<li style="color: red"> ESTE ALUNO NÃO ESTÁ CADASTRADO! </li>');
+                // Ocultar a div se não houver resultados
+            $('#divResultados').hide();
+        }
+    }
+};
+
+
+
 </script>
 
 <script type="text/javascript">
+$(function () {
+    $('#arquivo_aluno').change(function() {
+     $('.nomeArquivo_aluno').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+ });
+});
+</script>
 
-    function validarCPF() {
-        cpf = $('#cpf').val();
+<script type="text/javascript">
+tipo_aluno = '0';
 
-        function isCPF(cpf = 0){
+function validarCPF() {
+cpf = $('#cpf').val();
 
-            cpf  = cpf.replace(/\.|-/g,"");
+function isCPF(cpf = 0){
 
-            if(!validaPrimeiroDigito(cpf))
-               return false;
-           if(!validaSegundoDigito(cpf))
-               return false;
+    cpf  = cpf.replace(/\.|-/g,"");
 
-           return true;
+    if(!validaPrimeiroDigito(cpf))
+       return false;
+   if(!validaSegundoDigito(cpf))
+       return false;
 
-       }
-       var sum = 0;
+   return true;
 
-       function validaPrimeiroDigito(cpf = null){
-        let fDigit = (sumFristDigit(cpf) * 10) % 11;
-        fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
-        if(fDigit != cpf[9])
-            return false
-        return true;
-    }
-    function validaSegundoDigito(cpf = null){
-        let sDigit = (sumSecondDigit(cpf) * 10) % 11;
-        sDigit = (sDigit == 10 || sDigit == 11 ) ? 0 : sDigit;
+}
+var sum = 0;
 
-        if(sDigit != cpf[10])
-            return false
-        return true;
-    }
+function validaPrimeiroDigito(cpf = null){
+let fDigit = (sumFristDigit(cpf) * 10) % 11;
+fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
+if(fDigit != cpf[9])
+    return false
+return true;
+}
+function validaSegundoDigito(cpf = null){
+let sDigit = (sumSecondDigit(cpf) * 10) % 11;
+sDigit = (sDigit == 10 || sDigit == 11 ) ? 0 : sDigit;
 
-
-    sumFristDigit = function(cpf, position=0, sum=0){
-        if(position > 9)
-            return 0;
-        return sum + sumFristDigit(cpf,position+1,cpf[position] * ((cpf.length-1)-position));
-    }
+if(sDigit != cpf[10])
+    return false
+return true;
+}
 
 
-    sumSecondDigit = function(cpf, position=0, sum=0){
-        if(position > 10)
-            return 0;
-        return sum + sumSecondDigit(cpf,position+1,cpf[position] * ((cpf.length)-position));
-    }
+sumFristDigit = function(cpf, position=0, sum=0){
+if(position > 9)
+    return 0;
+return sum + sumFristDigit(cpf,position+1,cpf[position] * ((cpf.length-1)-position));
+}
 
-    var verificaCPF;
 
-    if (isCPF(cpf) == true) {
-        verificaCPF = 'CPF Válido!';
-        document.getElementById("resultado").innerHTML = verificaCPF;
-    } else {
-        verificaCPF = 'Este CPF é INVÁLIDO! Digite novamente.';
-        document.getElementById("resultado").innerHTML = verificaCPF;
-    };
+sumSecondDigit = function(cpf, position=0, sum=0){
+if(position > 10)
+    return 0;
+return sum + sumSecondDigit(cpf,position+1,cpf[position] * ((cpf.length)-position));
+}
+
+var verificaCPF;
+
+if (isCPF(cpf) == true) {
+verificaCPF = 'CPF Válido!';
+document.getElementById("resultado").innerHTML = verificaCPF;
+} else {
+verificaCPF = 'Este CPF é INVÁLIDO! Digite novamente.';
+document.getElementById("resultado").innerHTML = verificaCPF;
+};
 
 }
 
 function validarCPF_aluno() {
-    cpf_aluno = $('#cpf_aluno').val();
+cpf_aluno = $('#cpf_aluno').val();
 
-    function isCPF(cpf_aluno = 0){
+function isCPF(cpf_aluno = 0){
 
-        cpf_aluno  = cpf_aluno.replace(/\.|-/g,"");
+    cpf_aluno  = cpf_aluno.replace(/\.|-/g,"");
 
-        if(!validaPrimeiroDigito(cpf_aluno))
-           return false;
-       if(!validaSegundoDigito(cpf_aluno))
-           return false;
+    if(!validaPrimeiroDigito(cpf_aluno))
+       return false;
+   if(!validaSegundoDigito(cpf_aluno))
+       return false;
 
-       return true;
+   return true;
 
-   }
-   var sum = 0;
+}
+var sum = 0;
 
-   function validaPrimeiroDigito(cpf_aluno = null){
-    let fDigit = (sumFristDigit(cpf_aluno) * 10) % 11;
-    fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
-    if(fDigit != cpf_aluno[9])
-        return false
-    return true;
+function validaPrimeiroDigito(cpf_aluno = null){
+let fDigit = (sumFristDigit(cpf_aluno) * 10) % 11;
+fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
+if(fDigit != cpf_aluno[9])
+    return false
+return true;
 }
 function validaSegundoDigito(cpf_aluno = null){
-    let sDigit = (sumSecondDigit(cpf_aluno) * 10) % 11;
-    sDigit = (sDigit == 10 || sDigit == 11 ) ? 0 : sDigit;
+let sDigit = (sumSecondDigit(cpf_aluno) * 10) % 11;
+sDigit = (sDigit == 10 || sDigit == 11 ) ? 0 : sDigit;
 
-    if(sDigit != cpf_aluno[10])
-        return false
-    return true;
+if(sDigit != cpf_aluno[10])
+    return false
+return true;
 }
 
 
 sumFristDigit = function(cpf_aluno, position=0, sum=0){
-    if(position > 9)
-        return 0;
-    return sum + sumFristDigit(cpf_aluno,position+1,cpf_aluno[position] * ((cpf_aluno.length-1)-position));
+if(position > 9)
+    return 0;
+return sum + sumFristDigit(cpf_aluno,position+1,cpf_aluno[position] * ((cpf_aluno.length-1)-position));
 }
 
 
 sumSecondDigit = function(cpf_aluno, position=0, sum=0){
-    if(position > 10)
-        return 0;
-    return sum + sumSecondDigit(cpf_aluno,position+1,cpf_aluno[position] * ((cpf_aluno.length)-position));
+if(position > 10)
+    return 0;
+return sum + sumSecondDigit(cpf_aluno,position+1,cpf_aluno[position] * ((cpf_aluno.length)-position));
 }
 
 var verificacpf_aluno;
 
 if (isCPF(cpf_aluno) == true) {
-    verificacpf_aluno = 'CPF do aluno Válido!';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+verificacpf_aluno = 'CPF do aluno Válido!';
+document.getElementById("resultado").innerHTML = verificaCPF;
 } else {
-    verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite novamente.';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite novamente.';
+document.getElementById("resultado").innerHTML = verificaCPF;
 };
 
 }
 
 function aut() {
 
-    var auts = new Array();
+var auts = new Array();
 
-    $("input:checkbox[name=autoriza]:checked").each(function(){
-        auts.push($(this).val());
-    });
+$("input:checkbox[name=autoriza]:checked").each(function(){
+    auts.push($(this).val());
+});
     $("#autorizacao").val(auts);
 }
 
@@ -540,9 +640,12 @@ function org() {
 function aluno() {
 
     if($("#al").is(":checked")) {
+        tipo_aluno = "ALUNO";
+        $('#tipo_aluno').val(tipo_aluno);
         $("#cadastro_escolas").show();
         $("#dados_alunos").show(300);
         $("#cadastro_organico").hide(300);
+        document.querySelector('#btnSubmit').disabled = false;
     } else {
         $("#cadastro_escolas").hide();
         $("#dados_alunos").hide(200);
@@ -563,9 +666,13 @@ function funcionario() {
 function resp_aluno() {
 
     if($("#ra").is(":checked")) {
+        tipo_aluno = "RESPONSÁVEL POR ALUNO";
+        $('#tipo_aluno').val(tipo_aluno);
         $("#cadastro_escolas").show(300);
         $("#dados_resp").show(300);
         $("#cadastro_organico").hide(300);
+        alert('Sr. Responsável! \nRealize o cadastro do aluno ANTES DE FAZER O SEU CADASTRO!');
+        document.querySelector('#btnSubmit').disabled = true;
     } else {
         $("#cadastro_escolas").hide(300);
         $("#dados_resp").hide(200);
@@ -574,45 +681,65 @@ function resp_aluno() {
 
 document.addEventListener("DOMContentLoaded", function () {
   var controlCheckbox = document.getElementById("al");
-  var controlledCheckboxes = document.querySelectorAll(".org");
+      var controlledCheckboxes = document.querySelectorAll(".org");
 
-  controlCheckbox.addEventListener("change", function () {
-    if (controlCheckbox.checked) {
+          controlCheckbox.addEventListener("change", function () {
+            if (controlCheckbox.checked) {
               // Se o checkbox de controle estiver marcado, desative os outros checkboxes
-      controlledCheckboxes.forEach(function (checkbox) {
-        checkbox.disabled = true;
-        checkbox.checked = false;
-    });
-  } else {
+              controlledCheckboxes.forEach(function (checkbox) {
+                checkbox.disabled = true;
+                checkbox.checked = false;
+            });
+          } else {
               // Se o checkbox de controle não estiver marcado, ative os outros checkboxes
-      controlledCheckboxes.forEach(function (checkbox) {
-        checkbox.disabled = false;
-    });
-  }
-});
-});
+              controlledCheckboxes.forEach(function (checkbox) {
+                checkbox.disabled = false;
+            });
+          }
+      });
+  });
 
-document.addEventListener("DOMContentLoaded", function () {
-  var controlCheckbox = document.getElementById("ra");
-  var controlledCheckboxes = document.querySelectorAll(".org");
+              document.addEventListener("DOMContentLoaded", function () {
+                  var controlCheckbox = document.getElementById("ra");
+                      var controlledCheckboxes = document.querySelectorAll(".org");
 
-  controlCheckbox.addEventListener("change", function () {
-    if (controlCheckbox.checked) {
+                          controlCheckbox.addEventListener("change", function () {
+                            if (controlCheckbox.checked) {
               // Se o checkbox de controle estiver marcado, desative os outros checkboxes
-      controlledCheckboxes.forEach(function (checkbox) {
-        checkbox.disabled = true;
-        checkbox.checked = false;
-    });
-  } else {
+                              controlledCheckboxes.forEach(function (checkbox) {
+                                checkbox.disabled = true;
+                                checkbox.checked = false;
+                            });
+                          } else {
               // Se o checkbox de controle não estiver marcado, ative os outros checkboxes
-      controlledCheckboxes.forEach(function (checkbox) {
-        checkbox.disabled = false;
-    });
-  }
-});
-});
+                              controlledCheckboxes.forEach(function (checkbox) {
+                                checkbox.disabled = false;
+                            });
+                          }
+                      });
+                  });
 
 
+                              document.addEventListener("DOMContentLoaded", function () {
+                                  var controlCheckbox = document.getElementById("fe");
+                                      var controlledCheckboxes = document.querySelectorAll(".tod");
 
-</script>
-@endsection
+                                          controlCheckbox.addEventListener("change", function () {
+                                            if (controlCheckbox.checked) {
+              // Se o checkbox de controle estiver marcado, desative os outros checkboxes
+                                              controlledCheckboxes.forEach(function (checkbox) {
+                                                checkbox.disabled = true;
+                                                checkbox.checked = false;
+                                            });
+                                          } else {
+              // Se o checkbox de controle não estiver marcado, ative os outros checkboxes
+                                              controlledCheckboxes.forEach(function (checkbox) {
+                                                checkbox.disabled = false;
+                                            });
+                                          }
+                                      });
+                                  });
+
+
+                              </script>
+                              @endsection

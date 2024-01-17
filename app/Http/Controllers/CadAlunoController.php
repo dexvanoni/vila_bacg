@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\CadAluno;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class CadAlunoController extends Controller
 {
@@ -81,4 +86,24 @@ class CadAlunoController extends Controller
     {
         //
     }
+
+    public function pesquisar(Request $request)
+    {
+        
+        try {
+            $termoPesquisa = $request->input('termo_pesquisa');
+
+            // Realize a pesquisa no banco de dados
+            $resultados = DB::table('alunos')->where('cpf_aluno', $termoPesquisa)->get();
+            return response()->json($resultados);
+            
+        } catch (\Exception $e) {
+            // Logue a exceção
+            \Log::error('Erro na pesquisa: ' . $e->getMessage());
+            
+            // Retorne uma resposta de erro genérica
+            return response()->json(['error' => 'Erro interno do servidor'], 500);
+        }
+    }
+
 }
