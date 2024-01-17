@@ -106,3 +106,6 @@ Route::get('/movimentacao', function () {
 })->name('movimentacao');
 
 Route::get('/cracha', 'QrCodeController@impressao')->name('crachas')->middleware('auth');
+
+// Rota de cadastro de launos e responsáveis
+Route::post('/register_aluno', 'CadAlunoController@store')->name('register_aluno');

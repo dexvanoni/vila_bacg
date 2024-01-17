@@ -548,9 +548,29 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+
+    //CONSULTA CEP
+
+      $('#cep_aluno').on('blur', function () {
+        var cep = $(this).val();
+
+        if (cep.length == 8) {
+          $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+            if (!("erro" in data)) {
+              $('#rua_aluno').val(data.logradouro);
+              $('#bairro_aluno').val(data.bairro);
+              $('#cidade_aluno').val(data.localidade);
+            } else {
+              alert('CEP não encontrado.');
+            }
+          });
+        }
+      });
     
     //aparece a div de cadastro dos alunos na view REGISTER    
     $("#dados_alunos").hide();
+    $("#cadastro_organico").hide();
+    $("#cadastro_escolas").hide();
     $("#dados_funcionario").hide();
     $("#dados_resp").hide();
 
