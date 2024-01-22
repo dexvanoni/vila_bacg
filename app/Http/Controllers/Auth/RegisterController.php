@@ -53,17 +53,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'autorizacao' => ['required', 'string', 'max:255'],
             'local' => ['required', 'string', 'max:255'],
             'telefone' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            //'password' => ['required', 'string', 'min:6', 'confirmed'],
             'cpf' => ['required', 'string', 'min:11'],
             'rg' => ['required', 'string', 'min:4'],
-            'arquivo' => ['image'],
+            //'arquivo' => ['image'],
         ]);
+        
     }
 
     /**
@@ -74,7 +76,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         // Handle File Upload
         if(request()->hasFile('arquivo')){
             // Get filename with the extension
@@ -90,7 +91,7 @@ class RegisterController extends Controller
         } else {
             $fileNameToStore = 'noimage.png';
         }
-        return User::create([
+         User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'autorizacao' => $data['autorizacao'],
@@ -103,5 +104,8 @@ class RegisterController extends Controller
             'status' => $data['status'],
             'arquivo' => $fileNameToStore
         ]);
+         return redirect()
+                    ->route('login')
+                    ->with('success', 'Você fez sua pré-inscrição. Aguarde o contato de confirmação de cadastro!!');
     }
 }

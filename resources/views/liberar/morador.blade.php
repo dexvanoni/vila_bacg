@@ -58,7 +58,21 @@
 
 <script>
     
-    
+    var entrada = document.querySelector('#entrada');
+          entrada.addEventListener('change', function (e) {
+            //entrada();
+            //entradaApi();
+            // Envie o formulário
+            document.querySelector('#morador').submit();
+        });
+
+        var saida = document.querySelector('#saida');
+          saida.addEventListener('change', function (e) {
+            //saida();
+            //saidaApi();
+            // Envie o formulário
+            document.querySelector('#morador').submit();      
+        });
 
 </script>
 

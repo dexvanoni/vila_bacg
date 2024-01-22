@@ -91,7 +91,7 @@
                               <option>GINÁSIO</option>
                               <option>PACG</option>
                               @foreach ($locais as $l)
-                              <option>{{$l->local}}</option>
+                                <option>{{$l->local}}</option>
                               @endforeach
                           </select>
                       </div>
@@ -192,7 +192,8 @@
 <form method="POST" action="{{ route('register_aluno') }}" enctype="multipart/form-data">
     @csrf
     <div id="cadastro_escolas">
-
+        <input type="hidden" name="autorizacao_aluno" id="autorizacao_aluno" value="">
+        <input type="hidden" name="status_aluno" value="0">
         <!--ALUNOS-->
         <div id="dados_alunos">
             <h4>Aluno EMEI ou Escola Y-Juca Pirama</h4>
@@ -283,7 +284,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <label for="rua_aluno">Logradouro</label>
-                    <input class="form-control" id="rua_aluno" name="rua_aluno" disabled>
+                    <input class="form-control" id="rua_aluno" name="rua_aluno" readonly>
                 </div>
                 <div class="col-md-2">
                     <label for="num_casa_aluno">Nº</label>
@@ -291,11 +292,11 @@
                 </div>
                 <div class="col-md-3">
                     <label for="bairro_aluno">Bairro</label>
-                    <input class="form-control" id="bairro_aluno" name="bairro_aluno" disabled>
+                    <input class="form-control" id="bairro_aluno" name="bairro_aluno" readonly>
                 </div>
                 <div class="col-md-3">
                     <label for="cidade_aluno">Cidade</label>
-                    <input class="form-control" id="cidade_aluno" name="cidade_aluno" disabled>
+                    <input class="form-control" id="cidade_aluno" name="cidade_aluno" readonly>
                 </div>
             </div>
             <hr>
@@ -309,7 +310,7 @@
                         <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
                     </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="arquivo_aluno" aria-describedby="inputGroupFileAddon02" name="arquivo_aluno" accept="image/png, image/jpeg, .pdf" size="2000000">
+                        <input type="file" class="custom-file-input" id="arquivo_aluno" aria-describedby="inputGroupFileAddon02" name="arquivo_aluno" accept="image/png, image/jpeg">
                         <label class="custom-file-label" for="arquivo_aluno">Clique aqui...</label>
                     </div>
                 </div>  
@@ -495,6 +496,11 @@ $(function () {
      $('.nomeArquivo_aluno').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
  });
 });
+$(function () {
+    $('#arquivo').change(function() {
+     $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+ });
+});
 </script>
 
 <script type="text/javascript">
@@ -626,6 +632,7 @@ $("input:checkbox[name=autoriza]:checked").each(function(){
     auts.push($(this).val());
 });
     $("#autorizacao").val(auts);
+    $("#autorizacao_aluno").val(auts);
 }
 
 function org() {
