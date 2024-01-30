@@ -18,7 +18,8 @@ class CadAlunoController extends Controller
      */
     public function index()
     {
-        //
+        $alunos_resp = CadAluno::all();
+        return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
     }
 
     /**
@@ -40,7 +41,7 @@ class CadAlunoController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-
+        //exit;
         // Handle File Upload
         if(request()->hasFile('arquivo_aluno')){
             // Get filename with the extension
@@ -57,6 +58,21 @@ class CadAlunoController extends Controller
             $fileNameToStore = 'noimage.png';
         }
 
+        if(request()->hasFile('arquivo_resp')){
+            // Get filename with the extension
+            $filenameWithExt = request()->file('arquivo_resp')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = request()->file('arquivo_resp')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            // Upload Image
+            $path = request()->file('arquivo_resp')->storeAs('/alunos', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.png';
+        }
+
       if ($request->autorizacao_aluno == 'al') {
 
             $request['nome_resp'] = '--';
@@ -65,7 +81,10 @@ class CadAlunoController extends Controller
             $request['num_cnh_resp'] = '--';
             $request['tipo_cnh_resp'] = '--';
             $request['validade_cnh_resp'] = '--';
-            $request['endereco_resp'] = '--';
+            $request['rua_resp'] = '--';
+            $request['num_casa_resp'] = '--';
+            $request['bairro_resp'] = '--';
+            $request['cidade_resp'] = '--';
             $request['cep_resp'] = '0';
             $request['arquivo_resp'] = '--';
             $request['tel_resp'] = '--';
@@ -86,12 +105,17 @@ class CadAlunoController extends Controller
             'cidade_aluno' => $request['cidade_aluno'],
             'cep_aluno' => $request['cep_aluno'],
             'nome_resp' => $request['nome_resp'],
+            'nome_aluno_resp' => $request['nome_aluno_resp'],
+            'cpf_aluno_resp' => $request['cpf_aluno_resp'],
             'cpf_resp' => $request['cpf_resp'],
             'rg_resp' => $request['rg_resp'],
             'num_cnh_resp' => $request['num_cnh_resp'],
             'tipo_cnh_resp' => $request['tipo_cnh_resp'],
             'validade_cnh_resp' => $request['validade_cnh_resp'],
-            'endereco_resp' => $request['endereco_resp'],
+            'rua_resp' => $request['rua_resp'],
+            'num_casa_resp' => $request['num_casa_resp'],
+            'bairro_resp' => $request['bairro_resp'],
+            'cidade_resp' => $request['cidade_resp'],
             'cep_resp' => $request['cep_resp'],
             'arquivo_resp' => $request['arquivo_resp'],
             'tel_resp' => $request['tel_resp'],

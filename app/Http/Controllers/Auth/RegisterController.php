@@ -124,6 +124,11 @@ class RegisterController extends Controller
             'num_cnh' => $data['num_cnh'],
             'validade_cnh' => $data['validade_cnh'],
             'categoria_cnh' => $data['categoria_cnh'],
+            'cep_func' => $data['cep_func'],
+            'rua_func' => $data['rua_func'],
+            'num_casa_func' => $data['num_casa_func'],
+            'cidade_func' => $data['cidade_func'],
+            'bairro_func' => $data['bairro_func'],
             'arquivo_cnh' => $fileNameToStore_cnh
         ]);
          return redirect()

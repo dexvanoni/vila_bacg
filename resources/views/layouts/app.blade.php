@@ -289,6 +289,9 @@
               <li>
                 <a href="{{route('pets.index')}}">Animais de estimação</a>
               </li>
+              <li>
+                <a href="{{route('aluno_resp.index')}}">Alunos e Responsáveis (EMEI e Escola)</a>
+              </li>
             </ul>
           </div>
         </li>
@@ -560,6 +563,30 @@
       responsive: true,
     });
 
+    $('#lista_alunos').DataTable({
+      dom: 'Bfrtip',
+      paging: true, // Ativar paginação
+      pageLength: 10, // Número de itens por página
+      ordering: true, // Ativar ordenação
+      searching: true, // Ativar barra de pesquisa
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      responsive: true,
+    });
+
+    $('#lista_resp').DataTable({
+      dom: 'Bfrtip',
+      paging: true, // Ativar paginação
+      pageLength: 10, // Número de itens por página
+      ordering: true, // Ativar ordenação
+      searching: true, // Ativar barra de pesquisa
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      responsive: true,
+    });
+
     $('#listas').DataTable({
       dom: 'Bfrtip',
       buttons: [
@@ -604,6 +631,36 @@
               $('#rua_aluno').val(data.logradouro);
               $('#bairro_aluno').val(data.bairro);
               $('#cidade_aluno').val(data.localidade);
+            } else {
+              alert('CEP não encontrado.');
+            }
+          });
+        }
+      });
+    $('#cep_resp').on('blur', function () {
+        var cep = $(this).val();
+
+        if (cep.length == 8) {
+          $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+            if (!("erro" in data)) {
+              $('#rua_resp').val(data.logradouro);
+              $('#bairro_resp').val(data.bairro);
+              $('#cidade_resp').val(data.localidade);
+            } else {
+              alert('CEP não encontrado.');
+            }
+          });
+        }
+      });
+    $('#cep_func').on('blur', function () {
+        var cep = $(this).val();
+
+        if (cep.length == 8) {
+          $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+            if (!("erro" in data)) {
+              $('#rua_func').val(data.logradouro);
+              $('#bairro_func').val(data.bairro);
+              $('#cidade_func').val(data.localidade);
             } else {
               alert('CEP não encontrado.');
             }
