@@ -86,7 +86,6 @@ class UsuariosController extends Controller
             'autorizacao' => $request->autorizacao,
             'local' => $request->local,
             'telefone' => $request->telefone,
-            'ramal' => $request->ramal,
             'cpf' => $request->cpf,
             'rg' => $request->rg,
             'status' => $request->status,

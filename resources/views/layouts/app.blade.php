@@ -548,7 +548,51 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $('#lista_usuarios').DataTable({
+      dom: 'Bfrtip',
+      paging: true, // Ativar paginação
+      pageLength: 15, // Número de itens por página
+      ordering: true, // Ativar ordenação
+      searching: true, // Ativar barra de pesquisa
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      responsive: true,
+    });
 
+    $('#listas').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      responsive: true
+    });
+
+    $('#lista_listas').DataTable( {
+      rowReorder: {
+        selector: 'td:nth-child(2)'
+      },
+      responsive: true
+    } );
+    $('#botao').hide();
+
+    $('input[name="condutor"]').on('change', function() {
+                var opcaoSelecionada = $(this).val();
+                if (opcaoSelecionada === 'sim') {
+                    $('#condutor').show();
+                } else if (opcaoSelecionada === 'nao') {
+                    $('#condutor').hide();
+                }
+    });
+
+    $('input[name="condutor_resp_sim"]').on('change', function() {
+                var opcaoSelecionada_resp = $(this).val();
+                if (opcaoSelecionada_resp === 'sim') {
+                    $('#condutor_resp').show();
+                } else if (opcaoSelecionada_resp === 'nao') {
+                    $('#condutor_resp').hide();
+                }
+    });
     //CONSULTA CEP
 
       $('#cep_aluno').on('blur', function () {
@@ -568,6 +612,8 @@
       });
     
     //aparece a div de cadastro dos alunos na view REGISTER    
+    $("#condutor").hide();
+    $("#condutor_resp").hide();
     $("#dados_alunos").hide();
     $("#divResultados").hide();
     $("#cadastro_organico").hide();
@@ -578,30 +624,7 @@
     document.querySelector('#btnSubmit').disabled = true;
 
     $('[data-toggle="tooltip"]').tooltip();
-
-    $('#lista_usuarios').DataTable({
-      dom: 'Bfrtip',
-      buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-      responsive: true,
-    });
-    
-    $('#listas').DataTable({
-      dom: 'Bfrtip',
-      buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-      responsive: true
-    });
-
-    $('#lista_listas').DataTable( {
-      rowReorder: {
-        selector: 'td:nth-child(2)'
-      },
-      responsive: true
-    } );
-    $('#botao').hide();
+      
 
   });
 </script>

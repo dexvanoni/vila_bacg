@@ -69,7 +69,7 @@
                             <strong>CPF:</strong> {{$usuario->cpf}}
                         </div>
                         <div class="col-md-3">
-                            <strong>Telefone:</strong> {{$usuario->telefone}} <strong>- Ramal:</strong> {{$usuario->ramal}}
+                            <strong>Telefone:</strong> {{$usuario->telefone}}
                         </div>
                     </div>
                     <div class="row">
@@ -92,6 +92,27 @@
                                 @else
                                     INATIVO 
                             @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>É condutor de veículos?</strong> {{$usuario->condutor}}
+                        </div>
+                        <div class="col-md-2">
+                            <strong>Nº CNH:</strong> {{$usuario->num_cnh}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Categoria CNH:</strong> {{$usuario->categoria_cnh}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Validade CNH:</strong> {{date('d/m/Y', strtotime($usuario->validade_cnh))}}
+                        </div>
+                    </div>
+                    <hr>
+                    <h6>Imagem da CNH enviada</h6>
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <img src = "{{ asset('storage/usuarios_cnh/'.$usuario->arquivo_cnh) }}" class="img-fluid" style="max-width: 50%;">
                         </div>
                     </div>
                     <hr>

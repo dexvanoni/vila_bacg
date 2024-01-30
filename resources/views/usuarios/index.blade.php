@@ -53,4 +53,8 @@
         <i class="fas fa-print"></i> Impressão de Crachás
     </a>
 </div>
+
+<script type="text/javascript">
+    
+</script>
 @endsection

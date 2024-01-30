@@ -76,6 +76,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //dd($data);
+        //exit;
         // Handle File Upload
         if(request()->hasFile('arquivo')){
             // Get filename with the extension
@@ -91,6 +93,21 @@ class RegisterController extends Controller
         } else {
             $fileNameToStore = 'noimage.png';
         }
+
+        if(request()->hasFile('arquivo_cnh')){
+            // Get filename with the extension
+            $filenameWithExt_cnh = request()->file('arquivo_cnh')->getClientOriginalName();
+            // Get just filename
+            $filename_cnh = pathinfo($filenameWithExt_cnh, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_cnh = request()->file('arquivo_cnh')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_cnh= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_cnh.'_'.time().'.'.$extension_cnh))));
+            // Upload Image
+            $path_cnh = request()->file('arquivo_cnh')->storeAs('/usuarios_cnh', $fileNameToStore_cnh);
+        } else {
+            $fileNameToStore_cnh = 'noimage_cnh.png';
+        }
          User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -102,7 +119,12 @@ class RegisterController extends Controller
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],
             'status' => $data['status'],
-            'arquivo' => $fileNameToStore
+            'arquivo' => $fileNameToStore,
+            'condutor' => $data['condutor'],
+            'num_cnh' => $data['num_cnh'],
+            'validade_cnh' => $data['validade_cnh'],
+            'categoria_cnh' => $data['categoria_cnh'],
+            'arquivo_cnh' => $fileNameToStore_cnh
         ]);
          return redirect()
                     ->route('login')
