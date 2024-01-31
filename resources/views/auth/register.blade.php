@@ -373,7 +373,7 @@
         </div>
         <hr>
         <h6>Faça upload da sua foto</h6>
-        <span style="color: red;">Somente arquivo JPEG, PNG ou PDF de até 2MB</span>
+        <span style="color: red;">Somente arquivo JPEG ou PNG</span>
         <div class="row">
             <div class="col-md-12">
              <div class="form-group">
@@ -625,8 +625,8 @@
 
                     listaResultados.append(nomeAluno);
                     // Preencher os inputs com os valores
-                    $('#nome_aluno_resp').val($(nomeAluno).val());
-                    $('#cpf_aluno_resp').val('#termoPesquisa');
+                    $('#nome_aluno_resp').val(nomeAluno);
+                    $('#cpf_aluno_resp').val(termoPesquisa);
                 });
 
                 // Exibir a div se houver resultados

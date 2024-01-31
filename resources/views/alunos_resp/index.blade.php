@@ -47,7 +47,7 @@
                         <td>{{$l->serie_aluno}}</td>
                         <td>{{$l->cpf_aluno}}</td>
                         <td>
-                            <a title="Ver Aluno" href="{{ route('usuarios.show', [$l->id]) }}">
+                            <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
                         </td>
@@ -82,7 +82,7 @@
                         <td>{{$r->tel_resp}}</td>
                         <td>{{$r->cpf_resp}}</td>
                         <td>
-                            <a title="Ver Usuário" href="{{ route('usuarios.show', [$r->id]) }}">
+                            <a title="Ver Usuário" href="{{ route('aluno_resp.show', [$r->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
                         </td>

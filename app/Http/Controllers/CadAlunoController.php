@@ -41,37 +41,41 @@ class CadAlunoController extends Controller
     public function store(Request $request)
     {
         //dd($request);
+        //
         //exit;
         // Handle File Upload
-        if(request()->hasFile('arquivo_aluno')){
-            // Get filename with the extension
-            $filenameWithExt = request()->file('arquivo_aluno')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = request()->file('arquivo_aluno')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
-            // Upload Image
-            $path = request()->file('arquivo_aluno')->storeAs('/alunos', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.png';
-        }
 
-        if(request()->hasFile('arquivo_resp')){
+            if(request()->hasFile('arquivo_aluno')){
+                // Get filename with the extension
+                $filenameWithExt = request()->file('arquivo_aluno')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = request()->file('arquivo_aluno')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+                // Upload Image
+                $path = request()->file('arquivo_aluno')->storeAs('/alunos', $fileNameToStore);
+            } else {
+                $fileNameToStore = 'noimage.png';
+            }
+
+          if(request()->hasFile('arquivo_resp')){
             // Get filename with the extension
-            $filenameWithExt = request()->file('arquivo_resp')->getClientOriginalName();
+            $filenameWithExt_resp = request()->file('arquivo_resp')->getClientOriginalName();
             // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $filename_resp = pathinfo($filenameWithExt_resp, PATHINFO_FILENAME);
             // Get just ext
-            $extension = request()->file('arquivo_resp')->getClientOriginalExtension();
+            $extension_resp = request()->file('arquivo_resp')->getClientOriginalExtension();
             // Filename to store
-            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            $fileNameToStore_resp = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_resp.'_'.time().'.'.$extension_resp))));
             // Upload Image
-            $path = request()->file('arquivo_resp')->storeAs('/alunos', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.png';
-        }
+            $path_resp = request()->file('arquivo_resp')->storeAs('/alunos', $fileNameToStore_resp);
+          } else {
+            $fileNameToStore_resp = 'noimage.png';
+          }  
+        
+        
 
       if ($request->autorizacao_aluno == 'al') {
 
@@ -117,7 +121,7 @@ class CadAlunoController extends Controller
             'bairro_resp' => $request['bairro_resp'],
             'cidade_resp' => $request['cidade_resp'],
             'cep_resp' => $request['cep_resp'],
-            'arquivo_resp' => $request['arquivo_resp'],
+            'arquivo_resp' => $fileNameToStore_resp,
             'tel_resp' => $request['tel_resp'],
             'email_resp' => $request['email_resp'],
             'status_aluno' => $request['status_aluno'],
@@ -139,7 +143,10 @@ class CadAlunoController extends Controller
      */
     public function show($id)
     {
-        //
+        $alunos_resp = CadAluno::find($id);
+        //dd($alunos_resp);
+        //exit;
+        return view('alunos_resp.show', compact('alunos_resp'));
     }
 
     /**
@@ -195,4 +202,45 @@ class CadAlunoController extends Controller
         }
     }
 
+
+    public function delete($aluno_resp)
+    {
+        $aluno_resp = CadAluno::find($aluno_resp);
+        
+        $aluno_resp->delete();   
+        
+        return redirect()
+                    ->route('aluno_resp.index')
+                    ->with('success', 'Usuário excluído com sucesso!');
+
+    }
+
+    public function desabilitar($aluno_resp)
+    {
+        $u = CadAluno::find($aluno_resp);
+        
+        DB::table('alunos')
+            ->where('id', $u->id)
+            ->update([
+                        'status' => '0',
+                    ]);        
+        return redirect()
+                    ->route('aluno_resp.index')
+                    ->with('success', 'Usuário DESABILITADO com sucesso!');
+
+    }
+
+    public function habilitar($aluno_resp)
+    {
+        $u = CadAluno::find($aluno_resp);
+       DB::table('alunos')
+            ->where('id', $u->id)
+            ->update([
+                        'status' => '1',
+                    ]);        
+        return redirect()
+                    ->route('aluno_resp.index')
+                    ->with('success', 'Usuário HABILITADO com sucesso!');
+
+    }
 }

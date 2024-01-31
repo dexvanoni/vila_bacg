@@ -112,3 +112,8 @@ Route::get('/cracha', 'QrCodeController@impressao')->name('crachas')->middleware
 // Rota de cadastro de launos e responsáveis
 Route::post('/register_aluno', 'CadAlunoController@store')->name('register_aluno');
 Route::get('/aluno_resp', 'CadAlunoController@index')->name('aluno_resp.index')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}', 'CadAlunoController@show')->name('aluno_resp.show')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/delete', 'CadAlunoController@delete')->name('aluno_resp.delete')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/desab', 'CadAlunoController@desabilitar')->name('aluno_resp.desab')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/hab', 'CadAlunoController@habilitar')->name('aluno_resp.hab')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/edit', 'CadAlunoController@edit')->name('aluno_resp.edit')->middleware('auth');

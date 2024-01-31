@@ -140,7 +140,7 @@
     <!--DATATABLES-->
     @yield('datatables')
     <!--FIM DATATABLES-->
-    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+    <script type="text/javascript" src="/nicedit/nicEdit.js"></script>
     @yield('onesignal')
     <body>
 
