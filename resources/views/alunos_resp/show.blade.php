@@ -26,7 +26,7 @@
                 @endif
                 <div class="row align-items-center">
                     <div class="col-md-12">
-                        <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_aluno) }}" class="rounded-circle" style="max-width: 15%;">
+                        <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_resp) }}" class="rounded-circle" style="max-width: 15%;">
                     </div>
                 </div>
                 <hr>
@@ -91,10 +91,10 @@
                 </div>
                 <div class="col-md-4">
                     <strong>Status:</strong>
-                    @if($alunos_resp->status == 1)
-                    ATIVO
+                    @if($alunos_resp->status_aluno == 1)
+                    ATIVO <i class="fas fa-lightbulb" style="color: green;"></i>
                     @else
-                    INATIVO 
+                    INATIVO <i class="fas fa-lightbulb" style="color: red;"></i>
                     @endif
                 </div>
             </div>
@@ -133,7 +133,7 @@
             <h6>Imagem da CNH enviada</h6>
             <div class="row align-items-center">
                 <div class="col-md-12">
-                    <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_resp) }}" class="img-fluid" style="max-width: 50%;">
+                    <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_cnh_resp) }}" class="img-fluid" style="max-width: 50%;">
                 </div>
             </div>
         </div>
@@ -157,7 +157,7 @@
                             <i class="fas fa-qrcode"></i> QR-CODE
                         </a>
                         @endif
-                        @if($alunos_resp->status == 1)
+                        @if($alunos_resp->status_aluno == 1)
                         <a title="Desabilitar Usuário" class="btn btn-warning" href="{{ route('aluno_resp.desab', [$alunos_resp->id]) }}">
                             <i class="fas fa-dizzy"></i> Desabilitar
                         </a>

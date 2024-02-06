@@ -39,7 +39,8 @@ class CadAluno extends Model
             'email_resp',
             'status_aluno',
             'tipo_aluno',
-            'arquivo_aluno'
+            'arquivo_aluno',
+            'arquivo_cnh_resp'
 
     ];
 }

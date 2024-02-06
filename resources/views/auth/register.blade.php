@@ -433,7 +433,7 @@
                 </div>
             </div>
             <div class="row">
-    <div class="nomeArquivo_foto_resp" style="margin-left: 20px;"></div>
+    <div class="nomeArquivo_resp" style="margin-left: 20px;"></div>
 </div>
 
         <div class="row">
@@ -466,7 +466,7 @@
             <div class="col-md-6">
                 <label for="cpf_resp">CPF<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
                 <input class="form-control" id="cpf_resp" name="cpf_resp" value="{{ old('cpf_resp') }}" maxlength="11" onfocusout="validarCPF_resp(cpf_resp)" >
-                <small id="resultado"></small>
+                <small id="resultado_cpf_resp"></small>
             </div>
             <div class="col-md-3">
                 <label for="rg_resp">RG</label>
@@ -548,7 +548,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="nomeArquivo_resp" style="margin-left: 20px;"></div>
+    <div class="nomeArquivo_cnh_resp" style="margin-left: 20px;"></div>
 </div> 
 <hr>
 </div>
@@ -656,18 +656,13 @@
      });
     });
     $(function () {
-        $('#arquivo_cnh').change(function() {
-         $('.nomeArquivo_cnh').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
-    });
-    $(function () {
         $('#arquivo_cnh_resp').change(function() {
-         $('.nomeArquivo_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+         $('.nomeArquivo_cnh_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
      });
     });
     $(function () {
         $('#arquivo_resp').change(function() {
-         $('.nomeArquivo_foto_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+         $('.nomeArquivo_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
      });
     });
 </script>
@@ -794,8 +789,8 @@ if (isCPF(cpf_aluno) == true) {
 }
 
 
-function validarCPF_res() {
-    cpf_aluno = $('#cpf_resp').val();
+function validarCPF_resp() {
+    cpf_resp = $('#cpf_resp').val();
 
     function isCPF(cpf_resp = 0){
 
@@ -845,10 +840,10 @@ var verificacpf_resp;
 
 if (isCPF(cpf_resp) == true) {
     verificacpf_resp = 'CPF do aluno Válido!';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+    document.getElementById("resultado_cpf_resp").innerHTML = verificacpf_resp;
 } else {
     verificacpf_resp = 'Este CPF é INVÁLIDO! Digite novamente.';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+    document.getElementById("resultado_cpf_resp").innerHTML = verificacpf_resp;
 };
 
 }

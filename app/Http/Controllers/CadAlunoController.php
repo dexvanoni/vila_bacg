@@ -73,6 +73,21 @@ class CadAlunoController extends Controller
             $path_resp = request()->file('arquivo_resp')->storeAs('/alunos', $fileNameToStore_resp);
           } else {
             $fileNameToStore_resp = 'noimage.png';
+          }
+
+          if(request()->hasFile('arquivo_cnh_resp')){
+            // Get filename with the extension
+            $filenameWithExt_cnh_resp = request()->file('arquivo_cnh_resp')->getClientOriginalName();
+            // Get just filename
+            $filename_cnh_resp = pathinfo($filenameWithExt_cnh_resp, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_cnh_resp = request()->file('arquivo_cnh_resp')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_cnh_resp = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_cnh_resp.'_'.time().'.'.$extension_cnh_resp))));
+            // Upload Image
+            $path_cnh_resp = request()->file('arquivo_cnh_resp')->storeAs('/alunos', $fileNameToStore_cnh_resp);
+          } else {
+            $fileNameToStore_cnh_resp = 'noimage.png';
           }  
         
         
@@ -126,7 +141,8 @@ class CadAlunoController extends Controller
             'email_resp' => $request['email_resp'],
             'status_aluno' => $request['status_aluno'],
             'tipo_aluno' => $request['tipo_aluno'],
-            'arquivo_aluno' => $fileNameToStore
+            'arquivo_aluno' => $fileNameToStore,
+            'arquivo_cnh_resp' => $fileNameToStore_cnh_resp
             
         ]);
 
@@ -236,7 +252,7 @@ class CadAlunoController extends Controller
        DB::table('alunos')
             ->where('id', $u->id)
             ->update([
-                        'status' => '1',
+                        'status_aluno' => '1',
                     ]);        
         return redirect()
                     ->route('aluno_resp.index')
