@@ -586,6 +586,7 @@
 </script>
 
 <script>
+    document.querySelector('#btnSubmit').disabled = true;
 //PESQUISA DE ALUNO PELO RESPONSÁVEL COM O CPF DO ALUNO
     function pesquisa_aluno() {
 

@@ -79,6 +79,7 @@ Route::get('/usuarios/{usuario}/desab', 'UsuariosController@desabilitar')->name(
 Route::get('/usuarios/{usuario}/hab', 'UsuariosController@habilitar')->name('usuarios.hab')->middleware('auth');
 
 Route::get('/qrcode/{usuario}/qrcode', 'QrCodeController@qr_organico')->name('qrcode_organico')->middleware('auth');
+Route::get('/qrcode/{usuario}/qrcode/alunos', 'QrCodeController@qr_alunos')->name('qrcode_alunos')->middleware('auth');
 Route::get('/qrcode/{convidado}/qrcode/convidado', 'QrCodeController@qr_convidado')->name('qrcode_convidado');
 Route::get('/qrcode/{convidado}/qrcode/whats', 'QrCodeController@qr_whats')->name('qrcode_whats')->middleware('auth');
 Route::get('/ver_lista/{lista}', 'ListaController@ver_lista')->name('ver_lista')->middleware('auth');
@@ -108,6 +109,8 @@ Route::get('/movimentacao', function () {
 })->name('movimentacao');
 
 Route::get('/cracha', 'QrCodeController@impressao')->name('crachas')->middleware('auth');
+
+Route::get('/cracha_alunos', 'QrCodeController@impressao_alunos')->name('crachas_alunos')->middleware('auth');
 
 // Rota de cadastro de launos e responsáveis
 Route::post('/register_aluno', 'CadAlunoController@store')->name('register_aluno');

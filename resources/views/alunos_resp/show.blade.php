@@ -185,7 +185,7 @@
                </div>
                <div class="modal-footer">
 
-                <a title="QR-Code" href="{{ route('qrcode_organico', [$alunos_resp->id]) }}">
+                <a title="QR-Code" href="{{ route('qrcode_alunos', [$alunos_resp->id]) }}">
                  Imprimir
              </a>
              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

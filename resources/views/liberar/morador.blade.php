@@ -42,7 +42,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label style="color: green" for="entrada">QR-Code - ENTRADA <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Leitura do QR-Code para ENTRADA de morador!"></i></label>
-                <input class="form-control" id="entrada" name="entrada" style="color: green;" autofocus>
+                <input class="form-control" id="entrada" name="entrada" style="color: green;" onchange="envia();" autofocus>
             </div>
         </div>
         <div class="col-md-6">
@@ -57,8 +57,10 @@
 </div>
 
 <script>
-    
-    var entrada = document.querySelector('#entrada');
+        function envia(){
+          document.querySelector('#morador').submit();  
+      };
+    /*var entrada = document.querySelector('#entrada');
           entrada.addEventListener('change', function (e) {
             //entrada();
             //entradaApi();
@@ -72,8 +74,7 @@
             //saidaApi();
             // Envie o formulário
             document.querySelector('#morador').submit();      
-        });
+        });*/
 
 </script>
 
-@endsection

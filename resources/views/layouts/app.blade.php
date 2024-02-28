@@ -678,7 +678,7 @@
     $("#dados_funcionario").hide();
     $("#dados_resp").hide();
 
-    document.querySelector('#btnSubmit').disabled = true;
+    
 
     $('[data-toggle="tooltip"]').tooltip();
       

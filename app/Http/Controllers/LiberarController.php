@@ -115,14 +115,16 @@ class LiberarController extends Controller
               };
          if ($perfis->contains('Administrador') || $perfis->contains('Portaria')){
             $liberacoes_completas = DB::table('cad_vis_entrada')->where('movimentacao', 'S')->orderBy('id', 'desc')->paginate(5);
+            $liberacoes_moradores = DB::table('movimentacao')->orderBy('id', 'desc')->paginate(5);
          } else {
             $liberacoes_completas = DB::table('cad_vis_entrada')->where([
                 ['onesignal_id', Auth::user()->id],
                 ['movimentacao', 'S']
             ])->orderBy('movimentacao', 'asc')->paginate(5);
+            $liberacoes_moradores = DB::table('movimentacao')->orderBy('id', 'desc')->paginate(5);
          };
      
-       return view('liberar.completas', compact('liberacoes_completas'));
+       return view('liberar.completas', compact('liberacoes_completas', 'liberacoes_moradores'));
     }
 
     /**

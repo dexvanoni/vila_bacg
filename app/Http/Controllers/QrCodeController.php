@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\User;
+use App\CadAluno;
 use App\Liberar;
 use App\Movimentacao;
 use Dompdf\Dompdf;
@@ -21,6 +22,11 @@ class QrCodeController extends Controller
         return view('usuarios.print_qr', compact('usuario'));
     }
 
+    public function qr_alunos($usuario)
+    {
+        $usuario = CadAluno::find($usuario);
+        return view('usuarios.print_qr_alunos', compact('usuario'));
+    }
 
     public function qr_convidado($convidado)
     {
@@ -83,6 +89,11 @@ class QrCodeController extends Controller
 
     public function impressao(){
         $crachas = User::all();
+        return view('usuarios.impressao_crachas', compact('crachas'));
+    }
+
+    public function impressao_alunos(){
+        $crachas = CadAluno::all();
         return view('usuarios.impressao_crachas', compact('crachas'));
     }
 
