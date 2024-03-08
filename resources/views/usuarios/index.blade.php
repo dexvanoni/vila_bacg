@@ -23,7 +23,6 @@
     <table id="lista_usuarios" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome Completo</th>
                 <th>CPF</th>
                 <th>Ações</th>
@@ -32,7 +31,6 @@
         <tbody>
             @foreach($usuarios as $l)
                 <tr>
-                    <td>{{$l->id}}</td>
                     <td style="color: 
                         @if($l->status == 0)
                             red

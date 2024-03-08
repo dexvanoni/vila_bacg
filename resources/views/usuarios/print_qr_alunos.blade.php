@@ -24,8 +24,13 @@
 <body>
 
 	<div id="cartao" class="cartao">	
+
 		<div style="text-align: center;">
-			{!! QrCode::size(250)->generate($usuario->id) !!}
+			@if($usuario->tipo_aluno == 'ALUNO')
+				{!! QrCode::size(250)->generate($usuario->cpf_aluno) !!}
+			@else
+				{!! QrCode::size(250)->generate($usuario->cpf_resp) !!}
+			@endif
 		</div>
 			<p style="font-size: 12px;"><strong>Nome:</strong> @if($usuario->tipo_aluno == 'ALUNO') {{$usuario->nome_aluno}} @else {{$usuario->nome_resp}} @endif </p>
 			<p style="font-size: 12px;"><strong>CPF:</strong> @if($usuario->tipo_aluno == 'ALUNO') {{$usuario->cpf_aluno}} @else {{$usuario->cpf_resp}} @endif</p>

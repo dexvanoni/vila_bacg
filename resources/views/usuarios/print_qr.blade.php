@@ -53,7 +53,7 @@
 			@endphp
 	
 		<div style="text-align: center;">
-			{!! QrCode::size(250)->generate($usuario->id) !!}
+			{!! QrCode::size(250)->generate($usuario->cpf) !!}
 		</div>
 			<p style="font-size: 12px;"><strong>Nome:</strong> {{$usuario->name}}</p>
 			<p style="font-size: 12px;"><strong>CPF:</strong> {{$usuario->cpf}}</p>

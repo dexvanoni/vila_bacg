@@ -120,11 +120,3 @@ Route::get('/aluno_resp/{aluno_resp}/delete', 'CadAlunoController@delete')->name
 Route::get('/aluno_resp/{aluno_resp}/desab', 'CadAlunoController@desabilitar')->name('aluno_resp.desab')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/hab', 'CadAlunoController@habilitar')->name('aluno_resp.hab')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/edit', 'CadAlunoController@edit')->name('aluno_resp.edit')->middleware('auth');
-
-
-//NOVO LEITOR DE QRCODE
-use App\Http\Controllers\QRCodeController;
-
-Route::get('/qr-code', [QrCodeController::class, 'showQRCode'])->name('qr');
-Route::post('/qr-code', [QrCodeController::class, 'readQRCode']);
-Route::post('/process_qr', 'QrCodeController@processarDados');

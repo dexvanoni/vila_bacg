@@ -156,12 +156,12 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                         {!! QrCode::size(300)->generate($usuario->id) !!}
+                                         {!! QrCode::size(300)->generate($usuario->cpf) !!}
                                          
                                       </div>
                                       <div class="modal-footer">
 
-                                        <a title="QR-Code" href="{{ route('qrcode_organico', [$usuario->id]) }}">
+                                        <a title="QR-Code" href="{{ route('qrcode_organico', [$usuario->cpf]) }}">
                                            Imprimir
                                         </a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

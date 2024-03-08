@@ -221,7 +221,7 @@ body {
 
         <!--TERMINA AVISOS DE SAÍDA-->
 
-                            <h4>Digite o ID ou faça a leitura do QR-Code</h4>
+                            <h4>Digite o CPF ou faça a leitura do QR-Code</h4>
                             <hr>
                             <form method="POST" action="{{route('qrcode_portaria')}}" id="morador">
                                 @csrf

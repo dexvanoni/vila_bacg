@@ -180,14 +180,22 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                   {!! QrCode::size(300)->generate($alunos_resp->id) !!}
-
+                    @if($alunos_resp->status_aluno == 'ALUNO')
+                        {!! QrCode::size(300)->generate($alunos_resp->cpf_aluno) !!}
+                    @else
+                        {!! QrCode::size(300)->generate($alunos_resp->cpf_resp) !!}
+                    @endif
                </div>
                <div class="modal-footer">
-
-                <a title="QR-Code" href="{{ route('qrcode_alunos', [$alunos_resp->id]) }}">
-                 Imprimir
-             </a>
+                @if($alunos_resp->status_aluno == 'ALUNO')
+                    <a title="QR-Code" href="{{ route('qrcode_alunos', [$alunos_resp->cpf_aluno]) }}">
+                     Imprimir
+                    </a>
+                @else
+                    <a title="QR-Code" href="{{ route('qrcode_alunos', [$alunos_resp->cpf_resp]) }}">
+                     Imprimir
+                    </a>
+                @endif
              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
          </div>
      </div>

@@ -88,7 +88,7 @@
            	@endif
            		">
 						<div style="text-align: center;">
-							{!! QrCode::size(250)->generate($c->id) !!}
+							{!! QrCode::size(250)->generate($c->cpf) !!}
 						</div>
 						<p style="font-size: 12px;"><strong>Nome:</strong> {{$c->name}}</p>
 						<p style="font-size: 12px;"><strong>CPF:</strong> {{$c->cpf}}</p>

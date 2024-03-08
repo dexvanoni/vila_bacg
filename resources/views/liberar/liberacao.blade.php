@@ -581,12 +581,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="doc">Documento</label>
+                                    <label for="doc">CPF</label>
                                       <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                           <div class="input-group-text"><i class="fas fa-id-card"></i></div>
                                         </div>
-                                        <input type="text" class="form-control" id="doc" name="doc" placeholder="CPF, RG, Funcional..." required>
+                                        <input type="text" class="form-control" id="doc" name="doc" placeholder="Digite o CPF" required>
                                       </div>
                                 </div>
                                 <div class="col-md-3">
