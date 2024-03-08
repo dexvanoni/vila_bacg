@@ -26,6 +26,7 @@
     <table id="lista_alunos" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nome Completo</th>
                 <th>Instituição</th>
                 <th>Série / Grupo</th>
@@ -37,6 +38,7 @@
             @foreach($alunos_resp as $l)
                 @if($l->tipo_aluno == 'ALUNO')
                     <tr>
+                        <td>{{$l->id}}</td>
                         <td style="color: 
                         @if($l->status == '0')
                         red
@@ -61,6 +63,7 @@
     <table id="lista_resp" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nome do Responsável</th>
                 <th>Aluno</th>
                 <th>Whatsapp</th>
@@ -72,6 +75,7 @@
             @foreach($alunos_resp as $r)
                 @if($r->tipo_aluno == 'RESPONSÁVEL POR ALUNO')
                     <tr>
+                        <td>{{$r->id}}</td>
                         <td style="color: 
                         @if($r->status == '0')
                         red

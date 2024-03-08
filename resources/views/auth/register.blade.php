@@ -102,7 +102,7 @@
                       <h6>Faça upload da foto</h6>
                       <div class="row">
                         <div class="col-md-12">
-                         <div class="form-group">
+                           <div class="form-group">
                             <div class="input-group mb-3">
                               <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -136,94 +136,76 @@
 
             <div class="row">
                 <div class="col-md-3">
-                    <label for="email">Senha <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Senha padrão: @!T1q2w3e4r. Informar ao usuário!"></i></label>
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="@!T1q2w3e4r" value="@!T1q2w3e4r" required>
+                    <label for="rg">RG</label>
+                    <input class="form-control" id="rg" name="rg" value="{{ old('rg') }}" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="email">Confirmar Senha</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="@!T1q2w3e4r" required>
+                    <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
+                    <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" required>
+                    <small id="resultado"></small>
                 </div>
                 <div class="col-md-6">
                     <label for="email">Telefone (Whatsapp)</label>
                     <input id="telefone" type="tel"  maxlength="15" onkeyup="handlePhone(event)" class="form-control{{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ old('telefone') }}" required>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>É condutor de veículos?</strong>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="condutor" id="condutor_sim" value="sim">
+                      <label class="form-check-label" for="condutor_sim">Sim</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="condutor" id="condutor_nao" value="nao">
+                      <label class="form-check-label" for="condutor_nao">Não</label>
+                  </div>
+              </div>
 
+          </div>
+          <div id="condutor" style="display:none;">
+            <hr>
             <div class="row">
                 <div class="col-md-4">
-                    <label for="email">Tipo de Usuário <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="O usuário virtual não participa de Assembléias, não vota e não faz qualquer publicação!"></i></label>
-                    <select class="form-control" id="tipo" name="tipo">
-                      <option>Existente</option>
-                      <option>Virtual (SOMENTE ADMINISTRADORES)</option>
-                  </select>
-              </div>
-              <div class="col-md-4">
-                <label for="rg">RG</label>
-                <input class="form-control" id="rg" name="rg" value="{{ old('rg') }}" required>
-            </div>
-            <div class="col-md-4">
-                <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" required>
-                <small id="resultado"></small>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-12">
-                <strong>É condutor de veículos?</strong>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="condutor" id="condutor_sim" value="sim">
-                  <label class="form-check-label" for="condutor_sim">Sim</label>
-              </div>
-              <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="condutor" id="condutor_nao" value="nao">
-                  <label class="form-check-label" for="condutor_nao">Não</label>
-              </div>
-          </div>
-
-      </div>
-      <div id="condutor" style="display:none;">
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="num_cnh">Nº CNH</label>
-                    <input class="form-control" id="num_cnh" name="num_cnh" value="{{ old('num_cnh') }}">
+                    <div class="form-group">
+                        <label for="num_cnh">Nº CNH</label>
+                        <input class="form-control" id="num_cnh" name="num_cnh" value="{{ old('num_cnh') }}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="categoria_cnh">Categoria CNH</label>
+                        <input class="form-control" type="text" id="categoria_cnh" name="categoria_cnh" value="{{ old('categoria_cnh') }}" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="validade_cnh">Validade CNH</label>
+                        <input class="form-control" type="date" id="validade_cnh" name="validade_cnh" value="{{ old('validade_cnh') }}" >
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="categoria_cnh">Categoria CNH</label>
-                    <input class="form-control" type="text" id="categoria_cnh" name="categoria_cnh" value="{{ old('categoria_cnh') }}" >
-                </div>
+            <h6>Faça upload da sua CNH (frente e verso no mesmo arquivo)</h6>
+            <div class="row">
+                <div class="col-md-12">
+                   <div class="form-group">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="arquivo_cnh" aria-describedby="inputGroupFileAddon01" name="arquivo_cnh" accept="image/png, image/jpeg">
+                        <label class="custom-file-label" for="arquivo_cnh">Clique aqui...</label>
+                    </div>
+                </div>  
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="validade_cnh">Validade CNH</label>
-                    <input class="form-control" type="date" id="validade_cnh" name="validade_cnh" value="{{ old('validade_cnh') }}" >
-                </div>
-            </div>
-        </div>
-        <h6>Faça upload da sua CNH (frente e verso no mesmo arquivo)</h6>
-        <div class="row">
-            <div class="col-md-12">
-             <div class="form-group">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="arquivo_cnh" aria-describedby="inputGroupFileAddon01" name="arquivo_cnh" accept="image/png, image/jpeg">
-                    <label class="custom-file-label" for="arquivo_cnh">Clique aqui...</label>
-                </div>
-            </div>  
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="nomeArquivo_cnh" style="margin-left: 20px;"></div>
-</div>
-<hr>
+    <div class="row">
+        <div class="nomeArquivo_cnh" style="margin-left: 20px;"></div>
+    </div>
+    <hr>
 </div>
 <!--FUNCIONARIOS-->
 <div id="dados_funcionario">
@@ -308,37 +290,37 @@
                     <div class="form-group">
                         <label for="serie_aluno">Série <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Selecione a série do ALUNO"></i></label>
                         <select class="form-control" id="serie_aluno" name="serie_aluno">
-                           <option>Selecione...</option>
-                           <option>Séries Escola Y-Juca Pirama</option>
-                           <option>1º A - Matutino</option>
-                           <option>1º B - Vespertino</option>
-                           <option>2º A - Matutino</option>
-                           <option>2º B - Vespertino</option>
-                           <option>3º A - Matutino</option>
-                           <option>3º B - Vespertino</option>
-                           <option>4º A - Matutino</option>
-                           <option>4º B - Vespertino</option>
-                           <option>5º A - Matutino</option>
-                           <option>5º B - Vespertino</option>
-                           <option>6º A - Matutino</option>
-                           <option>6º B - Vespertino</option>
-                           <option>7º A - Matutino</option>
-                           <option>7º B - Vespertino</option>
-                           <option>8º A - Matutino</option>
-                           <option>8º B - Vespertino</option>
-                           <option>9º A - Matutino</option>
-                           <option>9º B - Vespertino</option>
-                           <option>----------------------------</option>
-                           <option>Grupos EMEI Prof. Maria Josefina</option>
-                           <option>Grupo 2</option>
-                           <option>Grupo 3</option>
-                           <option>Grupo 4</option>
-                           <option>Grupo 5</option>
-                       </select>
-                   </div>
-               </div>
-           </div>
-           <div class="row">
+                         <option>Selecione...</option>
+                         <option>Séries Escola Y-Juca Pirama</option>
+                         <option>1º A - Matutino</option>
+                         <option>1º B - Vespertino</option>
+                         <option>2º A - Matutino</option>
+                         <option>2º B - Vespertino</option>
+                         <option>3º A - Matutino</option>
+                         <option>3º B - Vespertino</option>
+                         <option>4º A - Matutino</option>
+                         <option>4º B - Vespertino</option>
+                         <option>5º A - Matutino</option>
+                         <option>5º B - Vespertino</option>
+                         <option>6º A - Matutino</option>
+                         <option>6º B - Vespertino</option>
+                         <option>7º A - Matutino</option>
+                         <option>7º B - Vespertino</option>
+                         <option>8º A - Matutino</option>
+                         <option>8º B - Vespertino</option>
+                         <option>9º A - Matutino</option>
+                         <option>9º B - Vespertino</option>
+                         <option>----------------------------</option>
+                         <option>Grupos EMEI Prof. Maria Josefina</option>
+                         <option>Grupo 2</option>
+                         <option>Grupo 3</option>
+                         <option>Grupo 4</option>
+                         <option>Grupo 5</option>
+                     </select>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
             <div class="col-md-4">
                 <label for="cpf_aluno">CPF DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
                 <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" >
@@ -376,7 +358,7 @@
         <span style="color: red;">Somente arquivo JPEG ou PNG</span>
         <div class="row">
             <div class="col-md-12">
-             <div class="form-group">
+               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
@@ -410,142 +392,142 @@
     </div>
     <hr>
 
-<input type="hidden" name="nome_aluno_resp" id="nome_aluno_resp">
-<input type="hidden" name="cpf_aluno_resp" id="cpf_aluno_resp">
+    <input type="hidden" name="nome_aluno_resp" id="nome_aluno_resp">
+    <input type="hidden" name="cpf_aluno_resp" id="cpf_aluno_resp">
 
     <!--SÓ ABRE PARA CONTINUAÇÃO DO PREENCHIMENTO SE O CPF DO ALUNO FOR ENCONTRADO-->
     <div class="divResultados" id="divResultados">
         <h6 style="color: red">Preencha os dados do RESPONSÁVEL pelo aluno <label id="resultadosPesquisa"></label></h6>
         <h6>Faça upload da sua foto (de frente, sem óculos escuros e sem bonés)</h6>
-                      <div class="row">
-                        <div class="col-md-12">
-                         <div class="form-group">
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="arquivo_resp" aria-describedby="inputGroupFileAddon01" name="arquivo_resp" accept="image/png, image/jpeg">
-                                <label class="custom-file-label" for="arquivo_resp">Clique aqui...</label>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-    <div class="nomeArquivo_resp" style="margin-left: 20px;"></div>
-</div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="nome_resp">Nome Completo <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o seu nome completo do responsável pelo aluno"></i></label>
-                    <input class="form-control" id="nome_resp" name="nome_resp" value="{{ old('nome_resp') }}">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dt_nascimento_resp">Dt. Nascimento<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite a data de nascimento"></i></label>
-                    <input type="date" class="form-control" id="dt_nascimento_resp" name="dt_nascimento_resp">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                    <label for="tel_resp">Telefone (Whatsapp)</label>
-                    <input id="tel_resp" type="tel"  maxlength="15" onkeyup="handlePhone(event)" class="form-control{{ $errors->has('tel_resp') ? ' is-invalid' : '' }}" name="tel_resp">
-            </div>
-            <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="email_resp">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right"></i></label>
-                        <input class="form-control" type="email" id="email_resp" name="email_resp">
-                    </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label for="cpf_resp">CPF<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                <input class="form-control" id="cpf_resp" name="cpf_resp" value="{{ old('cpf_resp') }}" maxlength="11" onfocusout="validarCPF_resp(cpf_resp)" >
-                <small id="resultado_cpf_resp"></small>
-            </div>
-            <div class="col-md-3">
-                <label for="rg_resp">RG</label>
-                <input class="form-control" id="rg_resp" name="rg_resp" value="{{ old('rg_resp') }}" >
-            </div>
-            <div class="col-md-3">
-                <label for="cep_resp">CEP</label>
-                <input class="form-control" id="cep_resp" name="cep_resp">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label for="rua_resp">Logradouro</label>
-                <input class="form-control" id="rua_resp" name="rua_resp" readonly>
-            </div>
-            <div class="col-md-2">
-                <label for="num_casa_resp">Nº</label>
-                <input class="form-control" id="num_casa_resp" name="num_casa_resp">
-            </div>
-            <div class="col-md-3">
-                <label for="bairro_resp">Bairro</label>
-                <input class="form-control" id="bairro_resp" name="bairro_resp" readonly>
-            </div>
-            <div class="col-md-3">
-                <label for="cidade_resp">Cidade</label>
-                <input class="form-control" id="cidade_resp" name="cidade_resp" readonly>
-            </div>
-        </div>
-        <hr>
         <div class="row">
             <div class="col-md-12">
-                <strong>É condutor de veículos?</strong>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_sim" value="sim">
-                  <label class="form-check-label" for="condutor_sim_resp">Sim</label>
-              </div>
-              <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_nao" value="nao">
-                  <label class="form-check-label" for="condutor_resp_sim">Não</label>
-              </div>
-          </div>
-      </div>
-      <div id="condutor_resp" style="display:none;">
-        <hr>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="num_cnh_resp">Nº CNH</label>
-                    <input class="form-control" id="num_cnh_resp" name="num_cnh_resp" value="{{ old('num_cnh_resp') }}">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="tipo_cnh_resp">Categoria CNH</label>
-                    <input class="form-control" type="text" id="tipo_cnh_resp" name="tipo_cnh_resp" value="{{ old('tipo_cnh_resp') }}" >
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="validade_cnh_resp">Validade CNH</label>
-                    <input class="form-control" type="date" id="validade_cnh_resp" name="validade_cnh_resp" value="{{ old('validade_cnh_resp') }}" >
-                </div>
-            </div>
-        </div>
-        <h6>Faça upload da sua CNH (frente e verso no mesmo arquivo)</h6>
-        <div class="row">
-            <div class="col-md-12">
-             <div class="form-group">
+               <div class="form-group">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="arquivo_cnh_resp" aria-describedby="inputGroupFileAddon01" name="arquivo_cnh_resp" accept="image/png, image/jpeg">
-                    <label class="custom-file-label" for="arquivo_cnh_resp">Clique aqui...</label>
+                    <input type="file" class="custom-file-input" id="arquivo_resp" aria-describedby="inputGroupFileAddon01" name="arquivo_resp" accept="image/png, image/jpeg">
+                    <label class="custom-file-label" for="arquivo_resp">Clique aqui...</label>
                 </div>
             </div>  
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="nomeArquivo_resp" style="margin-left: 20px;"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="nome_resp">Nome Completo <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite o seu nome completo do responsável pelo aluno"></i></label>
+            <input class="form-control" id="nome_resp" name="nome_resp" value="{{ old('nome_resp') }}">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="dt_nascimento_resp">Dt. Nascimento<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Digite a data de nascimento"></i></label>
+            <input type="date" class="form-control" id="dt_nascimento_resp" name="dt_nascimento_resp">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label for="tel_resp">Telefone (Whatsapp)</label>
+        <input id="tel_resp" type="tel"  maxlength="15" onkeyup="handlePhone(event)" class="form-control{{ $errors->has('tel_resp') ? ' is-invalid' : '' }}" name="tel_resp">
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="email_resp">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right"></i></label>
+            <input class="form-control" type="email" id="email_resp" name="email_resp">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <label for="cpf_resp">CPF<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
+        <input class="form-control" id="cpf_resp" name="cpf_resp" value="{{ old('cpf_resp') }}" maxlength="11" onfocusout="validarCPF_resp(cpf_resp)" >
+        <small id="resultado_cpf_resp"></small>
+    </div>
+    <div class="col-md-3">
+        <label for="rg_resp">RG</label>
+        <input class="form-control" id="rg_resp" name="rg_resp" value="{{ old('rg_resp') }}" >
+    </div>
+    <div class="col-md-3">
+        <label for="cep_resp">CEP</label>
+        <input class="form-control" id="cep_resp" name="cep_resp">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label for="rua_resp">Logradouro</label>
+        <input class="form-control" id="rua_resp" name="rua_resp" readonly>
+    </div>
+    <div class="col-md-2">
+        <label for="num_casa_resp">Nº</label>
+        <input class="form-control" id="num_casa_resp" name="num_casa_resp">
+    </div>
+    <div class="col-md-3">
+        <label for="bairro_resp">Bairro</label>
+        <input class="form-control" id="bairro_resp" name="bairro_resp" readonly>
+    </div>
+    <div class="col-md-3">
+        <label for="cidade_resp">Cidade</label>
+        <input class="form-control" id="cidade_resp" name="cidade_resp" readonly>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <strong>É condutor de veículos?</strong>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_sim" value="sim">
+          <label class="form-check-label" for="condutor_sim_resp">Sim</label>
+      </div>
+      <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_nao" value="nao">
+          <label class="form-check-label" for="condutor_resp_sim">Não</label>
+      </div>
+  </div>
+</div>
+<div id="condutor_resp" style="display:none;">
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="num_cnh_resp">Nº CNH</label>
+                <input class="form-control" id="num_cnh_resp" name="num_cnh_resp" value="{{ old('num_cnh_resp') }}">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="tipo_cnh_resp">Categoria CNH</label>
+                <input class="form-control" type="text" id="tipo_cnh_resp" name="tipo_cnh_resp" value="{{ old('tipo_cnh_resp') }}" >
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="validade_cnh_resp">Validade CNH</label>
+                <input class="form-control" type="date" id="validade_cnh_resp" name="validade_cnh_resp" value="{{ old('validade_cnh_resp') }}" >
+            </div>
+        </div>
+    </div>
+    <h6>Faça upload da sua CNH (frente e verso no mesmo arquivo)</h6>
+    <div class="row">
+        <div class="col-md-12">
+           <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="arquivo_cnh_resp" aria-describedby="inputGroupFileAddon01" name="arquivo_cnh_resp" accept="image/png, image/jpeg">
+                <label class="custom-file-label" for="arquivo_cnh_resp">Clique aqui...</label>
+            </div>
+        </div>  
+    </div>
+</div>
 </div>
 <div class="row">
     <div class="nomeArquivo_cnh_resp" style="margin-left: 20px;"></div>
@@ -648,23 +630,23 @@
 
     $(function () {
         $('#arquivo_aluno').change(function() {
-         $('.nomeArquivo_aluno').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
+           $('.nomeArquivo_aluno').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+       });
     });
     $(function () {
         $('#arquivo').change(function() {
-         $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
+           $('.nomeArquivo').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+       });
     });
     $(function () {
         $('#arquivo_cnh_resp').change(function() {
-         $('.nomeArquivo_cnh_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
+           $('.nomeArquivo_cnh_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+       });
     });
     $(function () {
         $('#arquivo_resp').change(function() {
-         $('.nomeArquivo_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
-     });
+           $('.nomeArquivo_resp').html('<b>Arquivo Selecionado:</b> ' + $(this).val());
+       });
     });
 </script>
 
@@ -679,16 +661,16 @@
             cpf  = cpf.replace(/\.|-/g,"");
 
             if(!validaPrimeiroDigito(cpf))
-               return false;
-           if(!validaSegundoDigito(cpf))
-               return false;
+             return false;
+         if(!validaSegundoDigito(cpf))
+             return false;
 
-           return true;
+         return true;
 
-       }
-       var sum = 0;
+     }
+     var sum = 0;
 
-       function validaPrimeiroDigito(cpf = null){
+     function validaPrimeiroDigito(cpf = null){
         let fDigit = (sumFristDigit(cpf) * 10) % 11;
         fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
         if(fDigit != cpf[9])
@@ -738,16 +720,16 @@ function validarCPF_aluno() {
         cpf_aluno  = cpf_aluno.replace(/\.|-/g,"");
 
         if(!validaPrimeiroDigito(cpf_aluno))
-           return false;
-       if(!validaSegundoDigito(cpf_aluno))
-           return false;
+         return false;
+     if(!validaSegundoDigito(cpf_aluno))
+         return false;
 
-       return true;
+     return true;
 
-   }
-   var sum = 0;
+ }
+ var sum = 0;
 
-   function validaPrimeiroDigito(cpf_aluno = null){
+ function validaPrimeiroDigito(cpf_aluno = null){
     let fDigit = (sumFristDigit(cpf_aluno) * 10) % 11;
     fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
     if(fDigit != cpf_aluno[9])
@@ -798,16 +780,16 @@ function validarCPF_resp() {
         cpf_resp  = cpf_resp.replace(/\.|-/g,"");
 
         if(!validaPrimeiroDigito(cpf_resp))
-           return false;
-       if(!validaSegundoDigito(cpf_resp))
-           return false;
+         return false;
+     if(!validaSegundoDigito(cpf_resp))
+         return false;
 
-       return true;
+     return true;
 
-   }
-   var sum = 0;
+ }
+ var sum = 0;
 
-   function validaPrimeiroDigito(cpf_resp = null){
+ function validaPrimeiroDigito(cpf_resp = null){
     let fDigit = (sumFristDigit(cpf_resp) * 10) % 11;
     fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
     if(fDigit != cpf_resp[9])

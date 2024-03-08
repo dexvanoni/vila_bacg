@@ -108,6 +108,8 @@ class RegisterController extends Controller
         } else {
             $fileNameToStore_cnh = 'noimage_cnh.png';
         }
+
+        $senha = '12345678';
          User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -115,7 +117,8 @@ class RegisterController extends Controller
             'local' => $data['local'],
             'telefone' => $data['telefone'],
             'ramal' => "0",
-            'password' => Hash::make($data['password']),
+            //'password' => Hash::make($data['password']),
+            'password' => Hash::make($senha),
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],
             'status' => $data['status'],

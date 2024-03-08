@@ -23,8 +23,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
   <link href="{{ asset('https://use.fontawesome.com/releases/v5.15.4/css/all.css')}}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
-  
 
+  
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -83,6 +83,8 @@
 
   
   <style>
+    @yield('style_morador')
+
     .alerta {
       height: 100px;
       font-size: 32px;
