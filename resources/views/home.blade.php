@@ -227,10 +227,10 @@
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
-            <a href="{{ route('qrcode_organico', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: black; border-color: black; color: white;">
+            <!--<a href="{{ route('qrcode_organico', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: black; border-color: black; color: white;">
               <i class="fa fa-qrcode fa-2x"></i><br/>
                 MEU QRCODE
-            </a>
+            </a>-->
             <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: grey; border-color: black; color: white;">
               <i class="fa fa-key fa-2x"></i><br/>
                 SENHA

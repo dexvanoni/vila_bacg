@@ -76,7 +76,7 @@ class QrCodeController extends Controller
                 $now = Carbon::now();
                 // Verifica se é sábado, domingo ou dia da semana entre 18h e 6h
                 
-                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 18))) {
+                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
                     return redirect()->back()->with('hora_neg', 'ENTRADA NÃO AUTORIZADA! Horário ou dias não permitidos para alunos ou responsáveis!');
                 }
                 

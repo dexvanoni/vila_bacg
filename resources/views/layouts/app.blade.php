@@ -202,9 +202,9 @@
               {{$p}}<br><br>
               @endforeach
               @if(!$perfis->contains('Portaria'))
-              <a title="QR-Code" href="{{ route('qrcode_organico', [Auth::user()->id]) }}">
+              <!--<a title="QR-Code" href="{{ route('qrcode_organico', [Auth::user()->id]) }}">
                <i class="fas fa-qrcode"></i> Meu QR-Code
-             </a>
+             </a>-->
              <br>
              @endif
              @isset(Auth::user()->local)
