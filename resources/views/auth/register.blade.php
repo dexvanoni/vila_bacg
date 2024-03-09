@@ -324,7 +324,7 @@
             <div class="col-md-4">
                 <label for="cpf_aluno">CPF DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
                 <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" >
-                <small id="resultado"></small>
+                <small id="resultado_aluno"></small>
             </div>
             <div class="col-md-4">
                 <label for="rg_aluno">RG DO ALUNO</label>
@@ -763,10 +763,10 @@ var verificacpf_aluno;
 
 if (isCPF(cpf_aluno) == true) {
     verificacpf_aluno = 'CPF do aluno Válido!';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+    document.getElementById("resultado_aluno").innerHTML = verificacpf_aluno;
 } else {
     verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite novamente.';
-    document.getElementById("resultado").innerHTML = verificaCPF;
+    document.getElementById("resultado_aluno").innerHTML = verificacpf_aluno;
 };
 
 }

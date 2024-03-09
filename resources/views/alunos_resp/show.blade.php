@@ -26,7 +26,13 @@
                 @endif
                 <div class="row align-items-center">
                     <div class="col-md-12">
-                        <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_resp) }}" class="rounded-circle" style="max-width: 15%;">
+                        @if($alunos_resp->tipo_aluno == 'ALUNO')
+
+                            <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_aluno) }}" class="rounded-circle" style="max-width: 15%;">
+                        @else
+
+                            <img src = "{{ asset('storage/alunos/'.$alunos_resp->arquivo_resp) }}" class="rounded-circle" style="max-width: 15%;">
+                        @endif
                     </div>
                 </div>
                 <hr>
@@ -56,7 +62,7 @@
                     </div>
                     <div class="col-md-4">
                         <strong>Status:</strong>
-                        @if($alunos_resp->status == 1)
+                        @if($alunos_resp->status_aluno == 1)
                         ATIVO
                         @else
                         INATIVO 
@@ -180,14 +186,14 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    @if($alunos_resp->status_aluno == 'ALUNO')
+                    @if($alunos_resp->tipo_aluno == 'ALUNO')
                         {!! QrCode::size(300)->generate($alunos_resp->cpf_aluno) !!}
                     @else
                         {!! QrCode::size(300)->generate($alunos_resp->cpf_resp) !!}
                     @endif
                </div>
                <div class="modal-footer">
-                @if($alunos_resp->status_aluno == 'ALUNO')
+                @if($alunos_resp->tipo_aluno == 'ALUNO')
                     <a title="QR-Code" href="{{ route('qrcode_alunos', [$alunos_resp->cpf_aluno]) }}">
                      Imprimir
                     </a>

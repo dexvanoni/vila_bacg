@@ -86,9 +86,9 @@ class QrCodeController extends Controller
                 $now = Carbon::now();
                 // Verifica se é sábado, domingo ou dia da semana entre 18h e 6h
                 
-                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
+                /*if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
                     return redirect()->back()->with('hora_neg', 'ENTRADA NÃO AUTORIZADA! Horário ou dias não permitidos para alunos ou responsáveis!');
-                }
+                }*/
 
                 if ($aluno->status_aluno == 1) {
                         Movimentacao::create(['morador_id' => $request->entrada, 'movimento' => 'ENTRADA']);
@@ -111,9 +111,9 @@ class QrCodeController extends Controller
                 $now = Carbon::now();
                 // Verifica se é sábado, domingo ou dia da semana entre 18h e 6h
                 
-                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
+                /*if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
                     return redirect()->back()->with('hora_neg', 'ENTRADA NÃO AUTORIZADA! Horário ou dias não permitidos para alunos ou responsáveis!');
-                }
+                }*/
 
                 if ($responsavel->status_aluno == 1) {
                         Movimentacao::create(['morador_id' => $request->entrada, 'movimento' => 'ENTRADA']);
@@ -188,9 +188,9 @@ if (!is_null($request->saida)) {
                 $now = Carbon::now();
                 // Verifica se é sábado, domingo ou dia da semana entre 18h e 6h
                 
-                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
+                /*if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
                     return redirect()->back()->with('hora_neg', 'SAÍDA NÃO AUTORIZADA! Horário ou dias não permitidos para alunos ou responsáveis!');
-                }
+                }*/
 
                 if ($aluno->status_aluno == 1) {
                         Movimentacao::create(['morador_id' => $request->saida, 'movimento' => 'SAÍDA']);
@@ -213,9 +213,9 @@ if (!is_null($request->saida)) {
                 $now = Carbon::now();
                 // Verifica se é sábado, domingo ou dia da semana entre 18h e 6h
                 
-                if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
+                /*if ($now->isWeekend() || ($now->isWeekday() && ($now->hour < 6 || $now->hour >= 19))) {
                     return redirect()->back()->with('hora_neg', 'SAÍDA NÃO AUTORIZADA! Horário ou dias não permitidos para alunos ou responsáveis!');
-                }
+                }*/
 
                 if ($responsavel->status_aluno == 1) {
                         Movimentacao::create(['morador_id' => $request->saida, 'movimento' => 'SAÍDA']);
