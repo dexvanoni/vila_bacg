@@ -614,7 +614,7 @@
                 }
     });
 
-    $('input[name="condutor_resp_sim"]').on('change', function() {
+    $('input[name="condutor_resp"]').on('change', function() {
                 var opcaoSelecionada_resp = $(this).val();
                 if (opcaoSelecionada_resp === 'sim') {
                     $('#condutor_resp').show();

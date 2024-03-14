@@ -767,7 +767,7 @@ sumSecondDigit = function(cpf_aluno, position=0, sum=0){
 var verificacpf_aluno;
 
 if (isCPF(cpf_aluno) == true) {
-    verificacpf_aluno = 'CPF do aluno Válido!';
+    verificacpf_aluno = 'CPF Válido!';
     document.getElementById("resultado_aluno").innerHTML = verificacpf_aluno;
 } else {
     verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite novamente.';
@@ -827,7 +827,7 @@ sumSecondDigit = function(cpf_resp, position=0, sum=0){
 var verificacpf_resp;
 
 if (isCPF(cpf_resp) == true) {
-    verificacpf_resp = 'CPF do aluno Válido!';
+    verificacpf_resp = 'CPF Válido!';
     document.getElementById("resultado_cpf_resp").innerHTML = verificacpf_resp;
 } else {
     verificacpf_resp = 'Este CPF é INVÁLIDO! Digite novamente.';
