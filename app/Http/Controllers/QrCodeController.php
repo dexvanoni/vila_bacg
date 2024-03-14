@@ -120,9 +120,12 @@ class QrCodeController extends Controller
                         
                         Session::flash('arquivo', $responsavel->arquivo_resp);
                             /*Pesquisa validade da CNH*/
-                            $cnh = CadAluno::select('validade_cnh_resp')->where('cpf', $responsavel->cpf_resp)->first();
+                            $cnh = DB::table('alunos')
+                                ->where('cpf_resp', $responsavel->cpf_resp)
+                                ->whereNotNull('validade_cnh_resp')
+                                ->get();
 
-                            if ($cnh) {
+                            if ($cnh->isNotEmpty()) {
                                 // Obtemos a data de validade da CNH
                                 $validadeCNH = Carbon::createFromFormat('Y-m-d', $cnh->validade_cnh_resp);
 
@@ -136,7 +139,7 @@ class QrCodeController extends Controller
                                     $validade = "A CNH do usuário está válida.";
                                 }
                             } else {
-                                $validade = "Este usuario nao possui CNH cadastrada. Verificar em caso de CONDUTOR de veiculos!";
+                                $validade = "Este usuario nao possui CNH ou validade da mesma nao esta cadastrada. Verificar em caso de CONDUTOR de veiculos!";
                             }
 
                             return redirect()->back()->with([
@@ -222,9 +225,12 @@ if (!is_null($request->saida)) {
                         
                         Session::flash('arquivo', $responsavel->arquivo_resp);
                             /*Pesquisa validade da CNH*/
-                            $cnh = CadAluno::select('validade_cnh_resp')->where('cpf', $responsavel->cpf_resp)->first();
+                            $cnh = DB::table('alunos')
+                                ->where('cpf_resp', $responsavel->cpf_resp)
+                                ->whereNotNull('validade_cnh_resp')
+                                ->get();
 
-                            if ($cnh) {
+                            if ($cnh->isNotEmpty()) {
                                 // Obtemos a data de validade da CNH
                                 $validadeCNH = Carbon::createFromFormat('Y-m-d', $cnh->validade_cnh_resp);
 

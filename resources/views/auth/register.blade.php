@@ -4,6 +4,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
+
+                @if(session('success'))
+      <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+        @endif
                 <div class="card">
                     <div class="card-header">Cadastro de Usuários</div>
                     <div class="card-body">
@@ -482,11 +487,11 @@
     <div class="col-md-12">
         <strong>É condutor de veículos?</strong>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_sim" value="sim">
+          <input class="form-check-input" type="radio" name="condutor_resp" id="condutor_resp_sim" value="sim">
           <label class="form-check-label" for="condutor_sim_resp">Sim</label>
       </div>
       <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="condutor_resp_sim" id="condutor_resp_nao" value="nao">
+          <input class="form-check-input" type="radio" name="condutor_resp" id="condutor_resp_nao" value="nao">
           <label class="form-check-label" for="condutor_resp_sim">Não</label>
       </div>
   </div>

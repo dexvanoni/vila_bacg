@@ -64,10 +64,12 @@
                       <h5 class="mb-0">
                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_{{$f}}" aria-expanded="true" aria-controls="collapseOne">
                           @php
-                          $morador = DB::table('users')->where('id', $m->morador_id)->first();
+                            $morador = DB::table('users')
+                                ->where('cpf', $m->morador_id)
+                                ->first();
                           @endphp
                           <div class="row" style="margin-top: 5px;">
-                            Nome: {{$morador->name}}
+                                Nome: {{$morador->name}}
                         </div>
                         <div class="row" style="margin-top: 5px;">
                             Movimentação: {{$m->movimento}}
