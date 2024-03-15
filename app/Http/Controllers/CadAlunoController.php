@@ -99,7 +99,7 @@ class CadAlunoController extends Controller
             $request['rg_resp'] = '0';
             $request['num_cnh_resp'] = '--';
             $request['tipo_cnh_resp'] = '--';
-            $request['validade_cnh_resp'] = '--';
+            $request['validade_cnh_resp'] = null;
             $request['rua_resp'] = '--';
             $request['num_casa_resp'] = '--';
             $request['bairro_resp'] = '--';
