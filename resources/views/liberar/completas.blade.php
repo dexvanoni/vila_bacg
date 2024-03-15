@@ -68,6 +68,7 @@
                                 ->where('cpf', $m->morador_id)
                                 ->first();
                           @endphp
+                          @if($morador)
                           <div class="row" style="margin-top: 5px;">
                                 Nome: {{$morador->name}}
                         </div>
@@ -77,6 +78,7 @@
                         <div class="row" style="margin-top: 5px;">
                             Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
                         </div>
+                        @endif
 
                     </button>
                 </h5>
