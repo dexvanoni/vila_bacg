@@ -31,6 +31,7 @@
                 <th>Instituição</th>
                 <th>Série / Grupo</th>
                 <th>CPF</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -49,9 +50,25 @@
                         <td>{{$l->serie_aluno}}</td>
                         <td>{{$l->cpf_aluno}}</td>
                         <td>
+                        @if ($l->status_aluno == "0")
+                            <i class="fas fa-window-close" style="color: red;"></i>
+                        @else
+                            <i class="fas fa-check-square" style="color: green;"></i>
+                        @endif
+                    </td>
+                        <td>
                             <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
+                            @if ($l->status_aluno == "0")
+                                <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
+                                            <i class="fas fa-thumbs-up"></i> 
+                                </a>
+                                @else
+                                    <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$l->id]) }}">
+                                                <i class="fas fa-thumbs-down"></i>
+                                    </a>
+                            @endif
                         </td>
                     </tr>
                 @endif
@@ -68,6 +85,7 @@
                 <th>Aluno</th>
                 <th>Whatsapp</th>
                 <th>CPF</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -86,9 +104,25 @@
                         <td>{{$r->tel_resp}}</td>
                         <td>{{$r->cpf_resp}}</td>
                         <td>
+                        @if ($r->status_aluno == "0")
+                            <i class="fas fa-window-close" style="color: red;"></i>
+                        @else
+                            <i class="fas fa-check-square" style="color: green;"></i>
+                        @endif
+                    </td>
+                        <td>
                             <a title="Ver Usuário" href="{{ route('aluno_resp.show', [$r->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
+                            @if ($r->status_aluno == "0")
+                                <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$r->id]) }}">
+                                            <i class="fas fa-thumbs-up"></i> 
+                                </a>
+                                @else
+                                    <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$r->id]) }}">
+                                                <i class="fas fa-thumbs-down"></i>
+                                    </a>
+                            @endif
                         </td>
                     </tr>
                 @endif
