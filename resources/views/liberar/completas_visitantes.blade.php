@@ -35,7 +35,7 @@
                 <img src="/imagens/sisvila.png" width="100px" height="70px">        
             </div>
             <div class="col-md-10">
-                <h2>Movimentação de Moradores</h2>
+                <h2>Movimentação de Visitantes</h2>
             </div>
         </div>
         
@@ -54,44 +54,45 @@
     </div>
     <hr>
     @endif
-    <div class="row select">
+    <div class="row">
         <div class="col-md-12">
-            <?php $f = 0; ?>
-            <div class="accordion">
-                @foreach($liberacoes_moradores as $m)
-                <div class="card_{{$f}}">
-                    <div class="card-header" id="acordeon_m_{{$f}}">
+            <?php $i = 0; ?>
+            <div id="accordion2">
+                @foreach($liberacoes_completas as $a)
+                <div class="card" id="card_{{$i}}">
+                    <div class="card-header" id="headingOne_{{$i}}">
                       <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne_{{$f}}" aria-expanded="true" aria-controls="collapseOne">
-                          @php
-                            $morador = DB::table('users')
-                                ->where('cpf', $m->morador_id)
-                                ->first();
-                          @endphp
-                          @if($morador)
-                          <div class="row" style="margin-top: 5px;">
-                                Nome: {{$morador->name}}
-                        </div>
-                        <div class="row" style="margin-top: 5px;">
-                            Movimentação: {{$m->movimento}}
-                        </div>
-                        <div class="row" style="margin-top: 5px;">
-                            Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
-                        </div>
-                        @endif
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne_{{$i}}" aria-expanded="true" aria-controls="collapseOne_{{$i}}">
+                            <div class="row">
+                                <i class="fas fa-house-user">{{'  '.$a->destino}}</i>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                <i class="fas fa-user-check">{{'  '.$a->liberador}}</i>  
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Visitante: {{'  '.$a->nome_completo.'   '}}
+                            </div>
+                        </button>
+                    </h5>
+                </div>
 
-                    </button>
-                </h5>
+                <div id="collapseOne_{{$i}}" class="collapse" aria-labelledby="headingOne_{{$i}}" data-parent="#accordion2">
+                  <div class="card-body" id="card_body_{{$i}}">
+                    Movimentação nº {{$a->id}} completa:<br>
+                    Entrada: {{date('d/m/Y', strtotime($a->dt_entrou))}} às {{$a->hr_entrou}} <br>
+                    Saída: {{date('d/m/Y', strtotime($a->dt_saiu))}} às {{$a->hr_saiu}}
+                </div>
             </div>
         </div>
         @endforeach
     </div>
-    <?php $f++;?>
+    <?php $i++;?>
     </div>
+    <!--FECHA DAR SAÍDA-->
     <div class="col-md-12 mb-0">
         {{-- Pagination --}}
         <div class="d-flex justify-content-center">
-            {!! $liberacoes_moradores->links() !!}
+            {!! $liberacoes_completas->links() !!}
         </div>        
     </div>
     </div>

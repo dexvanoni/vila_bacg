@@ -42,6 +42,7 @@
 
   <!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
   <script type="text/javascript">
+
     jQuery(function ($) {
         //ao clicar em qualquer parte do sidebar ela some.
       $(".page-wrapper").removeClass("toggled");
@@ -553,6 +554,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $('.dropdown-toggle').dropdown();
     $('#lista_usuarios').DataTable({
       dom: 'Bfrtip',
       paging: true, // Ativar paginação

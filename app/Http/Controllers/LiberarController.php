@@ -114,17 +114,52 @@ class LiberarController extends Controller
                 $perfis->all();
               };
          if ($perfis->contains('Administrador') || $perfis->contains('Portaria')){
-            $liberacoes_completas = DB::table('cad_vis_entrada')->where('movimentacao', 'S')->orderBy('id', 'desc')->paginate(5);
             $liberacoes_moradores = DB::table('movimentacao')->orderBy('id', 'desc')->paginate(5);
+         } else {
+            $liberacoes_moradores = DB::table('movimentacao')->orderBy('id', 'desc')->paginate(5);
+         };
+     
+       return view('liberar.completas', compact('liberacoes_moradores'));
+    }
+
+    public function completas_visitantes()
+    {
+
+        $perfis = collect([]);
+              foreach(explode(',',  Auth::user()->autorizacao) as $info){
+                if ($info == 'pe') {
+                  $perfis->push('Permissionário');
+                } elseif ($info == 'de') {
+                  $perfis->push('Dependente');
+                } elseif ($info == 'st') {
+                  $perfis->push('Sócio-Titular');
+                } elseif ($info == 'sd') {
+                  $perfis->push('Sócio-Dependente');
+                } elseif ($info == 'fe') {
+                  $perfis->push('Funcionário da Escola');
+                } elseif ($info == 'ra') {
+                  $perfis->push('Responsável por Aluno');
+                } elseif ($info == 'ps') {
+                  $perfis->push('Prestador de Serviço');
+                } elseif ($info == 'po') {
+                  $perfis->push('Portaria');
+                } elseif ($info == 'si') {
+                  $perfis->push('Síndico');
+                } elseif ($info == 'ad') {
+                  $perfis->push('Administrador');
+                }
+                $perfis->all();
+              };
+         if ($perfis->contains('Administrador') || $perfis->contains('Portaria')){
+            $liberacoes_completas = DB::table('cad_vis_entrada')->where('movimentacao', 'S')->orderBy('id', 'desc')->paginate(5);
          } else {
             $liberacoes_completas = DB::table('cad_vis_entrada')->where([
                 ['onesignal_id', Auth::user()->id],
                 ['movimentacao', 'S']
             ])->orderBy('movimentacao', 'asc')->paginate(5);
-            $liberacoes_moradores = DB::table('movimentacao')->orderBy('id', 'desc')->paginate(5);
          };
      
-       return view('liberar.completas', compact('liberacoes_completas', 'liberacoes_moradores'));
+       return view('liberar.completas_visitantes', compact('liberacoes_completas'));
     }
 
     /**

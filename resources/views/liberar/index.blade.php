@@ -46,8 +46,15 @@ $perfis = collect([]);
             <div class="col-md-6">
                 <a href="{{route('movimentacao')}}" class="btn btn-info" title="Movimentações">ENTRADA/SAÍDA</a>    
             </div>
-            <div class="col-md-6">
-                <a href="{{route('liberacao.completa')}}" class="btn btn-success" title="Ver movimentações">Clique aqui para ver todas as movimentações</a>    
+            <div class="btn-group">
+              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Movimentações
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{route('liberacao.completa')}}">Moradores</a>
+                <a class="dropdown-item" href="{{route('liberacao.completa_visitantes')}}">Visitantes</a>
+                <a class="dropdown-item" href="{{route('lista_ingresso.lista')}}">Listas de Ingresso</a>
+              </div>
             </div>
             <!--<div class="col-md-6 align-self-end">
                 <a href="{{route('lista_ingresso.lista')}}" class="btn btn-warning" title="Ver movimentações">Ver listas de ingresso</a>    

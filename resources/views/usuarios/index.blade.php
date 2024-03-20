@@ -25,6 +25,7 @@
             <tr>
                 <th>Nome Completo</th>
                 <th>CPF</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -32,16 +33,32 @@
             @foreach($usuarios as $l)
                 <tr>
                     <td style="color: 
-                        @if($l->status == 0)
+                        @if($l->status == "0")
                             red
                         @endif
                             ">
                             {{$l->name}}</td>
                     <td>{{$l->cpf}}</td>
                     <td>
-                        <a title="Ver Usuário" href="{{ route('usuarios.show', [$l->id]) }}">
+                        @if ($l->status == "0")
+                            <i class="fas fa-window-close" style="color: red;"></i>
+                        @else
+                            <i class="fas fa-check-square" style="color: green;"></i>
+                        @endif
+                    </td>
+                    <td>
+                        <a title="Ver Usuário" style="color: black" href="{{ route('usuarios.show', [$l->id]) }}">
                             <i class="fas fa-home" style="blue"></i>
                         </a>
+                        @if ($l->status == "0")
+                            <a title="Habilitar Usuário" style="color: green" href="{{ route('usuarios.hab', [$l->id]) }}">
+                                        <i class="fas fa-thumbs-up"></i> 
+                            </a>
+                        @else
+                            <a title="Desabilitar Usuário" style="color: red" href="{{ route('usuarios.desab', [$l->id]) }}">
+                                        <i class="fas fa-thumbs-down"></i>
+                            </a>
+                        @endif
                     </td>
                 </tr>
                 
