@@ -35,7 +35,7 @@
                 <img src="/imagens/sisvila.png" width="100px" height="70px">        
             </div>
             <div class="col-md-10">
-                <h2>Movimentação de Moradores</h2>
+                <h2>Movimentação de Usuários</h2>
             </div>
         </div>
         
@@ -67,19 +67,46 @@
                             $morador = DB::table('users')
                                 ->where('cpf', $m->morador_id)
                                 ->first();
+                            $aluno = DB::table('alunos')
+                                ->where('cpf_aluno', $m->morador_id)
+                                ->first();
+                            $resp = DB::table('alunos')
+                                ->where('cpf_resp', $m->morador_id)
+                                ->first();
                           @endphp
-                          @if($morador)
-                          <div class="row" style="margin-top: 5px;">
+                        @if($morador)
+                            <div class="row" style="margin-top: 5px;">
                                 Nome: {{$morador->name}}
-                        </div>
-                        <div class="row" style="margin-top: 5px;">
-                            Movimentação: {{$m->movimento}}
-                        </div>
-                        <div class="row" style="margin-top: 5px;">
-                            Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
-                        </div>
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Movimentação: {{$m->movimento}}
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
+                            </div>
                         @endif
-
+                        @if($aluno)
+                            <div class="row" style="margin-top: 5px;">
+                                Aluno(a): {{$aluno->nome_aluno}}
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Movimentação: {{$m->movimento}}
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
+                            </div>
+                        @endif
+                        @if($resp)
+                            <div class="row" style="margin-top: 5px;">
+                                Responsável por aluno(a): {{$resp->nome_resp}}
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Movimentação: {{$m->movimento}}
+                            </div>
+                            <div class="row" style="margin-top: 5px;">
+                                Data/Hora: {{date('d/m/Y h:m:i', strtotime($m->created_at))}}
+                            </div>
+                        @endif
                     </button>
                 </h5>
             </div>
