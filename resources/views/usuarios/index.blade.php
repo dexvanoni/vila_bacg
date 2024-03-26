@@ -50,6 +50,9 @@
                         <a title="Ver Usuário" style="color: black" href="{{ route('usuarios.show', [$l->id]) }}">
                             <i class="fas fa-home" style="blue"></i>
                         </a>
+                        <a title="Deletar Usuário" style="color: darkred;" href="{{ route('usuarios.delete', [$l->id]) }}">
+                            <i class="fas fa-trash-alt btn-delete" style="blue"></i>
+                        </a>
                         @if ($l->status == "0")
                             <a title="Habilitar Usuário" style="color: green" href="{{ route('usuarios.hab', [$l->id]) }}">
                                         <i class="fas fa-thumbs-up"></i> 
@@ -71,7 +74,16 @@
     </a>
 </div>
 
-<script type="text/javascript">
-    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteButtons = document.querySelectorAll('.btn-delete');
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                if (!confirm('Tem certeza que deseja excluir este usuário?')) {
+                    event.preventDefault(); // Cancela o evento de clique se o usuário escolher "Cancelar"
+                }
+            });
+        });
+    });
 </script>
 @endsection

@@ -146,7 +146,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                    <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" required>
+                    <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" placeholder="Somente números!" required>
                     <small id="resultado"></small>
                 </div>
                 <div class="col-md-6">
@@ -246,7 +246,7 @@
 <input type="hidden" name="status" value="0">
 <div class="form-group row mb-0">
     <div class="col-md-7 offset-md-5">
-        <button type="submit" class="btn btn-success">
+        <button type="submit" class="btn btn-success" id="btnRegistrar">
             REGISTRAR
         </button>
     </div>
@@ -328,7 +328,7 @@
          <div class="row">
             <div class="col-md-4">
                 <label for="cpf_aluno">CPF DO ALUNO <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" >
+                <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" placeholder="Somente números!" onfocusout="validarCPF_aluno(cpf_aluno)" >
                 <small id="resultado_aluno"></small>
             </div>
             <div class="col-md-4">
@@ -389,7 +389,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <input type="text" class="form-control" placeholder="Digite o CPF do aluno e clique em PESQUISAR" id="termoPesquisa">
+            <input type="text" class="form-control" placeholder="Digite o CPF do aluno e clique em PESQUISAR" placeholder="Somente números!" id="termoPesquisa">
         </div>
         <div class="col-md-6">
             <button class="btn btn-secondary" type="button" onclick="pesquisa_aluno();">Pesquisar</button>
@@ -452,7 +452,7 @@
 <div class="row">
     <div class="col-md-6">
         <label for="cpf_resp">CPF<i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-        <input class="form-control" id="cpf_resp" name="cpf_resp" value="{{ old('cpf_resp') }}" maxlength="11" onfocusout="validarCPF_resp(cpf_resp)" >
+        <input class="form-control" id="cpf_resp" name="cpf_resp" value="{{ old('cpf_resp') }}" maxlength="11" placeholder="Somente números!" onfocusout="validarCPF_resp(cpf_resp)" >
         <small id="resultado_cpf_resp"></small>
     </div>
     <div class="col-md-3">
@@ -710,9 +710,11 @@
     if (isCPF(cpf) == true) {
         verificaCPF = 'CPF Válido!';
         document.getElementById("resultado").innerHTML = verificaCPF;
+        document.querySelector('#btnRegistrar').disabled = false;
     } else {
-        verificaCPF = 'Este CPF é INVÁLIDO! Digite novamente.';
+        verificaCPF = 'Este CPF é INVÁLIDO! Digite somente NÚMEROS.';
         document.getElementById("resultado").innerHTML = verificaCPF;
+        document.querySelector('#btnRegistrar').disabled = true;
     };
 
 }
@@ -769,9 +771,11 @@ var verificacpf_aluno;
 if (isCPF(cpf_aluno) == true) {
     verificacpf_aluno = 'CPF Válido!';
     document.getElementById("resultado_aluno").innerHTML = verificacpf_aluno;
+    document.querySelector('#btnSubmit').disabled = false;
 } else {
-    verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite novamente.';
+    verificacpf_aluno = 'Este CPF é INVÁLIDO! Digite somente números.';
     document.getElementById("resultado_aluno").innerHTML = verificacpf_aluno;
+    document.querySelector('#btnSubmit').disabled = true;
 };
 
 }
@@ -829,9 +833,11 @@ var verificacpf_resp;
 if (isCPF(cpf_resp) == true) {
     verificacpf_resp = 'CPF Válido!';
     document.getElementById("resultado_cpf_resp").innerHTML = verificacpf_resp;
+    document.querySelector('#btnSubmit').disabled = false;
 } else {
-    verificacpf_resp = 'Este CPF é INVÁLIDO! Digite novamente.';
+    verificacpf_resp = 'Este CPF é INVÁLIDO! Digite somente números.';
     document.getElementById("resultado_cpf_resp").innerHTML = verificacpf_resp;
+    document.querySelector('#btnSubmit').disabled = true;
 };
 
 }

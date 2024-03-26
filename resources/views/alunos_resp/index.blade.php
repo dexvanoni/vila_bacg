@@ -60,6 +60,9 @@
                             <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
+                            <a title="Deletar Aluno" style="color: darkred;" href="{{ route('aluno_resp.delete', [$l->id]) }}">
+                                <i class="fas fa-trash-alt btn-delete" style="blue"></i>
+                            </a>
                             @if ($l->status_aluno == "0")
                                 <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
                                             <i class="fas fa-thumbs-up"></i> 
@@ -113,6 +116,9 @@
                         <td>
                             <a title="Ver Usuário" href="{{ route('aluno_resp.show', [$r->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
+                            </a>
+                            <a title="Deletar Responsável" style="color: darkred;" href="{{ route('aluno_resp.delete', [$r->id]) }}">
+                                <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
                             @if ($r->status_aluno == "0")
                                 <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$r->id]) }}">
