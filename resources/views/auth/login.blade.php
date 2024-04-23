@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <img src="imagens/sisvila.png" width="300px" height="250px">    
+        <img src="imagens/sisvila2.png" width="250px" height="250px">    
     </div>
     <hr>
     @if(session('desabilitado'))
@@ -21,13 +21,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Faz o Login aqui! Testem GIT</div>
-
+                <div class="card-header">Login</div>
                 <div class="card-body">
-
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">CPF</label>
 
@@ -76,6 +73,7 @@
                                 <a href="{{route('register')}}" class="btn btn-warning">Novo Cadastro</a>
                                 
                                 @if (Route::has('password.request'))
+                                <br>
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         Perdi minha senha!
                                     </a>

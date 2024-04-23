@@ -38,7 +38,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <img src="imagens/sisvila.png" width="300px" height="250px">    
+        <img src="imagens/sisvila2.png" width="300px" height="250px">    
     </div>
     <hr>
     <div class="row justify-content-center">

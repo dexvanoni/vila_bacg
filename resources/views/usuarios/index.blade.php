@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            <img src="/imagens/sisvila.png" width="100px" height="70px">        
+            <img src="/imagens/sisvila2.png" width="80px" height="70px">        
         </div>
         <div class="col-md-12">
             <h2>Usuários do SisVILA</h2>
@@ -25,8 +25,11 @@
             <tr>
                 <th>Nome Completo</th>
                 <th>CPF</th>
+                <th>Função</th>
                 <th>Status</th>
-                <th>Ações</th>
+                @if (Auth::user()->autorizacao <> 'po')
+                    <th>Ações</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -40,12 +43,43 @@
                             {{$l->name}}</td>
                     <td>{{$l->cpf}}</td>
                     <td>
+                        @switch($l->autorizacao)
+                                @case('ad')
+                                    Administrador
+                                    @break
+                                @case('mo')
+                                    Morador
+                                    @break
+                                @case('so')
+                                    Sócio
+                                    @break
+                                @case('fe')
+                                    Funcionário Escola
+                                    @break
+                                @case('ef')
+                                    Efetivo BACG
+                                    @break
+                                @case('ra')
+                                    Responsável por Aluno
+                                    @break
+                                @case('al')
+                                    Aluno
+                                    @break
+                                @case('po')
+                                    Portaria
+                                    @break
+                                @default
+                                    Desconhecido
+                            @endswitch
+                    </td>
+                    <td>
                         @if ($l->status == "0")
                             <i class="fas fa-window-close" style="color: red;"></i>
                         @else
                             <i class="fas fa-check-square" style="color: green;"></i>
                         @endif
                     </td>
+                    @if (Auth::user()->autorizacao <> 'po')
                     <td>
                         <a title="Ver Usuário" style="color: black" href="{{ route('usuarios.show', [$l->id]) }}">
                             <i class="fas fa-home" style="blue"></i>
@@ -63,6 +97,7 @@
                             </a>
                         @endif
                     </td>
+                    @endif
                 </tr>
                 
             @endforeach

@@ -49,24 +49,18 @@ class LiberarController extends Controller
     {
           $perfis = collect([]);
               foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'pe') {
-                  $perfis->push('Permissionário');
-                } elseif ($info == 'de') {
-                  $perfis->push('Dependente');
-                } elseif ($info == 'st') {
-                  $perfis->push('Sócio-Titular');
-                } elseif ($info == 'sd') {
-                  $perfis->push('Sócio-Dependente');
+                if ($info == 'mo') {
+                  $perfis->push('Morador');
+                } elseif ($info == 'so') {
+                  $perfis->push('Sócio');
+                } elseif ($info == 'ef') {
+                  $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
                   $perfis->push('Funcionário da Escola');
                 } elseif ($info == 'ra') {
                   $perfis->push('Responsável por Aluno');
-                } elseif ($info == 'ps') {
-                  $perfis->push('Prestador de Serviço');
                 } elseif ($info == 'po') {
                   $perfis->push('Portaria');
-                } elseif ($info == 'si') {
-                  $perfis->push('Síndico');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
                 }
@@ -90,24 +84,18 @@ class LiberarController extends Controller
 
         $perfis = collect([]);
               foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'pe') {
-                  $perfis->push('Permissionário');
-                } elseif ($info == 'de') {
-                  $perfis->push('Dependente');
-                } elseif ($info == 'st') {
-                  $perfis->push('Sócio-Titular');
-                } elseif ($info == 'sd') {
-                  $perfis->push('Sócio-Dependente');
+                if ($info == 'mo') {
+                  $perfis->push('Morador');
+                } elseif ($info == 'so') {
+                  $perfis->push('Sócio');
+                } elseif ($info == 'ef') {
+                  $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
                   $perfis->push('Funcionário da Escola');
                 } elseif ($info == 'ra') {
                   $perfis->push('Responsável por Aluno');
-                } elseif ($info == 'ps') {
-                  $perfis->push('Prestador de Serviço');
                 } elseif ($info == 'po') {
                   $perfis->push('Portaria');
-                } elseif ($info == 'si') {
-                  $perfis->push('Síndico');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
                 }
@@ -127,24 +115,18 @@ class LiberarController extends Controller
 
         $perfis = collect([]);
               foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'pe') {
-                  $perfis->push('Permissionário');
-                } elseif ($info == 'de') {
-                  $perfis->push('Dependente');
-                } elseif ($info == 'st') {
-                  $perfis->push('Sócio-Titular');
-                } elseif ($info == 'sd') {
-                  $perfis->push('Sócio-Dependente');
+                if ($info == 'mo') {
+                  $perfis->push('Morador');
+                } elseif ($info == 'so') {
+                  $perfis->push('Sócio');
+                } elseif ($info == 'ef') {
+                  $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
                   $perfis->push('Funcionário da Escola');
                 } elseif ($info == 'ra') {
                   $perfis->push('Responsável por Aluno');
-                } elseif ($info == 'ps') {
-                  $perfis->push('Prestador de Serviço');
                 } elseif ($info == 'po') {
                   $perfis->push('Portaria');
-                } elseif ($info == 'si') {
-                  $perfis->push('Síndico');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
                 }

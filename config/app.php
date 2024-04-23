@@ -232,6 +232,8 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
 
+        'Helper' => App\Helpers\Helper::class,
+
     ],
 
 ];

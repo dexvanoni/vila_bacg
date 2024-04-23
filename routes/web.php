@@ -88,6 +88,7 @@ Route::get('/ver_lista/{lista}', 'ListaController@ver_lista')->name('ver_lista')
 use App\Http\Controllers\SendEmailController;
 
 Route::get('send-email-pdf/{convidado}', [SendEmailController::class, 'sendmail'])->name('email_qrcode');
+Route::get('send-email-pdf_cadastro/{convidado}', [SendEmailController::class, 'sendmail_cadastro'])->name('email_qrcode_cadastro');
 
 Route::resource('pets', PetsController::class)->middleware('auth');
 Route::get('/pets/{pets}/delete', 'PetsController@delete')->name('pets.delete')->middleware('auth');

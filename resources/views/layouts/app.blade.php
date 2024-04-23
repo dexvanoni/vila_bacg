@@ -1,3 +1,32 @@
+@php
+                function getProfileName($profile)
+                {
+                    switch ($profile) {
+                        case 'ad':
+                            return 'Administrador';
+                        case 'so':
+                            return 'Sócio';
+                        case 'mo':
+                            return 'Morador';
+                        case 'fe':
+                            return 'Funcionário Escola';
+                        case 'ef':
+                            return 'Efetivo BACG';
+                        case 'ra':
+                            return 'Responsável por Aluno';
+                        case 'po':
+                            return 'Portaria';
+                        case 'in':
+                            return 'Inteligência';
+                        case 'al':
+                            return 'Aluno';
+
+                        // Adicione mais casos conforme necessário
+                        default:
+                            return 'Desconhecido';
+                    }
+                }
+              @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -45,7 +74,7 @@
 
     jQuery(function ($) {
         //ao clicar em qualquer parte do sidebar ela some.
-      $(".page-wrapper").removeClass("toggled");
+      //$(".page-wrapper").removeClass("toggled");
         // -----------------------------------------------------
 
       $(".sidebar-dropdown > a").click(function() {
@@ -172,44 +201,14 @@
             </span>
             <span class="user-role">
               @isset(Auth::user()->autorizacao)
-              <?php
-              $perfis = collect([]);
-              foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'pe') {
-                  $perfis->push('Permissionário');
-                } elseif ($info == 'de') {
-                  $perfis->push('Dependente');
-                } elseif ($info == 'st') {
-                  $perfis->push('Sócio-Titular');
-                } elseif ($info == 'sd') {
-                  $perfis->push('Sócio-Dependente');
-                } elseif ($info == 'fe') {
-                  $perfis->push('Funcionário da Escola');
-                } elseif ($info == 'ra') {
-                  $perfis->push('Responsável por Aluno');
-                } elseif ($info == 'ps') {
-                  $perfis->push('Prestador de Serviço');
-                } elseif ($info == 'po') {
-                  $perfis->push('Portaria');
-                } elseif ($info == 'si') {
-                  $perfis->push('Síndico');
-                } elseif ($info == 'ad') {
-                  $perfis->push('Administrador');
-                }
-                $perfis->all();
-              }
-              ?>
-              @foreach($perfis as $p)
-              {{$p}}<br><br>
-              @endforeach
-              @if(!$perfis->contains('Portaria'))
-              <!--<a title="QR-Code" href="{{ route('qrcode_organico', [Auth::user()->id]) }}">
-               <i class="fas fa-qrcode"></i> Meu QR-Code
-             </a>-->
-             <br>
-             @endif
+              <!--retirado verificação direta de perfil. Colocado em AppServiceProvider a variavel $userProfiles para verificação do perfil do usuário logado em todas as views-->
+              
+                @foreach($userProfiles as $profile)
+                    Perfil: {{ getProfileName($profile) }}<br>
+                @endforeach
+
              @isset(Auth::user()->local)
-             Local de Acesso: {{Auth::user()->local}}
+             <br>Local de Acesso: {{Auth::user()->local}}
              @endisset
              <br>
              <span class="user-status">
@@ -233,24 +232,7 @@
           </span>
         </div>
       </div>
-      <!-- sidebar-header  -->
-      <!--
-      @isset(Auth::user()->name)
-      <div class="sidebar-search">
-        <div>
-          <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="Search...">
-            <div class="input-group-append">
-              <span class="input-group-text">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    -->
-    @endisset
-    <!-- sidebar-search  -->
+      
     @isset(Auth::user()->name)
     <div class="sidebar-menu">
       <ul>
@@ -264,7 +246,7 @@
             <span class="badge badge-pill badge-warning">New</span>
           </a>
         </li>
-        @if($perfis->contains('Administrador') || $perfis->contains('Dependente') || $perfis->contains('Permissionário'))
+        @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-users"></i>
@@ -280,7 +262,7 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if($perfis->contains('Administrador'))
+              @if(in_array('ad', $userProfiles))
               <li>
                 <a href="{{ route('register') }}">Cadastrar
                 </a>
@@ -299,7 +281,7 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Síndico'))
+        @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-city"></i>
@@ -307,7 +289,7 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if($perfis->contains('Administrador'))
+              @if(in_array('ad', $userProfiles))
               <li>
                 <a href="{{route('locais.create')}}">Adicionar</a>
               </li>
@@ -319,7 +301,7 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Síndico') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário'))
+        @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-newspaper"></i>
@@ -336,12 +318,12 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if($perfis->contains('Administrador') || $perfis->contains('Síndico'))
+              @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles))
               <li>
                 <a href="{{route('avisos.create')}}">Novo</a>
               </li>
               @endif
-              @if($perfis->contains('Administrador') || $perfis->contains('Síndico') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário'))
+              @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles))
               <li>
                 <a href="{{route('avisos.index')}}">Lista</a>
               </li>
@@ -350,7 +332,7 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Síndico') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Prestador de Serviço'))
+        @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-newspaper"></i>
@@ -366,12 +348,12 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if($perfis->contains('Administrador') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Prestador de Serviço'))
+              @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
               <li>
                 <a href="{{route('ocorrencias.create')}}">Novo</a>
               </li>
               @endif
-              @if($perfis->contains('Administrador') || $perfis->contains('Síndico') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Prestador de Serviço'))
+              @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
               <li>
                 <a href="{{route('ocorrencias.index')}}">Lista</a>
               </li>
@@ -380,7 +362,7 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Permissionário') || $perfis->contains('Dependente') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Portaria') || $perfis->contains('Síndico'))
+        @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('po', $userProfiles) || in_array('si', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-hammer"></i>
@@ -388,12 +370,12 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if($perfis->contains('Administrador') || $perfis->contains('Permissionário') || $perfis->contains('Dependente') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Portaria'))
+              @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('po', $userProfiles))
               <li>
                 <a href="#">Solicitação</a>
               </li>
               @endif
-              @if($perfis->contains('Administrador') || $perfis->contains('Permissionário') || $perfis->contains('Dependente') || $perfis->contains('Sócio-Titular') || $perfis->contains('Funcionário da Escola') || $perfis->contains('Portaria') || $perfis->contains('Síndico'))
+              @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('po', $userProfiles) || in_array('si', $userProfiles))
               <li>
                 <a href="#">Acompanhamento</a>
               </li>
@@ -402,29 +384,8 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Permissionário') || $perfis->contains('Síndico'))
-        <li class="sidebar-dropdown">
-          <a href="#">
-            <i class="fas fa-wrench"></i>
-            <span>Manutenção (PACG)</span>
-          </a>
-          <div class="sidebar-submenu">
-            <ul>
-              @if($perfis->contains('Administrador') || $perfis->contains('Permissionário'))
-              <li>
-                <a href="#">Solicitação</a>
-              </li>
-              @endif
-              @if($perfis->contains('Administrador') || $perfis->contains('Permissionário') || $perfis->contains('Síndico'))
-              <li>
-                <a href="#">Acompanhamento</a>
-              </li>
-              @endif
-            </ul>
-          </div>
-        </li>
-        @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Sócio-Dependente'))
+        
+        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-swimmer"></i>
@@ -445,7 +406,7 @@
           </div>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Portaria') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Sócio-Dependente'))
+        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fab fa-readme"></i>
@@ -466,10 +427,32 @@
           </div>
         </li>
         @endif
+        @if(in_array('ad', $userProfiles) || in_array('in', $userProfiles))
+        <li class="sidebar-dropdown">
+          <a href="#">
+            <i class="fas fa-user-secret"></i>
+            <span>Inteligência</span>
+          </a>
+          <div class="sidebar-submenu">
+            <ul>
+              @if(in_array('in', $userProfiles))
+              <li>
+                <a href="#">Realizar parecer</a>
+              </li>
+              @endif
+              @if(in_array('ad', $userProfiles) || in_array('in', $userProfiles))
+              <li>
+                <a href="#">Lista</a>
+              </li>
+              @endif
+            </ul>
+          </div>
+        </li>
+        @endif
+        @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
         <li class="header-menu">
           <span>Portaria</span>
         </li>
-        @if($perfis->contains('Administrador') || $perfis->contains('Dependente') || $perfis->contains('Permissionário') || $perfis->contains('Sócio-Titular') || $perfis->contains('Sócio-Dependente'))
         <li>
           <a href="{{route('liberacao.create')}}">
             <i class="fas fa-door-open"></i>
@@ -478,7 +461,7 @@
           </a>
         </li>
         @endif
-        @if($perfis->contains('Administrador') || $perfis->contains('Portaria'))
+        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles))
         <li>
           <a href="{{route('liberacao.index')}}">
             <i class="fas fa-car"></i>
@@ -487,6 +470,7 @@
           </a>
         </li>
         @endif
+        @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
         <li>
           <a href="{{route('lista_ingresso.index')}}">
             <i class="fas fa-address-book"></i>
@@ -494,6 +478,7 @@
             <span class="badge badge-pill badge-warning">New</span>
           </a>
         </li>
+        @endif
       </ul>
     </div>
     @endisset

@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            <img src="/imagens/sisvila.png" width="100px" height="70px">        
+            <img src="/imagens/sisvila2.png" width="80px" height="70px">        
         </div>
         <div class="col-md-12">
             <h2>Alunos e Responsáveis Cadastrados no SisVILA</h2>

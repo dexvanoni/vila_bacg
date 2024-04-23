@@ -21,7 +21,7 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status')->get();
+        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao')->get();
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 

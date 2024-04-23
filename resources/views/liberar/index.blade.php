@@ -1,39 +1,10 @@
 @extends('layouts.app')
 
-
-<?php
-$perfis = collect([]);
-              foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'pe') {
-                  $perfis->push('Permissionário');
-                } elseif ($info == 'de') {
-                  $perfis->push('Dependente');
-                } elseif ($info == 'st') {
-                  $perfis->push('Sócio-Titular');
-                } elseif ($info == 'sd') {
-                  $perfis->push('Sócio-Dependente');
-                } elseif ($info == 'fe') {
-                  $perfis->push('Funcionário da Escola');
-                } elseif ($info == 'ra') {
-                  $perfis->push('Responsável por Aluno');
-                } elseif ($info == 'ps') {
-                  $perfis->push('Prestador de Serviço');
-                } elseif ($info == 'po') {
-                  $perfis->push('Portaria');
-                } elseif ($info == 'si') {
-                  $perfis->push('Síndico');
-                } elseif ($info == 'ad') {
-                  $perfis->push('Administrador');
-                }
-                $perfis->all();
-              };
-?>
-
 @section('content')
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            <img src="/imagens/sisvila.png" width="100px" height="70px">        
+            <img src="/imagens/sisvila2.png" width="80px" height="70px">        
         </div>
         <div class="col-md-10">
             <h2>Lista de Visitantes Cadastrados</h2>
@@ -41,7 +12,7 @@ $perfis = collect([]);
     </div>
     
     <hr>
-    @if ($perfis->contains('Administrador') || $perfis->contains('Portaria'))
+    @if (in_array('ad', $userProfiles) || in_array('po', $userProfiles))
         <div class="row">
             <div class="col-md-6">
                 <a href="{{route('movimentacao')}}" class="btn btn-info" title="Movimentações">ENTRADA/SAÍDA</a>    

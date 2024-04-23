@@ -133,6 +133,12 @@ class RegisterController extends Controller
             'bairro_func' => $data['bairro_func'],
             'arquivo_cnh' => $fileNameToStore_cnh
         ]);
+
+         //ENVIAR QR-CODE do visitante para email do liberador
+    
+        return redirect()
+                    ->route('email_qrcode_cadastro', $onesignal_id);
+
          return redirect()
                     ->route('login')
                     ->with('success', 'Você fez sua pré-inscrição. Aguarde o contato de confirmação de cadastro!!');

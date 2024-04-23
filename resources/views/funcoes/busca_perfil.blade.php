@@ -1,23 +1,9 @@
-<?php
-
-namespace App\Http\Middleware;
-
-use Closure;
-
-class Dependente
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        $perfis = collect([]);
-              foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                if ($info == 'mo') {
+@extends('layouts.app')
+@section('perfil')
+  @php
+    $perfis = collect([]);
+                foreach(explode(',',  Auth::user()->autorizacao) as $info){
+                  if ($info == 'mo') {
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
@@ -32,11 +18,7 @@ class Dependente
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
                 }
-                $perfis->all();
-              }
-            if(!$perfis->contains('Morador')) {
-                return redirect('home');
-            }
-         return $next($request);
-    }
-}
+                  $perfis->all();
+                }
+  @endphp
+@endsection

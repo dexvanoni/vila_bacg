@@ -3,27 +3,21 @@
 @php
  $perfis = collect([]);
                       foreach(explode(',',  $usuario->autorizacao) as $info){
-                        if ($info == 'pe') {
-                          $perfis->push('Permissionário');
-                        } elseif ($info == 'de') {
-                          $perfis->push('Dependente');
-                        } elseif ($info == 'st') {
-                          $perfis->push('Sócio-Titular');
-                        } elseif ($info == 'sd') {
-                          $perfis->push('Sócio-Dependente');
-                        } elseif ($info == 'fe') {
-                          $perfis->push('Funcionário da Escola');
-                        } elseif ($info == 'ra') {
-                          $perfis->push('Responsável por Aluno');
-                        } elseif ($info == 'ps') {
-                          $perfis->push('Prestador de Serviço');
-                        } elseif ($info == 'po') {
-                          $perfis->push('Portaria');
-                        } elseif ($info == 'si') {
-                          $perfis->push('Síndico');
-                        } elseif ($info == 'ad') {
-                          $perfis->push('Administrador');
-                        }
+                        if ($info == 'mo') {
+                  $perfis->push('Morador');
+                } elseif ($info == 'so') {
+                  $perfis->push('Sócio');
+                } elseif ($info == 'ef') {
+                  $perfis->push('Efetivo BACG');
+                } elseif ($info == 'fe') {
+                  $perfis->push('Funcionário da Escola');
+                } elseif ($info == 'ra') {
+                  $perfis->push('Responsável por Aluno');
+                } elseif ($info == 'po') {
+                  $perfis->push('Portaria');
+                } elseif ($info == 'ad') {
+                  $perfis->push('Administrador');
+                }
                         $perfis->all();
                       }
 @endphp
@@ -32,7 +26,7 @@
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
-            <img src="/imagens/sisvila.png" width="100px" height="70px">        
+            <img src="/imagens/sisvila2.png" width="80px" height="70px">        
         </div>
     </div>
     <hr>

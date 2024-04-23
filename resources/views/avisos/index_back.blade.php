@@ -8,7 +8,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <img src="/imagens/sisvila.png" width="100px" height="70px">    
+        <img src="/imagens/sisvila2.png" width="80px" height="70px">    
     </div>
     <hr>
     <div class="row justify-content-center">
