@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -60,19 +61,17 @@ class RegisterController extends Controller
 
     protected function validator(array $data)
     {
-        
         return Validator::make($data, [
-            /*'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'autorizacao' => ['required', 'string', 'max:255'],
-            'local' => ['required', 'string', 'max:255'],
-            'telefone' => ['required', 'string', 'max:255'],
+            //'name' => ['required', 'string', 'max:255'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            //'autorizacao' => ['required', 'string', 'max:255'],
+            //'local' => ['required', 'string', 'max:255'],
+            //'telefone' => ['required', 'string', 'max:255'],
             //'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'cpf' => ['required', 'string', 'min:11'],
-            'rg' => ['required', 'string', 'min:4'],
+            //'cpf' => ['unique:users,cpf'],
+            //'rg' => ['required', 'string', 'min:4'],
             //'arquivo' => ['image'],*/
         ]);
-        
     }
 
     /**
@@ -83,8 +82,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //dd($data);
-        //exit;
+        $validator = Validator::make($data, [
+            'email' => ['unique:users,email'],
+            'cpf' => ['unique:users,cpf'],
+        ]);
+
+        if ($validator->fails()) {
+            // Extrai todos os erros do validador
+                $errors = $validator->errors();
+
+                // Apenas para exemplo: logar erros para depuração
+                $erros = $errors->toArray();
+
+                // Opcionalmente, verifique se um campo específico tem erros
+                if ($errors->has('email')) {
+                    echo "SisVila Informa:<br><br>Erro no campo EMAIL!<br>Este EMAIL já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador.";
+                }
+                if ($errors->has('cpf')) {
+                    echo "SisVila Informa:<br><br>Erro no campo CPF! <br>Este CPF já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. ";
+                }
+
+                exit;
+        }
+
+
         // Handle File Upload
         if(request()->hasFile('arquivo')){
             // Get filename with the extension

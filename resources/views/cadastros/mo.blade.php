@@ -62,6 +62,9 @@
                     <label for="email">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Este será o login no sistema."></i></label>
                     <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required >
                 </div>
+                @if ($errors->has('email'))
+                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -76,6 +79,9 @@
                     <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
                     <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" placeholder="Somente números!" required>
                     <small id="resultado"></small>
+                    @if ($errors->has('cpf'))
+                        <small class="text-danger">{{ $errors->first('cpf') }}</small>
+                    @endif
                 </div>
             </div>
             <div class="col-md-3">
@@ -297,7 +303,6 @@
         // Ele mostra os dados preenchidos e confirma o envio dos dados ou não.
     //---------------------------------------------------------------------------------------------------
 
-    //---------------------------------------------------------------------------------------------------
     // traz o nome do arquivo que foi feito upload no campo arquivo
     function displayFileName() {
     // Obtém o elemento de entrada de arquivo

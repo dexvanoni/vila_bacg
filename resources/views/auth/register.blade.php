@@ -81,61 +81,7 @@
        // 4th
   });
 </script>
-<script>
 
-//PESQUISA DE ALUNO PELO RESPONSÁVEL COM O CPF DO ALUNO
-    function pesquisa_aluno() {
-
-        var termoPesquisa = $('#termoPesquisa').val();
-
-        $.ajax({
-            url: '{{ route("pesquisa") }}',
-            type: 'GET',
-            dataType: 'json',
-            data: { termo_pesquisa: $('#termoPesquisa').val() },
-            success: function (data) {
-                try {
-                    exibirResultados(data);
-                    // Habilitar ou desabilitar o botão de envio com base nos resultados
-                    $('#btnSubmit').prop('disabled', data.length === 0);
-                } catch (e) {
-                    console.error("Erro ao processar dados JSON: ", e);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Erro na requisição AJAX: ", error);
-                console.log("Resposta do servidor:", xhr.responseText);
-            }
-        });
-
-        function exibirResultados(resultados) {
-            var listaResultados = $('#resultadosPesquisa');
-            listaResultados.empty();
-
-            // Verificar se resultados é uma coleção iterável
-            if (Array.isArray(resultados) && resultados.length > 0) {
-                $('#btnSubmit').prop('enable');
-                // Iterar sobre os resultados
-                resultados.forEach(function (resultado) {
-                    // Verificar se o campo nome está vazio
-                    var nomeAluno = resultado.nome_aluno || 'ESTE ALUNO NÃO ESTÁ CADASTRADO!';
-
-                    listaResultados.append(nomeAluno);
-                    // Preencher os inputs com os valores
-                    $('#nome_aluno_resp').val(nomeAluno);
-                    $('#cpf_aluno_resp').val(termoPesquisa);
-                });
-
-                // Exibir a div se houver resultados
-                $('#divResultados').show();
-            } else {
-                listaResultados.append('<li style="color: red"> ESTE ALUNO NÃO ESTÁ CADASTRADO! </li>');
-                // Ocultar a div se não houver resultados
-                $('#divResultados').hide();
-            }
-        }
-    };
-</script>
 
 <script type="text/javascript">
 

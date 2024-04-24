@@ -540,105 +540,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    //---------------------------------------------------------------------------------------------------
-    // Função para verificar se todos os campos obrigatórios estão preenchidos
-    function verificarCampos() {
-        // Obter todos os campos obrigatórios no formulário
-        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
 
-        // Verificar se todos os campos obrigatórios estão preenchidos
-        const todosPreenchidos = Array.from(camposObrigatorios).every(
-            (campo) => campo.value.trim() !== ""
-        );
-
-        const submitButton = document.getElementById("envia");
-
-        // Mostrar ou esconder o botão de envio
-        if (todosPreenchidos) {
-            submitButton.style.display = "block";
-        } else {
-            submitButton.style.display = "none";
-        }
-    }
-
-    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
-    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
-    camposObrigatorios.forEach((campo) => {
-        campo.addEventListener("input", verificarCampos);
-    });
-
-    // Verificar campos quando a página carrega
-     verificarCampos();
-    //---------------------------------------------------------------------------------------------------
-    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
-    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
-        var local = $('#local').val();
-        var email = $('#email').val();
-        var name = $('#name').val();
-        var rg = $('#rg').val();
-        var cpf = $('#cpf').val();
-        var telefone = $('#telefone').val();
-        var nascimento = $('#nascimento').val();
-        var password = $('#password').val();
-        var passwordConfirmation = $('#password_confirmation').val();
-        var num_cnh = $('#num_cnh').val();
-        var categoria_cnh = $('#categoria_cnh').val();
-        var validade_cnh = $('#validade_cnh').val();
-
-        var condutor_select = $('input[name="condutor"]:checked');
-
-          if (condutor_select.length > 0) {
-            console.log(condutor_select.val());
-            var condutor = condutor_select.val();
-          }
-
-        var arquivo = $('#arquivo')[0];
-        var imagePreview = $('#confirm-image-arquivo');
-        var arquivo_cnh = $('#arquivo_cnh')[0];
-        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
-
-        $('#confirm-name').text(name);
-        $('#confirm-email').text(email);
-        $('#confirm-local').text(local);
-        $('#confirm-rg').text(rg);
-        $('#confirm-cpf').text(cpf);
-        $('#confirm-telefone').text(telefone);
-        $('#confirm-nascimento').text(nascimento);
-        $('#confirm-password').text(password);
-        $('#confirm-condutor').text(condutor);
-        $('#confirm-num_cnh').text(num_cnh);
-        $('#confirm-categoria_cnh').text(categoria_cnh);
-        $('#confirm-validade_cnh').text(validade_cnh);
-
-        if (arquivo.files && arquivo.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                imagePreview.attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(arquivo.files[0]);
-        } else {
-            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
-        }
-        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                imagePreview_cnh.attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(arquivo_cnh.files[0]);
-        } else {
-            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
-        }
-    });
-
-    // Enviar o formulário ao confirmar
-    $('#confirm-submit').click(function() {
-        $('#registration-form').submit();
-    });
-    //---------------------------------------------------------------------------------------------------
 
     $('.dropdown-toggle').dropdown();
     $('#lista_usuarios').DataTable({
@@ -779,8 +681,131 @@
 
     $('[data-toggle="tooltip"]').tooltip();
       
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnhFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimentoFormatada);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnhFormatada);
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+    //---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
 
   });
+  // TERMINA READY
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 

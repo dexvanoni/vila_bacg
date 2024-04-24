@@ -1,7 +1,7 @@
 @if(Auth::user()->funcao == 'in')
 <p>
     <div class="row justify-content-center text-center">
-        <div class="col-lg-12 d-flex justify-content-center text-center" style="width: 370px;">
+        <div class="col-lg-4 d-flex justify-content-center text-center" style="width: 370px;">
             <a href="{{route('usuarios.index')}}" class="btn visitante2 btn-secondary" style="background-color: indianred; border-color: indianred;">
               <i class="fa fa-user-secret fa-2x"></i><br/>
                 Usuários
