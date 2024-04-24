@@ -70,7 +70,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Entrar
                                 </button>
-                                <a href="{{route('register')}}" class="btn btn-warning">Novo Cadastro</a>
+                                <a href="{{ route('select') }}" class="btn btn-warning">Novo Cadastro</a>
                                 
                                 @if (Route::has('password.request'))
                                 <br>

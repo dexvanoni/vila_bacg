@@ -122,3 +122,8 @@ Route::get('/aluno_resp/{aluno_resp}/delete', 'CadAlunoController@delete')->name
 Route::get('/aluno_resp/{aluno_resp}/desab', 'CadAlunoController@desabilitar')->name('aluno_resp.desab')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/hab', 'CadAlunoController@habilitar')->name('aluno_resp.hab')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/edit', 'CadAlunoController@edit')->name('aluno_resp.edit')->middleware('auth');
+
+Route::get('/select', 'UsuariosController@select')->name('select');
+
+// ALTERA A ROTA PADRÃO register PARA RECEBER O PARAMETRO DA VIEW select (qual usuário será cadastrado)
+Route::get('/register/{param?}', 'Auth\RegisterController@showRegistrationForm')->name('register');

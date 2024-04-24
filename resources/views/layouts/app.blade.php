@@ -114,6 +114,7 @@
   
   <style>
     @yield('style_morador')
+    @yield('cad_morador')
 
     .alerta {
       height: 100px;
@@ -264,7 +265,7 @@
             <ul>
               @if(in_array('ad', $userProfiles))
               <li>
-                <a href="{{ route('register') }}">Cadastrar
+                <a href="{{ route('select') }}">Cadastrar
                 </a>
               </li>
               <li>
@@ -539,6 +540,106 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    //---------------------------------------------------------------------------------------------------
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimento);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnh);
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    //---------------------------------------------------------------------------------------------------
+
     $('.dropdown-toggle').dropdown();
     $('#lista_usuarios').DataTable({
       dom: 'Bfrtip',
@@ -596,8 +697,14 @@
                 var opcaoSelecionada = $(this).val();
                 if (opcaoSelecionada === 'sim') {
                     $('#condutor').show();
+                    $('#sim_condutor').show();
+                    $('#nao_condutor').hide();
+                    $('#foto_cnh').show();
                 } else if (opcaoSelecionada === 'nao') {
                     $('#condutor').hide();
+                    $('#foto_cnh').show();
+                    $('#nao_condutor').show();
+                    $('#sim_condutor').hide();
                 }
     });
 
@@ -659,6 +766,7 @@
     
     //aparece a div de cadastro dos alunos na view REGISTER    
     $("#condutor").hide();
+    $("#foto_cnh").hide();
     $("#condutor_resp").hide();
     $("#dados_alunos").hide();
     $("#divResultados").hide();
@@ -708,6 +816,8 @@
       $('.result').css('background-color', 'red');
     }};
   </script>
+
+
 
 </body>
 </html>

@@ -35,6 +35,11 @@ class UsuariosController extends Controller
         //
     }
 
+    public function select()
+    {
+        return view('cadastros.select');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

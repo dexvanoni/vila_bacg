@@ -51,6 +51,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    public function showRegistrationForm($param = null)
+    {
+        // Passar o parâmetro para a view
+        return view('auth.register', ['param' => $param]);
+    }
+
     protected function validator(array $data)
     {
         
@@ -109,15 +116,16 @@ class RegisterController extends Controller
             $fileNameToStore_cnh = 'noimage_cnh.png';
         }
 
-        $senha = '12345678';
+        //$senha = '12345678';
          User::create([
             'name' => $data['name'],
+            'nascimento' => $data['nascimento'],
             'email' => $data['email'],
             'autorizacao' => $data['autorizacao'],
             'local' => $data['local'],
             'telefone' => $data['telefone'],
             'ramal' => "0",
-            'password' => Hash::make($senha),
+            'password' => Hash::make($data['password']),
             'cpf' => $data['cpf'],
             'rg' => $data['rg'],
             'status' => $data['status'],
@@ -136,8 +144,8 @@ class RegisterController extends Controller
 
          //ENVIAR QR-CODE do visitante para email do liberador
     
-        return redirect()
-                    ->route('email_qrcode_cadastro', $onesignal_id);
+        //return redirect()
+                    //->route('email_qrcode_cadastro', $onesignal_id);
 
          return redirect()
                     ->route('login')
