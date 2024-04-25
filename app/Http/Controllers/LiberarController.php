@@ -53,6 +53,8 @@ class LiberarController extends Controller
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ef') {
                   $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
@@ -63,6 +65,8 @@ class LiberarController extends Controller
                   $perfis->push('Portaria');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
                 $perfis->all();
               };
@@ -88,6 +92,8 @@ class LiberarController extends Controller
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ef') {
                   $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
@@ -98,6 +104,8 @@ class LiberarController extends Controller
                   $perfis->push('Portaria');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
                 $perfis->all();
               };
@@ -119,6 +127,8 @@ class LiberarController extends Controller
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ef') {
                   $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
@@ -129,6 +139,8 @@ class LiberarController extends Controller
                   $perfis->push('Portaria');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
                 $perfis->all();
               };

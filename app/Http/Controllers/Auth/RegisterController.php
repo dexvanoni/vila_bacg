@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Redirect;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -29,9 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
-
+    protected $redirectTo = '/cadastro';
 
     /**
      * Create a new controller instance.
@@ -167,9 +166,5 @@ class RegisterController extends Controller
     
         //return redirect()
                     //->route('email_qrcode_cadastro', $onesignal_id);
+    }}
 
-         return redirect()
-                    ->route('login')
-                    ->with('success', 'Você fez sua pré-inscrição. Aguarde o contato de confirmação de cadastro!!');
-    }
-}

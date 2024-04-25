@@ -71,13 +71,13 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="rg">RG</label>
-                    <input class="form-control" id="rg" name="rg" value="{{ old('rg') }}" required>
+                    <input type="text" class="form-control" id="rg" name="rg" value="{{ old('rg') }}" placeholder="Somente números" required>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                    <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" placeholder="Somente números!" required>
+                    <input class="form-control" id="cpf" name="cpf" value="{{ old('cpf') }}" maxlength="11" onfocusout="validarCPF(cpf)" placeholder="Somente números" required>
                     <small id="resultado"></small>
                     @if ($errors->has('cpf'))
                         <small class="text-danger">{{ $errors->first('cpf') }}</small>
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                   <label for="password">Senha</label>
+                   <label for="password">Criar senha de acesso</label>
                    <input class="form-control" type="password" id="password" name="password" required>
                    <span id="password-error" style="color: red;"></span> <!-- Para exibir mensagens de erro -->
                </div>
@@ -133,14 +133,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="num_cnh">Nº CNH</label>
-                <input class="form-control" id="num_cnh" name="num_cnh" value="{{ old('num_cnh') }}">
+                <input class="form-control" id="num_cnh" name="num_cnh" value="{{ old('num_cnh') }}" placeholder="Somente números">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="categoria_cnh">Categoria CNH</label>
-                <input class="form-control" type="text" id="categoria_cnh" name="categoria_cnh" value="{{ old('categoria_cnh') }}" >
-            </div>
+                        <label for="categoria_cnh">Categoria CNH</label>
+                        <select class="form-control" id="categoria_cnh" name="categoria_cnh">
+                            <option>A</option>
+                            <option>B</option>
+                            <option>AB</option>
+                            <option>AC</option>
+                            <option>AD</option>
+                            <option>AE</option>
+                        </select>
+                    </div> 
         </div>
         <div class="col-md-4">
             <div class="form-group">

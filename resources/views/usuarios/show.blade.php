@@ -15,8 +15,12 @@
                   $perfis->push('Responsável por Aluno');
                 } elseif ($info == 'po') {
                   $perfis->push('Portaria');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
                         $perfis->all();
                       }

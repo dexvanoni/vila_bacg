@@ -40,6 +40,8 @@
                   $perfis->push('Portaria');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
                 $perfis->all();
               };

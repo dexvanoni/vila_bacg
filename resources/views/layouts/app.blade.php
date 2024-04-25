@@ -70,6 +70,7 @@
   <!-- Styles -->
 
   <!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
+
   <script type="text/javascript">
 
     jQuery(function ($) {
@@ -108,6 +109,8 @@
     });
     
   </script>
+
+ 
 
   <script src="{{ asset('/js/jsQR.js') }}"></script>
 
@@ -537,9 +540,55 @@
 <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.print.min.js"></script>
+ 
 
 <script type="text/javascript">
   $(document).ready(function () {
+
+    $("#rg").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+    $("#num_cnh").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+    
+    $("#cpf").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
 
 
     $('.dropdown-toggle').dropdown();

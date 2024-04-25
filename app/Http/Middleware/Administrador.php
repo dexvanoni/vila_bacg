@@ -22,6 +22,8 @@ class Administrador
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ef') {
                   $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {

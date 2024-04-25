@@ -127,3 +127,6 @@ Route::get('/select', 'UsuariosController@select')->name('select');
 
 // ALTERA A ROTA PADRÃO register PARA RECEBER O PARAMETRO DA VIEW select (qual usuário será cadastrado)
 Route::get('/register/{param?}', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::get('/cadastro', function () {
+    return view('cadastros.cadastro_realizado');
+})->name('cadastro');

@@ -3,10 +3,12 @@
   @php
     $perfis = collect([]);
                 foreach(explode(',',  Auth::user()->autorizacao) as $info){
-                  if ($info == 'mo') {
+                if ($info == 'mo') {
                   $perfis->push('Morador');
                 } elseif ($info == 'so') {
                   $perfis->push('Sócio');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 } elseif ($info == 'ef') {
                   $perfis->push('Efetivo BACG');
                 } elseif ($info == 'fe') {
@@ -17,8 +19,10 @@
                   $perfis->push('Portaria');
                 } elseif ($info == 'ad') {
                   $perfis->push('Administrador');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
                 }
-                  $perfis->all();
-                }
+                $perfis->all();
+              }
   @endphp
 @endsection
