@@ -10,7 +10,7 @@ class CadAluno extends Model
     protected $table = "alunos";
     protected $fillable = [
 
-        'nome_aluno',
+            'nome_aluno',
             'local_aluno',
             'dt_nascimento_aluno',
             'serie_aluno',
@@ -21,6 +21,10 @@ class CadAluno extends Model
             'bairro_aluno',
             'cidade_aluno',
             'cep_aluno',
+            'status_aluno',
+            'tipo_aluno',
+            'arquivo_aluno',
+            
             'nome_resp',
             'nome_aluno_resp',
             'cpf_aluno_resp',
@@ -37,10 +41,6 @@ class CadAluno extends Model
             'arquivo_resp',
             'tel_resp',
             'email_resp',
-            'status_aluno',
-            'tipo_aluno',
-            'arquivo_aluno',
             'arquivo_cnh_resp'
-
     ];
 }

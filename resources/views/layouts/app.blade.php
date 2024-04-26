@@ -36,6 +36,8 @@
   <!-- Bootstrap CSS -->
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+
   
   <link rel="stylesheet" href="{{URL::asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css')}}" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.13.3/b-2.3.5/b-colvis-2.3.5/b-html5-2.3.5/b-print-2.3.5/datatables.min.css" rel="stylesheet"/>
@@ -67,6 +69,7 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+
   <!-- Styles -->
 
   <!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet">-->
@@ -75,7 +78,7 @@
 
     jQuery(function ($) {
         //ao clicar em qualquer parte do sidebar ela some.
-      //$(".page-wrapper").removeClass("toggled");
+      $(".page-wrapper").removeClass("toggled");
         // -----------------------------------------------------
 
       $(".sidebar-dropdown > a").click(function() {
@@ -181,9 +184,11 @@
     <body>
 
       <div class="page-wrapper chiller-theme toggled">
+        @if(Auth::check())
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
           <i class="fas fa-bars"></i>
         </a>
+
         <nav id="sidebar" class="sidebar-wrapper">
           <div class="sidebar-content">
             <div class="sidebar-brand">
@@ -509,6 +514,9 @@
   </div>
   @endisset
 </nav>
+
+
+@endif
 <!-- sidebar-wrapper  -->
 <main class="page-content">
  <div id="app">
@@ -532,6 +540,7 @@
 </div>
 
 <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"  defer></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
@@ -540,7 +549,6 @@
 <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.print.min.js"></script>
- 
 
 <script type="text/javascript">
   $(document).ready(function () {
@@ -574,7 +582,7 @@
         // Bloqueia outras teclas
         e.preventDefault();
       });
-    
+
     $("#cpf").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
@@ -729,10 +737,13 @@
     
 
     $('[data-toggle="tooltip"]').tooltip();
-      
-//---------------------------------------------------------------------------------------------------
+
+      //---------------------------------------------------------------------------------------------------
     // ==============  FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
 //---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'mo')
+
     // Função para verificar se todos os campos obrigatórios estão preenchidos
     function verificarCampos() {
         // Obter todos os campos obrigatórios no formulário
@@ -849,8 +860,162 @@
         $('#registration-form').submit();
     });
     
-    //---------------------------------------------------------------------------------------------------
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
     // ==============  FECHA FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE ALUNO EM register (CADASTROS\AL.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'al')
+
+//---------------------------------------------------------------------------------------------------
+// Função para seleção de escola ou EMEI e apresentas as séries e grupos
+const dropdown1 = document.getElementById('local_aluno');
+const dropdown2 = document.getElementById('serie_aluno');
+
+dropdown1.addEventListener('change', function() {
+  const selectedOption = dropdown1.value;
+
+  // Clear existing options in dropdown2
+  dropdown2.options.length = 1;
+
+  // Populate dropdown2 with options based on selectedOption
+  if (selectedOption !== '') {
+    const optionsData = {
+      'a': ['Grupo 2', 'Grupo 3', 'Grupo 4', 'Grupo 5'],
+      'b': ['1° Ano A', '1° Ano B', '2° Ano A', '2° Ano B', '3° Ano A', '3° Ano B', '4° Ano A', '4° Ano B','5° Ano A', '5° Ano B', '6° Ano A', '6° Ano B', '7° Ano A', '7° Ano B', '8° Ano A', '8° Ano B', '9° Ano A', '9° Ano B'],
+      'c': ['Selecione a Escola ou EMEI']
+    };
+
+    const options = optionsData[selectedOption];
+    for (const optionValue of options) {
+      const optionElement = document.createElement('option');
+      optionElement.value = optionValue;
+      optionElement.textContent = optionValue;
+      dropdown2.appendChild(optionElement);
+    }
+
+    // Enable dropdown2
+    dropdown2.disabled = false;
+  } else {
+    // Disable dropdown2 if no option is selected
+    dropdown2.disabled = true;
+  }
+});
+
+//---------------------------------------------------------------------------------------------------
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos_aluno() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios_aluno = document.querySelectorAll("#registration-form-aluno [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos_aluno = Array.from(camposObrigatorios_aluno).every(
+            (campo_aluno) => campo_aluno.value.trim() !== ""
+        );
+
+        const submitButton_aluno = document.getElementById("envia_aluno");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos_aluno) {
+            submitButton_aluno.style.display = "block";
+        } else {
+            submitButton_aluno.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios_aluno = document.querySelectorAll("#registration-form-aluno [required]");
+    camposObrigatorios_aluno.forEach((campo_aluno) => {
+        campo_aluno.addEventListener("input", verificarCampos_aluno);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos_aluno();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_aluno').on('show.bs.modal', function (event) {
+        var local = $('#local_aluno').val();
+        var serie = $('#serie_aluno').val();
+        var name = $('#nome_aluno').val();
+        var rg = $('#rg_aluno').val();
+        var cpf = $('#cpf_aluno').val();
+        var nascimento = $('#dt_nascimento_aluno').val();
+        var rua = $('#rua_aluno').val();
+        var num = $('#num_casa_aluno').val();
+        var bairro = $('#bairro_aluno').val();
+        var cidade = $('#cidade_aluno').val();
+        var cep = $('#cep_aluno').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+
+        var arquivo = $('#arquivo_aluno')[0];
+        var imagePreview = $('#confirm-image-arquivo-aluno');
+
+        $('#confirm-nome_aluno').text(name);
+        $('#confirm-local_aluno').text(local);
+        $('#confirm-serie_aluno').text(serie);
+        $('#confirm-rg_aluno').text(rg);
+        $('#confirm-cpf_aluno').text(cpf);
+        $('#confirm-dt_nascimento_aluno').text(nascimentoFormatada);
+        $('#confirm-rua_aluno').text(rua);
+        $('#confirm-num_casa_aluno').text(num);
+        $('#confirm-bairro_aluno').text(bairro);
+        $('#confirm-cidade_aluno').text(cidade);
+        $('#confirm-cep_aluno').text(cep);
+
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form-aluno').submit();
+    });
+    
+@endif
+@endisset
+    //---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE ALUNO EM register (CADASTROS\AL.BLADE.PHP)
     //---------------------------------------------------------------------------------------------------
 
   });

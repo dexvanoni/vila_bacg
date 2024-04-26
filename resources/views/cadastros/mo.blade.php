@@ -23,9 +23,9 @@
                             @php
                             $locais = App\Local::all();
                             @endphp
-                            <option>Selecione...</option>
+                                <option>Selecione...</option>
                             @foreach ($locais as $l)
-                            <option>{{$l->local}}</option>
+                                <option>{{$l->local}}</option>
                             @endforeach
                         </select>
                     </div> 
