@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -30,6 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
+   
     protected $redirectTo = '/cadastro';
 
     /**
@@ -58,18 +60,23 @@ class RegisterController extends Controller
         return view('auth.register', ['param' => $param]);
     }
 
+    public function dup_cpf()
+    {
+        // Passar o parâmetro para a view
+        return view('cadastros.dup_cpf');
+    }
+
+    public function dup_email()
+    {
+        // Passar o parâmetro para a view
+        return view('cadastros.dup_email');
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            //'name' => ['required', 'string', 'max:255'],
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            //'autorizacao' => ['required', 'string', 'max:255'],
-            //'local' => ['required', 'string', 'max:255'],
-            //'telefone' => ['required', 'string', 'max:255'],
-            //'password' => ['required', 'string', 'min:6', 'confirmed'],
-            //'cpf' => ['unique:users,cpf'],
-            //'rg' => ['required', 'string', 'min:4'],
-            //'arquivo' => ['image'],*/
+            'email' => ['unique:users,email'],
+            'cpf' => ['unique:users,cpf'],
         ]);
     }
 
@@ -79,13 +86,39 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            // Se houver falha na validação do email, redireciona para 'dup_email'
+            if ($validator->errors()->has('email')) {
+                return redirect()->route('dup_email');
+            }
+
+            // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
+            if ($validator->errors()->has('cpf')) {
+                return redirect()->route('dup_cpf');
+            }
+
+            // Se houver falha em outros campos, redireciona para 'register'
+            return redirect()->route('register')->withErrors($validator)->withInput();
+        }
+
+        // Se a validação passar, continua com a criação do usuário
+        $user = $this->create($request->all());
+
+        return redirect($this->redirectTo);
+    }
+
     protected function create(array $data)
     {
+        /*
         $validator = Validator::make($data, [
             'email' => ['unique:users,email'],
             'cpf' => ['unique:users,cpf'],
         ]);
-
+        
         if ($validator->fails()) {
             // Extrai todos os erros do validador
                 $errors = $validator->errors();
@@ -95,15 +128,20 @@ class RegisterController extends Controller
 
                 // Opcionalmente, verifique se um campo específico tem erros
                 if ($errors->has('email')) {
-                    echo "SisVila Informa:<br><br>Erro no campo EMAIL!<br>Este EMAIL já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador.";
+                    return redirect('/dup_email');
+                    //return view('cadastros.dup_email');
+                    echo "SisVila Informa:<br><br>Erro no campo EMAIL!<br>Este EMAIL já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. <br> <button id='backBtn'>Voltar</button>";
                 }
                 if ($errors->has('cpf')) {
-                    echo "SisVila Informa:<br><br>Erro no campo CPF! <br>Este CPF já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. ";
+                    return redirect('/dup_cpf');
+                    //return view('cadastros.dup_cpf');
+                    echo "SisVila Informa:<br><br>Erro no campo CPF! <br>Este CPF já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. <br> <button id='backBtn'>Voltar</button>";
                 }
 
-                exit;
+                //exit;
         }
-
+        */
+    
 
         // Handle File Upload
         if(request()->hasFile('arquivo')){
@@ -119,7 +157,7 @@ class RegisterController extends Controller
             $path = request()->file('arquivo')->storeAs('/usuarios', $fileNameToStore);
         } else {
             $fileNameToStore = 'noimage.png';
-        }
+        };
 
         if(request()->hasFile('arquivo_cnh')){
             // Get filename with the extension
@@ -134,10 +172,10 @@ class RegisterController extends Controller
             $path_cnh = request()->file('arquivo_cnh')->storeAs('/usuarios_cnh', $fileNameToStore_cnh);
         } else {
             $fileNameToStore_cnh = 'noimage_cnh.png';
-        }
+        };
 
         //$senha = '12345678';
-         User::create([
+         return User::create([
             'name' => $data['name'],
             'nascimento' => $data['nascimento'],
             'email' => $data['email'],
@@ -166,5 +204,9 @@ class RegisterController extends Controller
     
         //return redirect()
                     //->route('email_qrcode_cadastro', $onesignal_id);
-    }}
+    }
+
+    
+     
+}
 

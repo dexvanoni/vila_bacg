@@ -270,26 +270,29 @@
                              <hr>
                           </div>
                       </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>É condutor de veículos:</strong> <span id="confirm-condutor"></span></p>
+                      <div id="condutores">
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>É condutor de veículos:</strong> <span id="confirm-condutor"></span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>N° CNH:</strong> <span id="confirm-num_cnh"></span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh"></span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh"></span></p>
+                              </div>
                           </div>
                       </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>N° CNH:</strong> <span id="confirm-num_cnh"></span></p>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh"></span></p>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh"></span></p>
-                          </div>
-                      </div>
+
                   </div>
               </div>
           </div>

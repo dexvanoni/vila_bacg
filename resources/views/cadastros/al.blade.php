@@ -21,8 +21,8 @@
                         <label for="local_aluno">Selecione a instituição de ensino</label>
                         <select class="form-control" id="local_aluno" name="local_aluno" required>
                                 <option value="c">Clique aqui...</option>
-                                <option value="a">EMEI Maria Josefina</option>
-                                <option value="b">ESCOLA Y-JUCA PIRAMA</option>
+                                <option value="EMEI Maria Josefina">EMEI Maria Josefina</option>
+                                <option value="ESCOLA Y-JUCA PIRAMA">ESCOLA Y-JUCA PIRAMA</option>
                         </select>
                     </div> 
                 </div>
@@ -69,8 +69,8 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="cpf_aluno">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                    <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF(cpf_aluno)" placeholder="Somente números" required>
-                    <small id="resultado"></small>
+                    <input class="form-control" id="cpf_aluno" name="cpf_aluno" value="{{ old('cpf_aluno') }}" maxlength="11" onfocusout="validarCPF_aluno(cpf_aluno)" placeholder="Somente números" required>
+                    <small id="resultado_aluno"></small>
                     @if ($errors->has('cpf_aluno'))
                         <small class="text-danger">{{ $errors->first('cpf_aluno') }}</small>
                     @endif
@@ -141,9 +141,9 @@
                     <div class="row bordered-row">
                       <!-- Coluna da esquerda com duas imagens -->
                       <div class="col-4 d-flex flex-column justify-content-center align-items-center" style="height: 500px;">
-                         <div class="d-flex flex-column justify-content-between" style="height: 100%;">
+                         <div class="d-flex flex-column" style="height: 100%;">
                             Foto de rosto:
-                            <div class="h-80 d-flex align-items-center justify-content-center bordered-row">
+                            <div class="h-80 bordered-row">
                                 <img id="confirm-image-arquivo-aluno" src="" alt="Imagem de perfil"  class="img-fluid" >
                             </div>
                          </div>

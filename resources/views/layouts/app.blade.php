@@ -553,7 +553,26 @@
 <script type="text/javascript">
   $(document).ready(function () {
 
+  //document.getElementById("backBtn").addEventListener("click", function(){
+  //  history.back();
+  //});
+
     $("#rg").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+    $("#rg_aluno").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
           return;
@@ -598,6 +617,50 @@
         e.preventDefault();
       });
 
+      $("#cpf_aluno").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+      $("#cep_aluno").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+      $("#num_casa_aluno").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
 
     $('.dropdown-toggle').dropdown();
     $('#lista_usuarios').DataTable({
@@ -743,6 +806,7 @@
 //---------------------------------------------------------------------------------------------------
 @isset($param)
 @if ($param == 'mo')
+          //$('#nao_condutor').hide();   
 
     // Função para verificar se todos os campos obrigatórios estão preenchidos
     function verificarCampos() {
@@ -831,6 +895,12 @@
         $('#confirm-categoria_cnh').text(categoria_cnh);
         $('#confirm-validade_cnh').text(validade_cnhFormatada);
 
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
         if (arquivo.files && arquivo.files[0]) {
             var reader = new FileReader();
 
@@ -886,8 +956,8 @@ dropdown1.addEventListener('change', function() {
   // Populate dropdown2 with options based on selectedOption
   if (selectedOption !== '') {
     const optionsData = {
-      'a': ['Grupo 2', 'Grupo 3', 'Grupo 4', 'Grupo 5'],
-      'b': ['1° Ano A', '1° Ano B', '2° Ano A', '2° Ano B', '3° Ano A', '3° Ano B', '4° Ano A', '4° Ano B','5° Ano A', '5° Ano B', '6° Ano A', '6° Ano B', '7° Ano A', '7° Ano B', '8° Ano A', '8° Ano B', '9° Ano A', '9° Ano B'],
+      'EMEI Maria Josefina': ['Grupo 2', 'Grupo 3', 'Grupo 4', 'Grupo 5'],
+      'ESCOLA Y-JUCA PIRAMA': ['1° Ano A', '1° Ano B', '2° Ano A', '2° Ano B', '3° Ano A', '3° Ano B', '4° Ano A', '4° Ano B','5° Ano A', '5° Ano B', '6° Ano A', '6° Ano B', '7° Ano A', '7° Ano B', '8° Ano A', '8° Ano B', '9° Ano A', '9° Ano B'],
       'c': ['Selecione a Escola ou EMEI']
     };
 
@@ -960,13 +1030,6 @@ dropdown1.addEventListener('change', function() {
         // Formata para 'dd/mm/yy'
         var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
 
-        // Extrai as partes da data
-        var partes_cnh = validade_cnh.split("-");
-        var ano_cnh = partes_cnh[0];
-        var mes_cnh = partes_cnh[1];
-        var dia_cnh = partes_cnh[2];
-
-
         var arquivo = $('#arquivo_aluno')[0];
         var imagePreview = $('#confirm-image-arquivo-aluno');
 
@@ -993,17 +1056,6 @@ dropdown1.addEventListener('change', function() {
             reader.readAsDataURL(arquivo.files[0]);
         } else {
             imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
-        }
-        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                imagePreview_cnh.attr('src', e.target.result);
-            };
-
-            reader.readAsDataURL(arquivo_cnh.files[0]);
-        } else {
-            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
         }
     });
 

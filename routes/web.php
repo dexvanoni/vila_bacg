@@ -39,6 +39,9 @@ Route::get('/lista', 'HomeController@lista')->name('lista');
 Route::get('sair', 'Auth\LoginController@logout')->name('sair');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/dup_cpf', 'Auth\RegisterController@dup_cpf')->name('dup_cpf');
+Route::get('/dup_email', 'Auth\RegisterController@dup_email')->name('dup_email');
+
 Route::resource('avisos', AvisosController::class)->middleware('auth');
 Route::get('/avisos/{aviso}/download', 'AvisosController@download_arquivo')->name('avisos.download')->middleware('auth');
 Route::get('/avisos/{aviso}/delete', 'AvisosController@delete')->name('avisos.delete')->middleware('auth');

@@ -8,6 +8,8 @@ use App\CadAluno;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 class CadAlunoController extends Controller
 {
@@ -38,11 +40,22 @@ class CadAlunoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    
+
     public function store(Request $request)
     {
-        //dd($request);
-        //
-        //exit;
+
+        $rules = [
+            'cpf_aluno' => ['unique:alunos,cpf_aluno'],
+         ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
+            return redirect()->route('dup_cpf');
+        }
+
         // Handle File Upload
 
             if(request()->hasFile('arquivo_aluno')){
@@ -147,8 +160,7 @@ class CadAlunoController extends Controller
         ]);
 
             return redirect()
-                    ->route('login')
-                    ->with('success', 'Você fez sua pré-inscrição. Aguarde o contato de confirmação de cadastro!!');
+                    ->route('cadastro');
     }
 
     /**
