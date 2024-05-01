@@ -111,6 +111,7 @@
 <!--INPUTS PREENCHIDOS DE OUTROS FORMULÁRIOS PARA NÃO FICAR NULL NO BANCO-->
 <input type="hidden" name="status_aluno" value="0">
 <input type="hidden" name="tipo_aluno" value="ALUNO">
+<input type="hidden" name="autorizacao_aluno" id="autorizacao_aluno" value="al">
 
 <div class="row" style="margin-top: 30px;">
     <div class="col-12">

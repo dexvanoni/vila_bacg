@@ -587,7 +587,37 @@
         e.preventDefault();
       });
 
+    $("#rg_resp").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
     $("#num_cnh").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+    $("#num_cnh_resp").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
           return;
@@ -632,6 +662,21 @@
         e.preventDefault();
       });
 
+      $("#cpf_resp").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
       $("#cep_aluno").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
@@ -647,7 +692,37 @@
         e.preventDefault();
       });
 
+      $("#cep_resp").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
       $("#num_casa_aluno").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+      $("#num_casa_resp").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
           return;
@@ -1069,7 +1144,134 @@ dropdown1.addEventListener('change', function() {
     //---------------------------------------------------------------------------------------------------
     // ==============  FECHA FORMULÁRIO DE CADASTRO DE ALUNO EM register (CADASTROS\AL.BLADE.PHP)
     //---------------------------------------------------------------------------------------------------
+      //---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE RESPONSÁVEL POR ALUNO EM register (CADASTROS\RA.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'ra')
+          //$('#nao_condutor').hide();   
 
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_resp').on('show.bs.modal', function (event) {
+        var email_resp = $('#email_resp').val();
+        var nome_resp = $('#nome_resp').val();
+        var rg_resp = $('#rg_resp').val();
+        var cpf_resp = $('#cpf_resp').val();
+        var telefone_resp = $('#telefone_resp').val();
+        var num_cnh_resp = $('#num_cnh_resp').val();
+        var categoria_cnh_resp = $('#categoria_cnh_resp').val();
+        var validade_cnh_resp = $('#validade_cnh_resp').val();
+        var rua_resp = $('#rua_resp').val();
+        var num_resp = $('#num_casa_resp').val();
+        var bairro_resp = $('#bairro_resp').val();
+        var cidade_resp = $('#cidade_resp').val();
+        var cep_resp = $('#cep_resp').val();
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh_resp.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnh_respFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo_resp = $('#arquivo_resp')[0];
+        var imagePreview_resp = $('#confirm-image-arquivo_resp');
+        var arquivo_cnh_resp = $('#arquivo_cnh_resp')[0];
+        var imagePreview_cnh_resp = $('#confirm-image-arquivo-cnh_resp');
+
+        $('#confirm-nome_resp').text(nome_resp);
+        $('#confirm-email_resp').text(email_resp);
+        $('#confirm-rg_resp').text(rg_resp);
+        $('#confirm-cpf_resp').text(cpf_resp);
+        $('#confirm-telefone_resp').text(telefone_resp);
+        $('#confirm-condutor_resp').text(condutor);
+        $('#confirm-num_cnh_resp').text(num_cnh_resp);
+        $('#confirm-categoria_cnh_resp').text(categoria_cnh_resp);
+        $('#confirm-validade_cnh_resp').text(validade_cnh_respFormatada);
+        $('#confirm-rua_resp').text(rua_resp);
+        $('#confirm-num_casa_resp').text(num_resp);
+        $('#confirm-bairro_resp').text(bairro_resp);
+        $('#confirm-cidade_resp').text(cidade_resp);
+        $('#confirm-cep_resp').text(cep_resp);
+
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
+        if (arquivo_resp.files && arquivo_resp.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_resp.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_resp.files[0]);
+        } else {
+            imagePreview_resp.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh_resp.files && arquivo_cnh_resp.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh_resp.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh_resp.files[0]);
+        } else {
+            imagePreview_cnh_resp.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
   });
   // TERMINA READY
 </script>

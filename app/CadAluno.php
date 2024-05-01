@@ -25,7 +25,7 @@ class CadAluno extends Model
             'tipo_aluno',
             'arquivo_aluno',
             
-            'nome_resp',
+            'nome_resp', 
             'nome_aluno_resp',
             'cpf_aluno_resp',
             'cpf_resp',

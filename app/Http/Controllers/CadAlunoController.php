@@ -56,6 +56,16 @@ class CadAlunoController extends Controller
             return redirect()->route('dup_cpf');
         }
 
+        $rules_resp = [
+            'cpf_resp' => ['unique:alunos,cpf_resp'],
+         ];
+        $validator_resp = Validator::make($request->all(), $rules_resp);
+
+        if ($validator_resp->fails()) {
+            // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
+            return redirect()->route('dup_cpf');
+        }
+
         // Handle File Upload
 
             if(request()->hasFile('arquivo_aluno')){
