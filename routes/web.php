@@ -79,6 +79,7 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
+Route::get('/usuarios/{usuario}/parecer_sint', 'UsuariosController@parecer_sint')->name('usuarios.parecer_sint')->middleware('auth');
 Route::get('/usuarios/{usuario}/desab', 'UsuariosController@desabilitar')->name('usuarios.desab')->middleware('auth');
 Route::get('/usuarios/{usuario}/hab', 'UsuariosController@habilitar')->name('usuarios.hab')->middleware('auth');
 

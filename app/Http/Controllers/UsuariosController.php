@@ -21,7 +21,7 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao')->get();
+        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint')->get();
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 
@@ -118,6 +118,14 @@ class UsuariosController extends Controller
         return redirect()
                     ->route('usuarios.index')
                     ->with('success', 'Usuário excluído com sucesso!');
+
+    }
+
+    public function parecer_sint($usuario)
+    {
+        $usuarios = User::find($usuario);
+        
+        return view('usuarios.parecer_sint', compact('usuarios'));
 
     }
 

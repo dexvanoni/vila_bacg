@@ -707,7 +707,37 @@
         e.preventDefault();
       });
 
+      $("#cep_func").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
       $("#num_casa_aluno").keydown(function(e) {
+        // Permite backspace, tab e delete
+        if (e.which === 8 || e.which === 9 || e.which === 46) {
+          return;
+        }
+
+        // Permite digitação apenas de números
+        if (e.which >= 48 && e.which <= 57) {
+          return;
+        }
+
+        // Bloqueia outras teclas
+        e.preventDefault();
+      });
+
+      $("#num_casa_func").keydown(function(e) {
         // Permite backspace, tab e delete
         if (e.which === 8 || e.which === 9 || e.which === 46) {
           return;
@@ -1271,6 +1301,586 @@ dropdown1.addEventListener('change', function() {
 @endisset
 //---------------------------------------------------------------------------------------------------
     // ==============  FECHA FORMULÁRIO DE CADASTRO DE MORADOR EM register (CADASTROS\MO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE FUNCIONÁRIO ESCOLA EM register (CADASTROS\FE.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'fe')
+          //$('#nao_condutor').hide();   
+
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+        var rua_func = $('#rua_func').val();
+        var num_func = $('#num_casa_func').val();
+        var bairro_func = $('#bairro_func').val();
+        var cidade_func = $('#cidade_func').val();
+        var cep_func = $('#cep_func').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnhFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimentoFormatada);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnhFormatada);
+        $('#confirm-rua_func').text(rua_func);
+        $('#confirm-num_casa_func').text(num_func);
+        $('#confirm-bairro_func').text(bairro_func);
+        $('#confirm-cidade_func').text(cidade_func);
+        $('#confirm-cep_func').text(cep_func);
+
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE FUNCIONÁRIO ESCOLA EM register (CADASTROS\FE.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE PORTARIA EM register (CADASTROS\PO.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'po')
+          //$('#nao_condutor').hide();   
+
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+        var rua_func = $('#rua_func').val();
+        var num_func = $('#num_casa_func').val();
+        var bairro_func = $('#bairro_func').val();
+        var cidade_func = $('#cidade_func').val();
+        var cep_func = $('#cep_func').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnhFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimentoFormatada);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnhFormatada);
+        $('#confirm-rua_func').text(rua_func);
+        $('#confirm-num_casa_func').text(num_func);
+        $('#confirm-bairro_func').text(bairro_func);
+        $('#confirm-cidade_func').text(cidade_func);
+        $('#confirm-cep_func').text(cep_func);
+
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE PORTARIA EM register (CADASTROS\PO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE SÓCIO EM register (CADASTROS\SO.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'so')
+          //$('#nao_condutor').hide();   
+
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+        var rua_func = $('#rua_func').val();
+        var num_func = $('#num_casa_func').val();
+        var bairro_func = $('#bairro_func').val();
+        var cidade_func = $('#cidade_func').val();
+        var cep_func = $('#cep_func').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnhFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimentoFormatada);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnhFormatada);
+        $('#confirm-rua_func').text(rua_func);
+        $('#confirm-num_casa_func').text(num_func);
+        $('#confirm-bairro_func').text(bairro_func);
+        $('#confirm-cidade_func').text(cidade_func);
+        $('#confirm-cep_func').text(cep_func);
+
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE SÓCIO EM register (CADASTROS\SO.BLADE.PHP)
+    //---------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------
+    // ==============  FORMULÁRIO DE CADASTRO DE EFETIVO EM register (CADASTROS\EF.BLADE.PHP)
+//---------------------------------------------------------------------------------------------------
+@isset($param)
+@if ($param == 'ef')
+          //$('#nao_condutor').hide();   
+
+    // Função para verificar se todos os campos obrigatórios estão preenchidos
+    function verificarCampos() {
+        // Obter todos os campos obrigatórios no formulário
+        const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+
+        // Verificar se todos os campos obrigatórios estão preenchidos
+        const todosPreenchidos = Array.from(camposObrigatorios).every(
+            (campo) => campo.value.trim() !== ""
+        );
+
+        const submitButton = document.getElementById("envia");
+
+        // Mostrar ou esconder o botão de envio
+        if (todosPreenchidos) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+    }
+
+    // Adicionar eventos para monitorar mudanças em todos os campos obrigatórios
+    const camposObrigatorios = document.querySelectorAll("#registration-form [required]");
+    camposObrigatorios.forEach((campo) => {
+        campo.addEventListener("input", verificarCampos);
+    });
+
+    // Verificar campos quando a página carrega
+     verificarCampos();
+    //---------------------------------------------------------------------------------------------------
+    // MODAL DE CONFIRMAÇÃO DE ENVIO DO FORMULÁRIO
+    $('#confirmationModal_morador').on('show.bs.modal', function (event) {
+        var local = $('#local').val();
+        var email = $('#email').val();
+        var name = $('#name').val();
+        var rg = $('#rg').val();
+        var cpf = $('#cpf').val();
+        var telefone = $('#telefone').val();
+        var nascimento = $('#nascimento').val();
+        var password = $('#password').val();
+        var passwordConfirmation = $('#password_confirmation').val();
+        var num_cnh = $('#num_cnh').val();
+        var categoria_cnh = $('#categoria_cnh').val();
+        var validade_cnh = $('#validade_cnh').val();
+        var rua_func = $('#rua_func').val();
+        var num_func = $('#num_casa_func').val();
+        var bairro_func = $('#bairro_func').val();
+        var cidade_func = $('#cidade_func').val();
+        var cep_func = $('#cep_func').val();
+
+        // Extrai as partes da data
+        var partes = nascimento.split("-");
+        var ano = partes[0];
+        var mes = partes[1];
+        var dia = partes[2];
+
+        // Formata para 'dd/mm/yy'
+        var nascimentoFormatada = `${dia}/${mes}/${ano.slice(-2)}`;
+
+        // Extrai as partes da data
+        var partes_cnh = validade_cnh.split("-");
+        var ano_cnh = partes_cnh[0];
+        var mes_cnh = partes_cnh[1];
+        var dia_cnh = partes_cnh[2];
+
+        // Formata para 'dd/mm/yy'
+        var validade_cnhFormatada = `${dia_cnh}/${mes_cnh}/${ano_cnh.slice(-2)}`;
+
+        var condutor_select = $('input[name="condutor"]:checked');
+
+          if (condutor_select.length > 0) {
+            console.log(condutor_select.val());
+            var condutor = condutor_select.val();
+          }
+
+        var arquivo = $('#arquivo')[0];
+        var imagePreview = $('#confirm-image-arquivo');
+        var arquivo_cnh = $('#arquivo_cnh')[0];
+        var imagePreview_cnh = $('#confirm-image-arquivo-cnh');
+
+        $('#confirm-name').text(name);
+        $('#confirm-email').text(email);
+        $('#confirm-local').text(local);
+        $('#confirm-rg').text(rg);
+        $('#confirm-cpf').text(cpf);
+        $('#confirm-telefone').text(telefone);
+        $('#confirm-nascimento').text(nascimentoFormatada);
+        $('#confirm-password').text(password);
+        $('#confirm-condutor').text(condutor);
+        $('#confirm-num_cnh').text(num_cnh);
+        $('#confirm-categoria_cnh').text(categoria_cnh);
+        $('#confirm-validade_cnh').text(validade_cnhFormatada);
+        $('#confirm-rua_func').text(rua_func);
+        $('#confirm-num_casa_func').text(num_func);
+        $('#confirm-bairro_func').text(bairro_func);
+        $('#confirm-cidade_func').text(cidade_func);
+        $('#confirm-cep_func').text(cep_func);
+
+        if (condutor == 'nao') {
+          $('#condutores').hide();
+        } else {
+          $('#condutores').show();
+        }
+
+        if (arquivo.files && arquivo.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo.files[0]);
+        } else {
+            imagePreview.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+        if (arquivo_cnh.files && arquivo_cnh.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview_cnh.attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(arquivo_cnh.files[0]);
+        } else {
+            imagePreview_cnh.attr('src', ''); // Remove a imagem se não houver arquivo
+        }
+    });
+
+    // Enviar o formulário ao confirmar
+    $('#confirm-submit').click(function() {
+        $('#registration-form').submit();
+    });
+    
+@endif
+@endisset
+//---------------------------------------------------------------------------------------------------
+    // ==============  FECHA FORMULÁRIO DE CADASTRO DE EFETIVO EM register (CADASTROS\EF.BLADE.PHP)
     //---------------------------------------------------------------------------------------------------
   });
   // TERMINA READY

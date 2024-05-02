@@ -74,9 +74,17 @@
                     </td>
                     <td>
                         @if ($l->status == "0")
-                            <i class="fas fa-window-close" style="color: red;"></i>
+                            <i class="fas fa-window-close" style="color: red;" title="DESABILITADO NO SISTEMA"></i>
                         @else
-                            <i class="fas fa-check-square" style="color: green;"></i>
+                            <i class="fas fa-check-square" style="color: green;" title="HABILITADO NO SISTEMA"></i>
+                        @endif
+
+                        @if ($l->parecer_sint == 'APROVADO')
+                            <i class="fas fa-user-secret" style="color: green;" title="APROVADO PELA SINT"></i>
+                        @elseif ($l->parecer_sint == 'RECUSADO')
+                            <i class="fas fa-user-secret" style="color: red;" title="RECUSADO PELA SINT"></i>
+                        @else
+                            <i class="fas fa-user-secret" style="color: grey;"></i>
                         @endif
                     </td>
                     @if (Auth::user()->autorizacao <> 'po')
@@ -94,6 +102,11 @@
                         @else
                             <a title="Desabilitar Usuário" style="color: red" href="{{ route('usuarios.desab', [$l->id]) }}">
                                         <i class="fas fa-thumbs-down"></i>
+                            </a>
+                        @endif
+                        @if (Auth::user()->funcao == 'in')
+                            <a title="Parecer SINT" style="color: red" href="{{ route('usuarios.parecer_sint', [$l->id]) }}">
+                                        <i class="fas fa-user-secret" style="color: blue;"></i>
                             </a>
                         @endif
                     </td>

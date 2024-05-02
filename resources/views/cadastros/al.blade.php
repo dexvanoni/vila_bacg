@@ -123,9 +123,7 @@
     </div>
     
 </div>
-
 </form>
-
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmationModal_aluno" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
