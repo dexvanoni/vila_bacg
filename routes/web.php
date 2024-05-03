@@ -79,7 +79,19 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
+
+//Ações em massa
+Route::delete('/delete_massa','UsuariosController@delete_massa')->name('usuarios.delete_massa')->middleware('auth');
+Route::post('/ativa_massa','UsuariosController@ativa_massa')->name('usuarios.ativa_massa')->middleware('auth');
+Route::post('/desativa_massa','UsuariosController@desativa_massa')->name('usuarios.desativa_massa')->middleware('auth');
+Route::delete('/delete_massa_aluno','CadAlunoController@delete_massa_aluno')->name('aluno_resp.delete_massa_aluno')->middleware('auth');
+Route::post('/ativa_massa_aluno','CadAlunoController@ativa_massa_aluno')->name('aluno_resp.ativa_massa_aluno')->middleware('auth');
+Route::post('/desativa_massa_aluno','CadAlunoController@desativa_massa_aluno')->name('aluno_resp.desativa_massa_aluno')->middleware('auth');
+//Ações em massa
+
 Route::get('/usuarios/{usuario}/parecer_sint', 'UsuariosController@parecer_sint')->name('usuarios.parecer_sint')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/parecer_sint_aluno', 'CadAlunoController@parecer_sint_aluno')->name('usuarios.parecer_sint_aluno')->middleware('auth');
+
 Route::get('/usuarios/{usuario}/desab', 'UsuariosController@desabilitar')->name('usuarios.desab')->middleware('auth');
 Route::get('/usuarios/{usuario}/hab', 'UsuariosController@habilitar')->name('usuarios.hab')->middleware('auth');
 
@@ -118,9 +130,12 @@ Route::get('/cracha', 'QrCodeController@impressao')->name('crachas')->middleware
 
 Route::get('/cracha_alunos', 'QrCodeController@impressao_alunos')->name('crachas_alunos')->middleware('auth');
 
-// Rota de cadastro de launos e responsáveis
+// Rota de cadastro de alunos e responsáveis
 Route::post('/register_aluno', 'CadAlunoController@store')->name('register_aluno');
+
 Route::get('/aluno_resp', 'CadAlunoController@index')->name('aluno_resp.index')->middleware('auth');
+Route::get('/aluno_resp_resp', 'CadAlunoController@index_resp')->name('aluno_resp.index_resp')->middleware('auth');
+
 Route::get('/aluno_resp/{aluno_resp}', 'CadAlunoController@show')->name('aluno_resp.show')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/delete', 'CadAlunoController@delete')->name('aluno_resp.delete')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/desab', 'CadAlunoController@desabilitar')->name('aluno_resp.desab')->middleware('auth');

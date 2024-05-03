@@ -20,8 +20,67 @@ class CadAlunoController extends Controller
      */
     public function index()
     {
-        $alunos_resp = CadAluno::all();
+        $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->get();
         return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+    }
+
+    public function index_resp()
+    {
+        $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
+        return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
+    }
+
+    public function delete_massa_aluno(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            CadAluno::whereIn('id', $ids)->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
+    }
+
+    public function ativa_massa_aluno(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            CadAluno::whereIn('id', $ids)->update(['status_aluno' => 1]);
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
+    }
+
+    public function desativa_massa_aluno(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            CadAluno::whereIn('id', $ids)->update(['status_aluno' => 0]);
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
+    }
+
+    public function parecer_sint_aluno($usuario)
+    {
+        $alunos = CadAluno::find($usuario);
+        
+        return view('usuarios.parecer_sint', compact('alunos'));
+
     }
 
     /**

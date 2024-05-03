@@ -284,7 +284,10 @@
                 <a href="{{route('pets.index')}}">Animais de estimação</a>
               </li>
               <li>
-                <a href="{{route('aluno_resp.index')}}">Alunos e Responsáveis (EMEI e Escola)</a>
+                <a href="{{route('aluno_resp.index')}}">Alunos (EMEI e Escola)</a>
+              </li>
+              <li>
+                <a href="{{route('aluno_resp.index_resp')}}">Responsáveis por Alunos (EMEI e Escola)</a>
               </li>
             </ul>
           </div>
@@ -768,6 +771,7 @@
       });
 
     $('.dropdown-toggle').dropdown();
+
     $('#lista_usuarios').DataTable({
       dom: 'Bfrtip',
       paging: true, // Ativar paginação
@@ -779,6 +783,296 @@
         ],
       responsive: true,
     });
+
+    //Se a rota for de usuários
+    @if(Request::routeIs('usuarios.*'))
+    //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA USUÁRIOS E DELETAR
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#deleteSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja deletar os usuários selecionados? Esta ação não pode ser desfeita.');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/delete_massa', // Endpoint para deleção
+                method: 'DELETE', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E DELETAR
+    //---------------------------------------------------------------------------------------------------
+@endif
+
+//se a rota for de aluno_resp
+ @if(Request::routeIs('aluno_resp.*') || Request::routeIs('aluno_resp_resp'))
+    //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA alunos E DELETAR
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#deleteSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja deletar os alunos/responsáveis selecionados? Esta ação não pode ser desfeita.');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/delete_massa_aluno', // Endpoint para deleção
+                method: 'DELETE', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE alunos E DELETAR
+    //---------------------------------------------------------------------------------------------------
+@endif
+@if(Request::routeIs('usuarios.*'))
+    //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA USUÁRIOS E ATIVAR => status=1
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#ativaSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja ATIVAR os usuários selecionados?');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/ativa_massa', // Endpoint para deleção
+                method: 'POST', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E ATIVAR => status=1
+    //---------------------------------------------------------------------------------------------------
+@endif
+
+@if(Request::routeIs('aluno_resp.*') || Request::routeIs('aluno_resp_resp'))
+    //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA USUÁRIOS E ATIVAR => status=1
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#ativaSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja ATIVAR os alunos/responsáveis selecionados?');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/ativa_massa_aluno', // Endpoint para deleção
+                method: 'POST', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E ATIVAR => status=1
+    //---------------------------------------------------------------------------------------------------
+@endif
+
+@if(Request::routeIs('usuarios.*'))
+        //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA USUÁRIOS E DESATIVAR => status=0
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#desativaSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja DESATIVAR os usuários selecionados?');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/desativa_massa', // Endpoint para deleção
+                method: 'POST', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E DESATIVAR => status=0
+    //---------------------------------------------------------------------------------------------------
+@endif
+
+@if(Request::routeIs('aluno_resp.*') || Request::routeIs('aluno_resp_resp'))
+        //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA USUÁRIOS E DESATIVAR => status=0
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#desativaSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja DESATIVAR os alunos/responsáveis selecionados?');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/desativa_massa_aluno', // Endpoint para deleção
+                method: 'POST', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E DESATIVAR => status=0
+    //---------------------------------------------------------------------------------------------------
+@endif
+
 
     $('#lista_alunos').DataTable({
       dom: 'Bfrtip',

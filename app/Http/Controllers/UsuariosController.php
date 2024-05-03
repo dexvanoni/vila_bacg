@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\User;
+use Illuminate\Support\Facades\Log;
 
 class UsuariosController extends Controller
 {
@@ -112,13 +113,58 @@ class UsuariosController extends Controller
     public function delete($usuario)
     {
         $usuarios = User::find($usuario);
-        
+
         $usuarios->delete();   
         
         return redirect()
                     ->route('usuarios.index')
                     ->with('success', 'Usuário excluído com sucesso!');
 
+    }
+
+    public function delete_massa(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            User::whereIn('id', $ids)->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
+    }
+
+    public function ativa_massa(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            User::whereIn('id', $ids)->update(['status' => 1]);
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
+    }
+
+    public function desativa_massa(Request $request)
+    {
+        //Log::info("DELETE endpoint accessed"); // Adiciona um log para saber se o controlador foi acessado
+        
+        $ids = $request->input('ids');
+        //Log::info('IDs received for deletion:', ['ids' => $ids]); // Para depuração
+
+        if ($ids && is_array($ids)) {
+            User::whereIn('id', $ids)->update(['status' => 0]);
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => 'No IDs provided'], 400); // Erro se a lista estiver vazia ou não for um array
+        }
     }
 
     public function parecer_sint($usuario)

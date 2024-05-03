@@ -20,9 +20,26 @@
         </div>
         <hr>
     @endif
+    <div class="row">
+        <h4>Ações para vários registros</h4>
+    </div>
+    <div class="row">
+        <div class="col-1">
+            <button id="ativaSelected" title="ATIVAR TODOS SELECIONADOS" class="btn btn-success"><i class="fas fa-chart-line"></i></button>
+        </div>
+        <div class="col-1">
+            <button id="desativaSelected" title="DESATIVAR TODOS SELECIONADOS" class="btn btn-warning"><i class="fas fa-user-slash"></i></button>
+        </div>
+            <div class="col-1">
+                <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+            </div>
+    </div>
+    
     <table id="lista_usuarios" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
+                <th><input type="checkbox" id="selectAll"></th>
+                <th>ID</th>
                 <th>Nome Completo</th>
                 <th>CPF</th>
                 <th>Função</th>
@@ -35,6 +52,8 @@
         <tbody>
             @foreach($usuarios as $l)
                 <tr>
+                    <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
+                    <td>{{ $l->id }}</td>
                     <td style="color: 
                         @if($l->status == "0")
                             red
@@ -134,4 +153,5 @@
         });
     });
 </script>
+
 @endsection

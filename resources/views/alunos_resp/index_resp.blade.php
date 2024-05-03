@@ -10,7 +10,7 @@
             <img src="/imagens/sisvila2.png" width="80px" height="70px">        
         </div>
         <div class="col-md-12">
-            <h2>Alunos Cadastrados no SisVILA</h2>
+            <h2>Responsáveis por Alunos Cadastrados no SisVILA</h2>
         </div>
     </div>
     <hr>
@@ -37,51 +37,52 @@
     </div>
 
     <hr>
-    <table id="lista_alunos" class="table table-striped table-bordered" style="width:100%">
+
+    <table id="lista_resp" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
-                <th>Nome Completo</th>
-                <th>Instituição</th>
-                <th>Série / Grupo</th>
+                <th>Nome do Responsável</th>
+                <th>Aluno</th>
+                <th>Whatsapp</th>
                 <th>CPF</th>
                 <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($alunos_resp as $l)
+            @foreach($alunos_resp as $r)
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
+                        <td><input type="checkbox" name="selected[]" value="{{ $r->id }}"></td>
                         <td style="color: 
-                        @if($l->status == '0')
+                        @if($r->status == '0')
                         red
                         @endif
                         ">
-                        {{$l->nome_aluno}}</td>
-                        <td>{{$l->local_aluno}}</td>
-                        <td>{{$l->serie_aluno}}</td>
-                        <td>{{$l->cpf_aluno}}</td>
+                        {{$r->nome_resp}}</td>
+                        <td>{{$r->nome_aluno_resp}}</td>
+                        <td>{{$r->tel_resp}}</td>
+                        <td>{{$r->cpf_resp}}</td>
                         <td>
-                        @if ($l->status_aluno == "0")
+                        @if ($r->status_aluno == "0")
                             <i class="fas fa-window-close" style="color: red;"></i>
                         @else
                             <i class="fas fa-check-square" style="color: green;"></i>
                         @endif
                     </td>
                         <td>
-                            <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
+                            <a title="Ver Usuário" href="{{ route('aluno_resp.show', [$r->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
-                            <a title="Deletar Aluno" style="color: darkred;" href="{{ route('aluno_resp.delete', [$l->id]) }}">
+                            <a title="Deletar Responsável" style="color: darkred;" href="{{ route('aluno_resp.delete', [$r->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
-                            @if ($l->status_aluno == "0")
-                                <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
+                            @if ($r->status_aluno == "0")
+                                <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$r->id]) }}">
                                             <i class="fas fa-thumbs-up"></i> 
                                 </a>
                                 @else
-                                    <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$l->id]) }}">
+                                    <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$r->id]) }}">
                                                 <i class="fas fa-thumbs-down"></i>
                                     </a>
                             @endif
