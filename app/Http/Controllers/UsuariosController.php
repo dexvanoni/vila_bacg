@@ -22,7 +22,7 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint')->get();
+        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->get();
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 
@@ -173,6 +173,21 @@ class UsuariosController extends Controller
         
         return view('usuarios.parecer_sint', compact('usuarios'));
 
+    }
+
+    public function motivo_sint(Request $request)
+    {
+
+        $parecer = DB::table('users')
+            ->where('id', $request->id)
+            ->update([
+                        'motivo_sint' => $request->motivo_sint,
+                        'parecer_sint' => $request->parecer_sint
+                    ]);
+
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Parecer SINT realizado com sucesso!');
     }
 
     public function desabilitar($usuario)

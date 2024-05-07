@@ -75,12 +75,44 @@ class CadAlunoController extends Controller
         }
     }
 
-    public function parecer_sint_aluno($usuario)
+    public function parecer_sint_aluno($aluno_resp)
     {
-        $alunos = CadAluno::find($usuario);
-        
-        return view('usuarios.parecer_sint', compact('alunos'));
+        $alunos = CadAluno::find($aluno_resp);
 
+        //dd($alunos);
+        
+        return view('alunos_resp.parecer_sint_aluno', compact('alunos'));
+
+    }
+
+    public function motivo_sint_aluno(Request $request)
+    {
+
+        $parecer = DB::table('alunos')
+            ->where('id', $request->id)
+            ->update([
+                        'motivo_sint' => $request->motivo_sint,
+                        'parecer_sint' => $request->parecer_sint
+                    ]);
+
+        return redirect()
+                    ->route('aluno_resp.index')
+                    ->with('success', 'Parecer SINT realizado com sucesso!');
+    }
+
+    public function motivo_sint_resp(Request $request)
+    {
+
+        $parecer = DB::table('alunos')
+            ->where('id', $request->id)
+            ->update([
+                        'motivo_sint' => $request->motivo_sint,
+                        'parecer_sint' => $request->parecer_sint
+                    ]);
+
+        return redirect()
+                    ->route('aluno_resp.index_resp')
+                    ->with('success', 'Parecer SINT realizado com sucesso!');
     }
 
     /**

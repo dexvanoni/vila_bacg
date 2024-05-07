@@ -68,6 +68,13 @@
                         @else
                             <i class="fas fa-check-square" style="color: green;"></i>
                         @endif
+                        @if ($l->parecer_sint == 'APROVADO')
+                            <i class="fas fa-user-secret" style="color: green;" title="{{ $l->motivo_sint }}"></i>
+                        @elseif ($l->parecer_sint == 'RECUSADO')
+                            <i class="fas fa-user-secret" style="color: red;" title="{{ $l->motivo_sint }}"></i>
+                        @else
+                            <i class="fas fa-user-secret" style="color: grey;"></i>
+                        @endif
                     </td>
                         <td>
                             <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
@@ -76,6 +83,7 @@
                             <a title="Deletar Aluno" style="color: darkred;" href="{{ route('aluno_resp.delete', [$l->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
+
                             @if ($l->status_aluno == "0")
                                 <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
                                             <i class="fas fa-thumbs-up"></i> 
@@ -85,6 +93,11 @@
                                                 <i class="fas fa-thumbs-down"></i>
                                     </a>
                             @endif
+                             @if (Auth::user()->funcao == 'in')
+                            <a title="Parecer SINT" style="color: red" href="{{ route('aluno_resp.parecer_sint_aluno', [$l->id]) }}">
+                                        <i class="fas fa-user-secret" style="color: blue;"></i>
+                            </a>
+                        @endif
                         </td>
                     </tr>
             @endforeach

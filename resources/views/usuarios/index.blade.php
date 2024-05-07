@@ -39,9 +39,9 @@
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
-                <th>ID</th>
                 <th>Nome Completo</th>
                 <th>CPF</th>
+                <th>Local</th>
                 <th>Função</th>
                 <th>Status</th>
                 @if (Auth::user()->autorizacao <> 'po')
@@ -53,7 +53,6 @@
             @foreach($usuarios as $l)
                 <tr>
                     <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
-                    <td>{{ $l->id }}</td>
                     <td style="color: 
                         @if($l->status == "0")
                             red
@@ -61,6 +60,7 @@
                             ">
                             {{$l->name}}</td>
                     <td>{{$l->cpf}}</td>
+                    <td>{{$l->local}}</td>
                     <td>
                         @switch($l->autorizacao)
                                 @case('ad')
@@ -99,9 +99,9 @@
                         @endif
 
                         @if ($l->parecer_sint == 'APROVADO')
-                            <i class="fas fa-user-secret" style="color: green;" title="APROVADO PELA SINT"></i>
+                            <i class="fas fa-user-secret" style="color: green;" title="{{ $l->motivo_sint }}"></i>
                         @elseif ($l->parecer_sint == 'RECUSADO')
-                            <i class="fas fa-user-secret" style="color: red;" title="RECUSADO PELA SINT"></i>
+                            <i class="fas fa-user-secret" style="color: red;" title="{{ $l->motivo_sint }}"></i>
                         @else
                             <i class="fas fa-user-secret" style="color: grey;"></i>
                         @endif

@@ -41,6 +41,8 @@ class CadAluno extends Model
             'arquivo_resp',
             'tel_resp',
             'email_resp',
-            'arquivo_cnh_resp'
+            'arquivo_cnh_resp',
+            'parecer_sint',
+            'motivo_sint'
     ];
 }
