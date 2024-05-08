@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use Auth;
 
 class CadAlunoController extends Controller
 {
@@ -20,12 +20,45 @@ class CadAlunoController extends Controller
      */
     public function index()
     {
-        $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->get();
-        return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+        if (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'EMEI Maria Josefina') {
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'ALUNO')
+                ->where('local_aluno', 'EMEI Maria Josefina')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+
+        }elseif (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'ESCOLA Y-JUCA PIRAMA'){
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'ALUNO')
+                ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);  
+        } else {
+            $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+        }        
     }
 
     public function index_resp()
     {
+        if (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'EMEI Maria Josefina') {
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
+                ->where('local_aluno', 'EMEI Maria Josefina')
+                ->get();
+            return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
+
+        }elseif (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'ESCOLA Y-JUCA PIRAMA'){
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
+                ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->get();
+            return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);  
+        } else {
+            $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
+            return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
+        } 
+
         $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
         return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
     }
@@ -113,6 +146,48 @@ class CadAlunoController extends Controller
         return redirect()
                     ->route('aluno_resp.index_resp')
                     ->with('success', 'Parecer SINT realizado com sucesso!');
+    }
+
+
+    //-----------PARECER ESCOLA E EMEI ---------------------------------------------
+    public function parecer_escola_aluno($aluno_resp)
+    {
+        $alunos = CadAluno::find($aluno_resp);
+
+        //dd($alunos);
+        
+        return view('alunos_resp.parecer_escola_aluno', compact('alunos'));
+
+    }
+
+    public function motivo_escola_aluno(Request $request)
+    {
+
+        $parecer = DB::table('alunos')
+            ->where('id', $request->id)
+            ->update([
+                        'motivo_escola' => $request->motivo_escola,
+                        'parecer_escola' => $request->parecer_escola
+                    ]);
+
+        return redirect()
+                    ->route('aluno_resp.index')
+                    ->with('success', 'Parecer da Escola/EMEI realizado com sucesso!');
+    }
+
+    public function motivo_escola_resp(Request $request)
+    {
+
+        $parecer = DB::table('alunos')
+            ->where('id', $request->id)
+            ->update([
+                        'motivo_escola' => $request->motivo_escola,
+                        'parecer_escola' => $request->parecer_escola
+                    ]);
+
+        return redirect()
+                    ->route('aluno_resp.index_resp')
+                    ->with('success', 'Parecer Escola/EMEI realizado com sucesso!');
     }
 
     /**
@@ -338,24 +413,21 @@ class CadAlunoController extends Controller
         
         $aluno_resp->delete();   
         
-        return redirect()
-                    ->route('aluno_resp.index')
-                    ->with('success', 'Usuário excluído com sucesso!');
+        return back()->with('success', 'Usuário EXCLUÍDO com sucesso!');
 
     }
 
     public function desabilitar($aluno_resp)
     {
         $u = CadAluno::find($aluno_resp);
-        
+
         DB::table('alunos')
             ->where('id', $u->id)
             ->update([
-                        'status' => '0',
-                    ]);        
-        return redirect()
-                    ->route('aluno_resp.index')
-                    ->with('success', 'Usuário DESABILITADO com sucesso!');
+                        'status_aluno' => '0',
+                    ]);
+
+        return back()->with('success', 'Usuário DESABILITADO com sucesso!');
 
     }
 
@@ -367,9 +439,7 @@ class CadAlunoController extends Controller
             ->update([
                         'status_aluno' => '1',
                     ]);        
-        return redirect()
-                    ->route('aluno_resp.index')
-                    ->with('success', 'Usuário HABILITADO com sucesso!');
+        return back()->with('success', 'Usuário HABILITADO com sucesso!');
 
     }
 }

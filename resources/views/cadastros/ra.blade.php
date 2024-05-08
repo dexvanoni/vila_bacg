@@ -196,6 +196,7 @@
 <input type="hidden" name="autorizacao" value="ra">
 <input type="hidden" name="nome_aluno_resp" id="nome_aluno_resp">
 <input type="hidden" name="cpf_aluno_resp" id="cpf_aluno_resp">
+<input type="hidden" name="local_aluno" id="local_aluno">
 <input type="hidden" name="status_aluno" id="status_aluno" value="0">
 <input type="hidden" name="tipo_aluno" id="tipo_aluno" value="RESPONSÁVEL POR ALUNO">
 
@@ -377,11 +378,13 @@
                 resultados.forEach(function (resultado) {
                     // Verificar se o campo nome está vazio
                     var nomeAluno = resultado.nome_aluno || 'ESTE ALUNO NÃO ESTÁ CADASTRADO!';
+                    var localAluno = resultado.local_aluno || 'ESTE ALUNO NÃO ESTÁ CADASTRADO!';
 
                     listaResultados.append(nomeAluno);
                     // Preencher os inputs com os valores
                     $('#nome_aluno_resp').val(nomeAluno);
                     $('#cpf_aluno_resp').val(termoPesquisa);
+                    $('#local_aluno').val(localAluno);
                 });
 
                 // Exibir a div se houver resultados
@@ -395,7 +398,7 @@
     };
 
     //---------------------------------------------------------------------------------------------------
-        // O JS que faz a captura dos dados dos inputs e aparece no modal está no arquivo views/layouts/app.blade.php
+        // O JS que faz a captura dos dados dos inputs e aparece no modal está no 
         // Ele mostra os dados preenchidos e confirma o envio dos dados ou não.
     //---------------------------------------------------------------------------------------------------
 

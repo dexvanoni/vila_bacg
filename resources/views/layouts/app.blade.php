@@ -205,7 +205,7 @@
           <div class="user-info">
             <span class="user-name">
               @isset(Auth::user()->name)
-              {{ Auth::user()->name }}
+                {{ Auth::user()->name }}
               @endisset
             </span>
             <span class="user-role">
@@ -217,8 +217,19 @@
                 @endforeach
 
              @isset(Auth::user()->local)
-             <br>Local de Acesso: {{Auth::user()->local}}
+             <br>Local de Acesso: <br><i class="fas fa-home"></i>  {{Auth::user()->local}}
              @endisset
+              @isset(Auth::user()->funcao)
+             <br><br>Você possui uma função no SisVila: <br><i class="fas fa-users-cog"></i>  
+               @if(Auth::user()->funcao == 'in')
+                Inteligência
+                @elseif(Auth::user()->funcao == 'APEMEI')
+                Aprovador de cadastros da EMEI
+                @else
+                Aprovador de cadastros da Escola
+               @endif
+             @endisset
+             <br>
              <br>
              <span class="user-status">
               <i class="fa fa-circle"></i>
@@ -255,7 +266,7 @@
             <span class="badge badge-pill badge-warning">New</span>
           </a>
         </li>
-        @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles))
+        @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('fe', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-users"></i>
@@ -280,9 +291,11 @@
                 <a href="{{route('usuarios.index')}}">Lista</a>
               </li>
               @endif
+              @if(!in_array('fe', $userProfiles))
               <li>
                 <a href="{{route('pets.index')}}">Animais de estimação</a>
               </li>
+              @endif
               <li>
                 <a href="{{route('aluno_resp.index')}}">Alunos (EMEI e Escola)</a>
               </li>
@@ -344,7 +357,7 @@
           </div>
         </li>
         @endif
-        @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
+        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('so', $userProfiles) || in_array('mo', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-newspaper"></i>
@@ -374,7 +387,7 @@
           </div>
         </li>
         @endif
-        @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('po', $userProfiles) || in_array('si', $userProfiles))
+        @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('po', $userProfiles) || in_array('si', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-hammer"></i>

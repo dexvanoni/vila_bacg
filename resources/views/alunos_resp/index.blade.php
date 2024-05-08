@@ -21,26 +21,31 @@
     <hr>
     @endif
 
-    <div class="row">
-        <h4>Ações para vários registros</h4>
-    </div>
-    <div class="row">
-        <div class="col-1">
-            <button id="ativaSelected" title="ATIVAR TODOS SELECIONADOS" class="btn btn-success"><i class="fas fa-chart-line"></i></button>
+    @if (Auth::user()->autorizacao == 'ad')
+        <div class="row">
+            <h4>Ações para vários registros</h4>
         </div>
-        <div class="col-1">
-            <button id="desativaSelected" title="DESATIVAR TODOS SELECIONADOS" class="btn btn-warning"><i class="fas fa-user-slash"></i></button>
-        </div>
+        <div class="row">
             <div class="col-1">
-                <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                <button id="ativaSelected" title="ATIVAR TODOS SELECIONADOS" class="btn btn-success"><i class="fas fa-chart-line"></i></button>
             </div>
-    </div>
+            <div class="col-1">
+                <button id="desativaSelected" title="DESATIVAR TODOS SELECIONADOS" class="btn btn-warning"><i class="fas fa-user-slash"></i></button>
+            </div>
+                <div class="col-1">
+                    <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                </div>
+        </div>
+        <hr>
+    @endif
 
-    <hr>
+    
     <table id="lista_alunos" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th><input type="checkbox" id="selectAll"></th>
+                @if (Auth::user()->autorizacao == 'ad')
+                    <th><input type="checkbox" id="selectAll"></th>
+                @endif
                 <th>Nome Completo</th>
                 <th>Instituição</th>
                 <th>Série / Grupo</th>
@@ -52,9 +57,11 @@
         <tbody>
             @foreach($alunos_resp as $l)
                     <tr>
-                        <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
+                        @if (Auth::user()->autorizacao == 'ad')
+                            <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
+                        @endif
                         <td style="color: 
-                        @if($l->status == '0')
+                        @if($l->status_aluno == '0')
                         red
                         @endif
                         ">
@@ -75,29 +82,48 @@
                         @else
                             <i class="fas fa-user-secret" style="color: grey;"></i>
                         @endif
+                        @if ($l->parecer_escola == 'APROVADO')
+                            <i class="fas fa-child" style="color: green;" title="{{ $l->motivo_escola }}"></i>
+                        @elseif ($l->parecer_escola == 'RECUSADO')
+                            <i class="fas fa-child" style="color: red;" title="{{ $l->motivo_escola }}"></i>
+                        @else
+                            <i class="fas fa-child" style="color: grey;"></i>
+                        @endif
                     </td>
                         <td>
+                            @if (Auth::user()->autorizacao == 'ad')
                             <a title="Ver Aluno" href="{{ route('aluno_resp.show', [$l->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
                             <a title="Deletar Aluno" style="color: darkred;" href="{{ route('aluno_resp.delete', [$l->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
-
-                            @if ($l->status_aluno == "0")
-                                <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
-                                            <i class="fas fa-thumbs-up"></i> 
-                                </a>
-                                @else
-                                    <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$l->id]) }}">
-                                                <i class="fas fa-thumbs-down"></i>
+                                @if ($l->status_aluno == "0")
+                                    <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
+                                                <i class="fas fa-thumbs-up"></i> 
                                     </a>
+                                    @else
+                                        <a title="Desabilitar Usuário" style="color: red" href="{{ route('aluno_resp.desab', [$l->id]) }}">
+                                                    <i class="fas fa-thumbs-down"></i>
+                                        </a>
+                                @endif
                             @endif
                              @if (Auth::user()->funcao == 'in')
                             <a title="Parecer SINT" style="color: red" href="{{ route('aluno_resp.parecer_sint_aluno', [$l->id]) }}">
                                         <i class="fas fa-user-secret" style="color: blue;"></i>
                             </a>
-                        @endif
+                            @endif
+                            @if (Auth::user()->funcao == 'APYJUCA')
+                            <a title="Aprovação Escola" style="color: orange" href="{{ route('aluno_resp.parecer_escola_aluno', [$l->id]) }}">
+                                        <i class="fas fa-child"></i>
+                            </a>
+                            @endif
+                            @if (Auth::user()->funcao == 'APEMEI')
+                            <a title="Aprovação EMEI" style="color: orange" href="{{ route('aluno_resp.parecer_escola_aluno', [$l->id]) }}">
+                                        <i class="fas fa-baby"></i>
+                            </a>
+                            @endif
+
                         </td>
                     </tr>
             @endforeach

@@ -83,18 +83,25 @@ Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usu
 //Ações em massa
 Route::delete('/delete_massa','UsuariosController@delete_massa')->name('usuarios.delete_massa')->middleware('auth');
 Route::post('/ativa_massa','UsuariosController@ativa_massa')->name('usuarios.ativa_massa')->middleware('auth');
-Route::post('/motivo_sint','UsuariosController@motivo_sint')->name('usuarios.motivo_sint')->middleware('auth');
-Route::post('/motivo_sint_aluno','CadAlunoController@motivo_sint_aluno')->name('aluno_resp.motivo_sint_aluno')->middleware('auth');
-Route::post('/motivo_sint_resp','CadAlunoController@motivo_sint_resp')->name('aluno_resp.motivo_sint_resp')->middleware('auth');
-
 Route::post('/desativa_massa','UsuariosController@desativa_massa')->name('usuarios.desativa_massa')->middleware('auth');
 Route::delete('/delete_massa_aluno','CadAlunoController@delete_massa_aluno')->name('aluno_resp.delete_massa_aluno')->middleware('auth');
 Route::post('/ativa_massa_aluno','CadAlunoController@ativa_massa_aluno')->name('aluno_resp.ativa_massa_aluno')->middleware('auth');
 Route::post('/desativa_massa_aluno','CadAlunoController@desativa_massa_aluno')->name('aluno_resp.desativa_massa_aluno')->middleware('auth');
-//Ações em massa
 
+
+//Ações em massa
+Route::post('/motivo_sint','UsuariosController@motivo_sint')->name('usuarios.motivo_sint')->middleware('auth');
 Route::get('/usuarios/{usuario}/parecer_sint', 'UsuariosController@parecer_sint')->name('usuarios.parecer_sint')->middleware('auth');
+
+Route::post('/motivo_sint_aluno','CadAlunoController@motivo_sint_aluno')->name('aluno_resp.motivo_sint_aluno')->middleware('auth');
+Route::post('/motivo_sint_resp','CadAlunoController@motivo_sint_resp')->name('aluno_resp.motivo_sint_resp')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/parecer_sint_aluno', 'CadAlunoController@parecer_sint_aluno')->name('aluno_resp.parecer_sint_aluno')->middleware('auth');
+
+Route::post('/motivo_escola_aluno','CadAlunoController@motivo_escola_aluno')->name('aluno_resp.motivo_escola_aluno')->middleware('auth');
+Route::post('/motivo_escola_resp','CadAlunoController@motivo_escola_resp')->name('aluno_resp.motivo_escola_resp')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/parecer_escola_aluno', 'CadAlunoController@parecer_escola_aluno')->name('aluno_resp.parecer_escola_aluno')->middleware('auth');
+
+
 
 Route::get('/usuarios/{usuario}/desab', 'UsuariosController@desabilitar')->name('usuarios.desab')->middleware('auth');
 Route::get('/usuarios/{usuario}/hab', 'UsuariosController@habilitar')->name('usuarios.hab')->middleware('auth');
