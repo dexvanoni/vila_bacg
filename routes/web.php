@@ -160,3 +160,7 @@ Route::get('/register/{param?}', 'Auth\RegisterController@showRegistrationForm')
 Route::get('/cadastro', function () {
     return view('cadastros.cadastro_realizado');
 })->name('cadastro');
+
+
+//documentos
+Route::resource('docs', DocsController::class)->middleware('auth');

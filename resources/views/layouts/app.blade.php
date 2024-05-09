@@ -387,6 +387,27 @@
           </div>
         </li>
         @endif
+        @if(in_array('ad', $userProfiles) || in_array('mo', $userProfiles))
+        <li class="sidebar-dropdown">
+          <a href="#">
+            <i class="fab fa-readme"></i>
+            <span>Administrativo</span><span class="badge badge-pill badge-warning">New</span>
+          </a>
+          <div class="sidebar-submenu">
+            <ul>
+              <li>
+                <a href="#">Enquetes/Votações</a>
+              </li>
+              <li>
+                <a href="{{route('docs.index')}}">Arquivos <span class="badge badge-pill badge-warning">New</span></a>
+              </li>
+              <li>
+                <a href="#">Financeiro</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        @endif
         @if(in_array('ad', $userProfiles) || in_array('pe', $userProfiles) || in_array('de', $userProfiles) || in_array('st', $userProfiles) || in_array('po', $userProfiles) || in_array('si', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
@@ -431,27 +452,7 @@
           </div>
         </li>
         @endif
-        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
-        <li class="sidebar-dropdown">
-          <a href="#">
-            <i class="fab fa-readme"></i>
-            <span>Administrativo</span>
-          </a>
-          <div class="sidebar-submenu">
-            <ul>
-              <li>
-                <a href="#">Enquetes/Votações</a>
-              </li>
-              <li>
-                <a href="#">Arquivos</a>
-              </li>
-              <li>
-                <a href="#">Financeiro</a>
-              </li>
-            </ul>
-          </div>
-        </li>
-        @endif
+        
         @if(in_array('ad', $userProfiles) || in_array('in', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
