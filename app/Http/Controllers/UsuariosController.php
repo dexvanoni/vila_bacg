@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 use App\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -119,6 +120,20 @@ class UsuariosController extends Controller
         return redirect()
                     ->route('usuarios.index')
                     ->with('success', 'Usuário excluído com sucesso!');
+
+    }
+
+    public function reset($usuario)
+    {
+        $usuarios = User::find($usuario);
+
+        $usuarios->update([
+            'password' => Hash::make('12345678')
+        ]);   
+        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Senha do Usuário redefinida com sucesso!');
 
     }
 

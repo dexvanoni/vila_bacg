@@ -79,6 +79,7 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
+Route::get('/usuarios/{usuario}/reset', 'UsuariosController@reset')->name('usuarios.reset')->middleware('auth');
 
 //Ações em massa
 Route::delete('/delete_massa','UsuariosController@delete_massa')->name('usuarios.delete_massa')->middleware('auth');

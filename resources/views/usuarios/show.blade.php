@@ -146,7 +146,13 @@ img {
                       </div>
                       <div class="row">
                           <div class="col">
-                              <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento">{{date('d/m/Y', strtotime($usuario->nascimento))}}</span></p>
+                              <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento">{{date('d/m/Y', strtotime($usuario->nascimento))}}</span>
+                                  @php
+                                    $dataNascimento = Carbon\Carbon::parse($usuario->nascimento);
+                                    $idade = $dataNascimento->age;
+                                  @endphp
+                                   - <strong>Idade:</strong> {{ $idade }} anos
+                              </p>
                           </div>
                       </div>
                        <div class="row">
@@ -162,13 +168,15 @@ img {
                       <div class="row">
                         <div class="col">
                             <p><strong>Status:</strong><span>@if($usuario->status == 1)
-                                    ATIVO
+                                    <strong style="color: green;"> ATIVO</strong> 
                                 @else
-                                    INATIVO 
+                                    <strong style="color: red;"> INATIVO</strong>
                             @endif</span></p>
                         </div>
                           
                       </div>
+                      
+                      @if ($usuario->condutor == 'sim')
                       <div class="row">
                           <div class="col">
                              <hr>
@@ -192,11 +200,21 @@ img {
                           </div>
                           <div class="row">
                               <div class="col">
-                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh">{{date('d/m/Y', strtotime($usuario->validade_cnh))}}</span></p>
+                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh">{{date('d/m/Y', strtotime($usuario->validade_cnh))}}</span>
+                                    @php
+                                      $dataValidade = Carbon\Carbon::parse($usuario->validade_cnh);
+                                      $validade = $dataValidade->isFuture();
+                                    @endphp
+                                    @if($validade)
+                                       - <strong style="color: green;">CNH Válida!</strong>
+                                    @else
+                                       - <strong style="color: red;">CNH Vencida!</strong>
+                                    @endif
+                                  </p>
                               </div>
                           </div>
                       </div>
-                      
+                      @endif
                       @if ($usuario->parecer_sint != null)
                       <hr>
                       <div class="row">
@@ -205,6 +223,24 @@ img {
                               </div>
                           </div>
                     @endif
+                     @if ($usuario->funcao != null)
+                      <hr>
+                      <div class="row">
+                        @if($usuario->funcao == 'APYJUCA')
+                              <div class="col">
+                                  <p><strong>Função no SisVila:</strong> Aprovador da Escola</p>
+                              </div>
+                          @elseif ($usuario->funcao == 'APEMEI')
+                              <div class="col">
+                                  <p><strong>Função no SisVila:</strong> Aprovador da EMEI</p>
+                              </div>
+                          @else
+                              <div class="col">
+                                  <p><strong>Função no SisVila:</strong> Inteligência da BACG</p>
+                              </div>
+                          @endif
+                          </div>
+                        @endif
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
@@ -231,6 +267,9 @@ img {
                                     <i class="fas fa-smile"></i> Habilitar
                                 </a>
                             @endif
+                        <a title="Redefinir senha do usuário para 12345678" class="btn btn-info" href="{{ route('usuarios.reset', [$usuario->id]) }}">
+                                    <i class="fas fa-retweet"></i><i class="fas fa-key"></i> Senha
+                        </a>
                         </div>
                          
                     </div>
