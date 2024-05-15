@@ -569,6 +569,64 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+//lente de aumento das imagens em usuarios.show
+     function imageZoom(imgID, resultID) {
+        var img = $("#" + imgID);
+        var result = $("#" + resultID);
+        var lens = $("<div class='img-zoom-lens'></div>");
+
+        img.parent().append(lens);
+
+        var cx = result.width() / lens.width();
+        var cy = result.height() / lens.height();
+
+        result.css("background-image", "url('" + img.attr("src") + "')");
+        result.css("background-size", (img.width() * cx) + "px " + (img.height() * cy) + "px");
+
+        lens.mousemove(moveLens);
+        img.mousemove(moveLens);
+
+        lens.on("touchmove", moveLens);
+        img.on("touchmove", moveLens);
+
+        function moveLens(e) {
+            e.preventDefault();
+            var pos = getCursorPos(e);
+            var x = pos.x - (lens.width() / 2);
+            var y = pos.y - (lens.height() / 2);
+
+            if (x > img.width() - lens.width()) { x = img.width() - lens.width(); }
+            if (x < 0) { x = 0; }
+            if (y > img.height() - lens.height()) { y = img.height() - lens.height(); }
+            if (y < 0) { y = 0; }
+
+            lens.css({ left: x + "px", top: y + "px" });
+            result.css("background-position", "-" + (x * cx) + "px -" + (y * cy) + "px");
+            result.show();
+        }
+
+        function getCursorPos(e) {
+            var a = img[0].getBoundingClientRect();
+            var x = e.pageX - a.left;
+            var y = e.pageY - a.top;
+            x = x - $(window).scrollLeft();
+            y = y - $(window).scrollTop();
+            return { x: x, y: y };
+        }
+
+        img.mouseleave(function() {
+            result.hide();
+        });
+
+        lens.mouseleave(function() {
+            result.hide();
+        });
+    }
+
+    // Inicialize a lupa para ambas as imagens
+    imageZoom("foto", "foto_resultado");
+    imageZoom("cnh", "cnh_resultado");
+    //lente de aumento das imagens em usuarios.show
 
   //document.getElementById("backBtn").addEventListener("click", function(){
   //  history.back();
@@ -797,6 +855,55 @@
         ],
       responsive: true,
     });
+
+    //Se a rota for de docs
+    @if(Request::routeIs('docs.*'))
+    //---------------------------------------------------------------------------------------------------
+    //SCRIPT PARA FAZER O SELECT EM MASSA DA TABELA docs E DELETAR
+
+        // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
+    $('#selectAll').on('change', function () {
+        $('input[name="selected[]"]').prop('checked', this.checked);
+    });
+
+    $('#deleteSelected').click(function () {
+        let selected = [];
+
+        // Coleta os IDs dos checkboxes marcados
+        $('input[name="selected[]"]:checked').each(function () {
+            selected.push($(this).val());
+        });
+
+        if (selected.length === 0) {
+            alert('Por favor, selecione pelo menos um item para deletar.');
+            return; // Se não houver nada selecionado, interrompa a ação
+        }
+
+        // Exibir um alerta de confirmação
+        const confirmation = confirm('Tem certeza de que deseja deletar os Documentos selecionados? Esta ação não pode ser desfeita.');
+
+        if (confirmation) {
+            // Se o usuário confirmar, execute a solicitação AJAX
+            $.ajax({
+                url: '/delete_massa_docs', // Endpoint para deleção
+                method: 'DELETE', // Método HTTP
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF para segurança
+                    ids: selected // IDs dos itens selecionados
+                },
+                success: function (response) {
+                    //console.log('Delete response:', response); // Para depuração
+                    location.reload(); // Recarrega a página após a deleção
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error deleting items:', textStatus, errorThrown); // Para depuração de erros
+                }
+            });
+        }
+    });
+    //SELECT EM MASSA NA TABELA DE USUÁRIOS E DELETAR
+    //---------------------------------------------------------------------------------------------------
+@endif
 
     //Se a rota for de usuários
     @if(Request::routeIs('usuarios.*'))

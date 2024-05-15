@@ -164,3 +164,12 @@ Route::get('/cadastro', function () {
 
 //documentos
 Route::resource('docs', DocsController::class)->middleware('auth');
+Route::get('/docs/{doc}/delete', 'DocsController@delete')->name('docs.delete')->middleware('auth');
+Route::delete('/delete_massa_docs','DocsController@delete_massa_docs')->name('docs.delete_massa_docs')->middleware('auth');
+Route::get('/docs/{doc}/download', 'DocsController@download_doc')->name('docs.download')->middleware('auth');
+
+
+use App\Http\Controllers\EmailController;
+
+//Route::get('usuario/{id}/show', [EmailController::class, 'show'])->name('usuario.show');
+Route::post('usuario/{id}/send-email', [EmailController::class, 'sendEmail'])->name('usuario.sendEmail');

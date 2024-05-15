@@ -1,5 +1,50 @@
 @extends('layouts.app')
 
+@section('cad_morador')
+/* Borda fina e cinza com cantos arredondados para imagens do grid específico */
+    .bordered-image {
+      border: 1px solid #cccccc; /* Borda cinza */
+      border-radius: 10px; /* Cantos arredondados */
+    }
+
+    /* Borda fina e cinza com cantos arredondados para linhas do grid específico */
+    .bordered-row {
+      border: 1px solid #cccccc; /* Borda cinza */
+      border-radius: 10px; /* Cantos arredondados */
+      padding: 10px; /* Adicionar espaçamento interno */
+    }
+
+.img-container {
+    position: relative;
+    margin-bottom: 20px; /* Adicione margem entre as imagens */
+}
+
+img {
+    width: 100%;
+    max-width: 600px;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 300px;
+    display: none;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    cursor: none;
+}
+@endsection
+
 @php
  $perfis = collect([]);
                       foreach(explode(',',  $usuario->autorizacao) as $info){
@@ -29,18 +74,13 @@
 @section('content')
 <div class="container">
     <div class="row align-items-center">
-        <div class="col-md-2">
-            <img src="/imagens/sisvila2.png" width="80px" height="70px">        
+        <div class="col-md-10">
+            <h5>Controle de Usuário do SisVila</h5>
         </div>
     </div>
     <hr>
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">Usuário: {{$usuario->name}}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
+    
+    @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -50,71 +90,122 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <img src = "{{ asset('storage/usuarios/'.$usuario->arquivo) }}" class="img-fluid" style="max-width: 30%;">
-                        </div>
+                    @if($errors->any())
+                      <div class="alert alert-danger" role="alert">
+                              @foreach($errors->all() as $error)
+                                      {{ $error }}
+                              @endforeach
+                      </div>
+                    @endif
+                <div class="mt-4" style="margin: 20px; height: auto; width: 80%;">
+                    <strong style="color: red;">Passe o mouse nas imagens para dar zoom!</strong> 
+                    <div class="row bordered-row">
+                      <!-- Coluna da esquerda com duas imagens -->
+                      <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+
+                         <div class="d-flex flex-column justify-content-between" >
+                            Foto de rosto:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="foto" src="{{ asset('storage/usuarios/'.$usuario->arquivo) }}" alt="Sem imagem de perfil"  class="img-fluid" style="max-width: 80%;">
+                            </div>
+                            <div id="foto_resultado" class="img-zoom-result"></div>
+                            CNH ou Identidade:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="cnh" src="{{ asset('storage/usuarios_cnh/'.$usuario->arquivo_cnh) }}" alt="Sem imagem da CNH ou Identidade" class="img-fluid" style="max-width: 60%;">
+                            </div>
+                            <div id="cnh_resultado" class="img-zoom-result"></div>
+                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-4">
-                           <strong>Nome:</strong> {{$usuario->name}}
-                        </div>
-                        <div class="col-md-2">
-                            <strong>RG:</strong> {{$usuario->rg}}
-                        </div>
-                        <div class="col-md-3">
-                            <strong>CPF:</strong> {{$usuario->cpf}}
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Telefone:</strong> {{$usuario->telefone}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <strong>E-mail:</strong> {{$usuario->email}}
-                        </div>
-                        <div class="col-md-2">
-                            <strong>Local:</strong> {{$usuario->local}}
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Perfil:</strong> 
-                            @foreach($perfis as $p)
-                                {{$p}}
-                            @endforeach
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Status:</strong>
-                            @if($usuario->status == 1)
+                    <!-- Coluna da direita com mais 12 linhas -->
+                    <div class="col-8 bordered-row">
+                        <!-- Você pode adicionar qualquer conteúdo aqui -->
+                        <div class="row">
+                          <div class="col">
+                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>E-mail:</strong> <span id="confirm-email">{{$usuario->email}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>RG:</strong> <span id="confirm-rg">{{$usuario->rg}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>CPF:</strong> <span id="confirm-cpf">{{$usuario->cpf}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Telefone:</strong> <span id="confirm-telefone">{{$usuario->telefone}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento">{{date('d/m/Y', strtotime($usuario->nascimento))}}</span></p>
+                          </div>
+                      </div>
+                       <div class="row">
+                          <div class="col">
+                             <hr>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Endereço:</strong><span id="confirm-name"> {{$usuario->local}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                            <p><strong>Status:</strong><span>@if($usuario->status == 1)
                                     ATIVO
                                 @else
                                     INATIVO 
-                            @endif
+                            @endif</span></p>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <strong>É condutor de veículos?</strong> {{$usuario->condutor}}
-                        </div>
-                        <div class="col-md-2">
-                            <strong>Nº CNH:</strong> {{$usuario->num_cnh}}
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Categoria CNH:</strong> {{$usuario->categoria_cnh}}
-                        </div>
-                        <div class="col-md-3">
-                            <strong>Validade CNH:</strong> {{date('d/m/Y', strtotime($usuario->validade_cnh))}}
-                        </div>
-                    </div>
+                          
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                             <hr>
+                          </div>
+                      </div>
+                      <div id="condutores">
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>É condutor de veículos:</strong> <span id="confirm-condutor">{{$usuario->condutor}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>N° CNH:</strong> <span id="confirm-num_cnh">{{$usuario->num_cnh}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh">{{$usuario->categoria_cnh}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh">{{date('d/m/Y', strtotime($usuario->validade_cnh))}}</span></p>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      @if ($usuario->parecer_sint != null)
+                      <hr>
+                      <div class="row">
+                              <div class="col">
+                                  <p><strong>Parecer da SINT:</strong> {{ $usuario->motivo_sint }}</p>
+                              </div>
+                          </div>
+                    @endif
                     <hr>
-                    <h6>Imagem da CNH enviada</h6>
-                    <div class="row align-items-center">
-                        <div class="col-md-12">
-                            <img src = "{{ asset('storage/usuarios_cnh/'.$usuario->arquivo_cnh) }}" class="img-fluid" style="max-width: 50%;">
-                        </div>
-                    </div>
-                    <hr>
-                    <h5>CONTROLES</h5>
                     <div class="row">
                         <div class="col-md-12">
                             <a class="btn btn-danger" title="Excluir Usuário" href="{{ route('usuarios.delete', [$usuario->id]) }}">
@@ -143,7 +234,32 @@
                         </div>
                          
                     </div>
-                    <!--MODAL QUE EXIBE O QR-CODE-->
+
+                  </div>
+              </div>
+              @if (Auth::user()->autorizacao == 'ad')
+              <div class="row bordered-row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        Informações via Email ao(a) Sr.(a) {{ $usuario->name }}
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">Digite neste campo sua mensagem</h5>
+                             <div class="form-group">
+                               <form action="{{ route('usuario.sendEmail', $usuario->id) }}" method="POST">
+                                  @csrf
+                                <textarea class="form-control" id="message" name="message" rows="3" placeholder="O email será encaminhado a {{ $usuario->email }}"></textarea><br>
+                                <button type="submit" class="btn btn-warning"> <i class="fas fa-mail-bulk"></i> Enviar Email</button>
+                              </form>
+                              </div>
+                              
+                      </div>
+                    </div>
+                </div>
+              </div>
+              @endif
+              <!--MODAL QUE EXIBE O QR-CODE-->
                                 <div class="modal fade" id="QRView-<?=$usuario->id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-scrollable" role="document">
                                     <div class="modal-content">
@@ -168,11 +284,10 @@
                                   </div>
                                 </div>
                             <!--FIM DO MODAL-->
-
-                </div>
-            </div>
-        </div>
-    </div>
+          </div>
 </div>  
+
+<script>
+</script>
 
 @endsection

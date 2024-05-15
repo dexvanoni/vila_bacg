@@ -27,10 +27,10 @@
                 <div class="col-2 align-self-start">
                     <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </div>
-                <div class="col-8 align-self-center"></div>
-                <div class="col-2 align-self-end">
+                <div class="col-7 align-self-center"></div>
+                <div class="col-3 align-self-end">
                     <a title="Adicionar Documento" class="btn btn-success" href="{{ route('docs.create') }}">
-                        <i class="fas fa-file-upload">ADICIONAR</i>
+                        <i class="fas fa-file-upload"> Adicionar arquivo</i>
                     </a>
                 </div>
         </div>
@@ -45,8 +45,11 @@
                     <th><input type="checkbox" id="selectAll"></th>
                 @endif
                 <th>Documento</th>
+                <th>Observações</th>
                 <th>Data Upload</th>
-                <th>Ações</th>
+                @if (Auth::user()->autorizacao == 'ad')
+                    <th>Ações</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -55,14 +58,18 @@
                         @if (Auth::user()->autorizacao == 'ad')
                             <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
                         @endif
-                        <td>{$l->doc}}</td>
-                        <td>{{$l->dt}}</td>
+                        <td>{{$l->doc}}</td>
+                        <td style="word-wrap: break-word; white-space: normal;">{{$l->obs}}</td>
+                        <td>{{\Carbon\Carbon::parse($l->dt)->format('d/m/Y')}}</td>
                         <td>
                             @if (Auth::user()->autorizacao == 'ad')
                             <a title="Deletar Documento" style="color: darkred;" href="{{ route('docs.delete', [$l->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
                             @endif
+                            <a title="Baixar Documento" style="color: blue;" href="{{ route('docs.download', [$l->id]) }}">
+                                <i class="fas fa-download"></i>
+                            </a>
 
                         </td>
                     </tr>

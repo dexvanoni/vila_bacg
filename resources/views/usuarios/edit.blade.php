@@ -1,222 +1,181 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-9">
-            <div class="card">
-                <div class="card-header">Edição de Cadastro</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('usuarios.update', ['id' => $usuario->id])}}">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">Nome Completo <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Realizar a conferência de letras e acentos!"></i></label>
-                                    <input class="form-control" id="name" name="name" value="{{ $usuario->name }}" required autofocus>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Este será o login no sistema."></i></label>
-                                    <input class="form-control" type="email" id="email" name="email" value="{{ $usuario->email }}" required >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="email">Telefone (Whatsapp)</label>
-                                <input id="telefone" type="tel"  maxlength="15" onkeyup="handlePhone(event)" class="form-control{{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ $usuario->telefone }}" required>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="email">Ramal</label>
-                                <input id="ramal" maxlength="4" type="text" class="form-control{{ $errors->has('ramal') ? ' is-invalid' : '' }}" name="ramal" value="{{ $usuario->ramal }}">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="email">Tipo de Usuário <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="O usuário virtual não participa de Assembléias, não vota e não faz qualquer publicação!"></i></label>
-                                <select class="form-control" id="tipo" name="tipo">
-                                  <option>Existente</option>
-                                  <option>Virtual (SOMENTE ADMINISTRADORES)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="rg">RG</label>
-                                    <input class="form-control" id="rg" name="rg" value="{{ $usuario->rg }}" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="cpf">CPF <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Verificação automárica"></i></label>
-                                    <input class="form-control" id="cpf" name="cpf" value="{{ $usuario->cpf }}" maxlength="11" onfocusout="validarCPF(cpf)" required>
-                                    <small id="resultado"></small>
-                            </div>
-                        </div>
-                        <!--MÓDULO DE AUTORIZAÇÕES-->
-
-                        <hr>
-                        <h4>Acessos e autorizações</h4>
-
-                        <div class="form-group row mb-0 offset-md-1">
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="pe" value="pe"  onclick ="aut();">
-                              <label class="form-check-label" for="pe">Permissionário</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="de" value="de" onclick="aut();">
-                              <label class="form-check-label" for="de">Dependente</label>
-                            </div> 
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="st" value="st" onclick="aut();">
-                              <label class="form-check-label" for="st">Sócio-Titular</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="sd" value="sd" onclick="aut();">
-                              <label class="form-check-label" for="sd">Sócio-Dependente</label>
-                            </div> 
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="fe" value="fe" onclick="aut();">
-                              <label class="form-check-label" for="fe">Funcionário Escola</label>
-                            </div>    
-                        </div>
-                        <br>
-                        <div class="form-group row mb-0 offset-md-1">
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="ra" value="ra" onclick="aut();">
-                              <label class="form-check-label" for="ra">Responsável Aluno</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="ps" value="ps" onclick="aut();">
-                              <label class="form-check-label" for="ps">Prestador de Serviço</label>
-                            </div> 
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="po" value="po" onclick="aut();">
-                              <label class="form-check-label" for="po">Portaria</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="si" value="si" onclick="aut();">
-                              <label class="form-check-label" for="si">Síndico</label>
-                            </div> 
-                            <div class="form-check form-check-inline">
-                              <input name="autoriza" class="form-check-input" type="checkbox" id="ad" value="ad" onclick="aut();">
-                              <label class="form-check-label" for="ad">Administrador</label>
-                            </div>    
-                        </div>
-
-                        <input type="hidden" name="autorizacao" id="autorizacao" value="">
-
-                        <br>
-                        <!--TÉRMINO DO MÓDULO DE AUTORIZAÇÕES-->
-
-                        <!--MÓDULO DE VINCULAÇÕES-->
-
-                        <hr>
-                        <h4>Vinculações</h4>
-
-                             <div class="form-group">
-                                <label for="local">Local onde o cadastrado terá acesso</label>
-                                <select class="form-control" id="local" name="local">
-                                  @php
-                                    $locais = App\Local::all();
-                                  @endphp
-                                  <option>Selecione...</option>
-                                  @foreach ($locais as $l)
-                                    <option>{{$l->local}}</option>
-                                  @endforeach
-                                </select>
-                              </div>
-
-                        <!--TÉRMINO DO MÓDULO DE AUTORIZAÇÕES-->
-                        <!-- O USUÁRIO REALIZA O CADASTRO E FICA COM O STATUS ZERO, OU SEJA, AINDA BLOQUEADO PARA UTILIZAÇÃO-->
-                        <input type="hidden" name="status" value="0">
-                        <div class="form-group row mb-0">
-                            <div class="col-md-7 offset-md-5">
-                                <button type="submit" class="btn btn-primary">
-                                    Registrar
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
-    function validarCPF() {
-        cpf = $('#cpf').val();
-    // Codigo relativo ao video 3   
-                  
-        function isCPF(cpf = 0){
-
-            cpf  = cpf.replace(/\.|-/g,"");
-
-            if(!validaPrimeiroDigito(cpf))
-               return false;
-            if(!validaSegundoDigito(cpf))
-               return false;
-
-            return true;
-                
-        }
-        var sum = 0;
-        
-        function validaPrimeiroDigito(cpf = null){
-            let fDigit = (sumFristDigit(cpf) * 10) % 11;
-                fDigit = (fDigit == 10 || fDigit == 11 ) ? 0 : fDigit; 
-            if(fDigit != cpf[9])
-                return false
-            return true;
-        }
-        function validaSegundoDigito(cpf = null){
-            let sDigit = (sumSecondDigit(cpf) * 10) % 11;
-                sDigit = (sDigit == 10 || sDigit == 11 ) ? 0 : sDigit;
-
-            if(sDigit != cpf[10])
-                return false
-            return true;
-        }
-
-
-        sumFristDigit = function(cpf, position=0, sum=0){
-            if(position > 9)
-                return 0;
-            return sum + sumFristDigit(cpf,position+1,cpf[position] * ((cpf.length-1)-position));
-        }
-
-        
-        sumSecondDigit = function(cpf, position=0, sum=0){
-            if(position > 10)
-                return 0;
-            return sum + sumSecondDigit(cpf,position+1,cpf[position] * ((cpf.length)-position));
-        }
-
-        var verificaCPF;
-
-        if (isCPF(cpf) == true) {
-            verificaCPF = 'CPF Válido!';
-            document.getElementById("resultado").innerHTML = verificaCPF;
-        } else {
-            verificaCPF = 'Este CPF é INVÁLIDO! Digite novamente.';
-            document.getElementById("resultado").innerHTML = verificaCPF;
-        };
-        
+@section('cad_morador')
+/* Borda fina e cinza com cantos arredondados para imagens do grid específico */
+    .bordered-image {
+      border: 1px solid #cccccc; /* Borda cinza */
+      border-radius: 10px; /* Cantos arredondados */
     }
 
-    function aut() {
+    /* Borda fina e cinza com cantos arredondados para linhas do grid específico */
+    .bordered-row {
+      border: 1px solid #cccccc; /* Borda cinza */
+      border-radius: 10px; /* Cantos arredondados */
+      padding: 10px; /* Adicionar espaçamento interno */
+    }
+@endsection
+
+@php
+ $perfis = collect([]);
+                      foreach(explode(',',  $usuario->autorizacao) as $info){
+                        if ($info == 'mo') {
+                  $perfis->push('Morador');
+                } elseif ($info == 'so') {
+                  $perfis->push('Sócio');
+                } elseif ($info == 'ef') {
+                  $perfis->push('Efetivo BACG');
+                } elseif ($info == 'fe') {
+                  $perfis->push('Funcionário da Escola');
+                } elseif ($info == 'ra') {
+                  $perfis->push('Responsável por Aluno');
+                } elseif ($info == 'po') {
+                  $perfis->push('Portaria');
+                } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
+                } elseif ($info == 'ad') {
+                  $perfis->push('Administrador');
+                  } elseif ($info == 'al') {
+                  $perfis->push('Aluno');
+                }
+                        $perfis->all();
+                      }
+@endphp
+
+@section('content')
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-2">
+            <img src="/imagens/sisvila2.png" width="80px" height="80px">        
+        </div>
+        <div class="col-md-10">
+            <h5>Edição de cadastro de Usuário</h5>
+        </div>
+    </div>
+    <hr>
     
-        var auts = new Array();
+    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                <form method="POST" action="{{ route('usuarios.update', ['id' => $usuario->id])}}">
+                        @csrf
+                        @method('PUT')
+                <div class="mt-4" style="margin: 20px; height: auto;">
+                    <div class="row bordered-row">
+                      <!-- Coluna da esquerda com duas imagens -->
+                      <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                         <div class="d-flex flex-column justify-content-between" >
+                            Foto de rosto:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="confirm-image-arquivo" src="{{ asset('storage/usuarios/'.$usuario->arquivo) }}" alt="Imagem de perfil"  class="img-fluid" style="max-width: 80%;">
+                            </div>
+                            CNH ou Identidade:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="confirm-image-arquivo-cnh" src="{{ asset('storage/usuarios_cnh/'.$usuario->arquivo_cnh) }}" alt="Imagem da CNH ou Identidade" class="img-fluid" style="max-width: 80%;">
+                            </div>
+                         </div>
+                    </div>
+                    <!-- Coluna da direita com mais 12 linhas -->
+                    <div class="col-8 bordered-row">
+                        <!-- Você pode adicionar qualquer conteúdo aqui -->
+                        <div class="row">
+                          <div class="col">
+                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>E-mail:</strong> <span id="confirm-email">{{$usuario->email}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>RG:</strong> <span id="confirm-rg">{{$usuario->rg}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>CPF:</strong> <span id="confirm-cpf">{{$usuario->cpf}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Telefone:</strong> <span id="confirm-telefone">{{$usuario->telefone}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento">{{date('d/m/Y', strtotime($usuario->nascimento))}}</span></p>
+                          </div>
+                      </div>
+                       <div class="row">
+                          <div class="col">
+                             <hr>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Endereço:</strong><span id="confirm-name">{{$usuario->local}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                            <p><strong>Status:</strong><span>@if($usuario->status == 1)
+                                    ATIVO
+                                @else
+                                    INATIVO 
+                            @endif</span></p>
+                        </div>
+                          
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                             <hr>
+                          </div>
+                      </div>
+                      <div id="condutores">
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>É condutor de veículos:</strong> <span id="confirm-condutor">{{$usuario->condutor}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>N° CNH:</strong> <span id="confirm-num_cnh">{{$usuario->num_cnh}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh">{{$usuario->categoria_cnh}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh">{{date('d/m/Y', strtotime($usuario->validade_cnh))}}</span></p>
+                              </div>
+                          </div>
+                      </div>
+                      <hr>
+                       <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for=""></label>
+                                        <button type="submit" class="btn btn-primary">
+                                                Atualizar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+</div>  
 
-        $("input:checkbox[name=autoriza]:checked").each(function(){
-            auts.push($(this).val());
-        });
-
-        $("#autorizacao").val(auts);
-
-}   
-
-</script>
 @endsection

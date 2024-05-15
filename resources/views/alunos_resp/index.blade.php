@@ -71,9 +71,9 @@
                         <td>{{$l->cpf_aluno}}</td>
                         <td>
                         @if ($l->status_aluno == "0")
-                            <i class="fas fa-window-close" style="color: red;"></i>
+                            <i class="fas fa-window-close" style="color: red;" title="BLOQUEADO PELO ADMINISTRADOR"></i>
                         @else
-                            <i class="fas fa-check-square" style="color: green;"></i>
+                            <i class="fas fa-check-square" style="color: green;" title="LIBERADO PELO ADMINISTRADOR"></i>
                         @endif
                         @if ($l->parecer_sint == 'APROVADO')
                             <i class="fas fa-user-secret" style="color: green;" title="{{ $l->motivo_sint }}"></i>
