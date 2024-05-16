@@ -26,8 +26,8 @@ img {
 
 .img-zoom-result {
     border: 1px solid #d4d4d4;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     position: absolute;
     top: 0;
     left: 300px;
@@ -42,6 +42,29 @@ img {
     width: 100px;
     height: 100px;
     cursor: none;
+}
+
+.btn-custom-size {
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 170px; /* largura fixa */
+    text-align: center; /* centralizar texto */
+}
+
+@media (max-width: 768px) {
+    .btn-custom-size {
+        padding: 8px 16px;
+        font-size: 14px;
+        width: 150px; /* largura ajustada para telas menores */
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-custom-size {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: 100px; /* largura ajustada para telas ainda menores */
+    }
 }
 @endsection
 
@@ -121,7 +144,7 @@ img {
                         <!-- Você pode adicionar qualquer conteúdo aqui -->
                         <div class="row">
                           <div class="col">
-                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}}</span></p>
+                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}} ({{ $perfis[0] }})</span></p>
                           </div>
                       </div>
                       <div class="row">
@@ -242,6 +265,13 @@ img {
                           </div>
                         @endif
                     <hr>
+                    @if($usuario->autorizacao == 'ad')
+                      <div class="row">
+                        <div class="col">
+                                    <p><strong>Perfil no SisVila:</strong> ADMINISTRADOR</p>
+                        </div>
+                      </div>    
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <a class="btn btn-danger" title="Excluir Usuário" href="{{ route('usuarios.delete', [$usuario->id]) }}">
@@ -277,6 +307,35 @@ img {
                   </div>
               </div>
               @if (Auth::user()->autorizacao == 'ad')
+               <div class="row bordered-row">
+                <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        Definir uma função a este usuário
+                      </div>
+                      <div class="card-body">
+                        <div class="col-md-12">
+                            <a class="btn btn-danger btn-custom-size" title="Tornar este usuário ADMINISTRADOR do SisVila" href="{{ route('usuarios.administrador', [$usuario->id]) }}">
+                                <i class="fas fa-user-secret"></i> Administrador
+                            </a>
+                            <a class="btn btn-warning btn-custom-size" title="Tornar este usuário APROVADOR de cadastros DA EMEI" href="{{ route('usuarios.apemei', [$usuario->id]) }}">
+                                <i class="fas fa-baby-carriage"></i> EMEI
+                            </a>
+                            <a class="btn btn-info btn-custom-size" title="Tornar este usuário APROVADOR de cadastros DA Escola Y-Juca Pyrama" href="{{ route('usuarios.apyjuca', [$usuario->id]) }}">
+                                <i class="fas fa-chalkboard-teacher"></i> Escola
+                            </a>
+                            <a class="btn btn-secondary btn-custom-size" title="Tornar este usuário APROVADOR da Inteligência (SINT) da BACG" href="{{ route('usuarios.apin', [$usuario->id]) }}">
+                                <i class="fas fa-user-shield"></i> Inteligência
+                            </a>
+                            <a class="btn btn-dark" title="Retira todas as funções administrativas deste usuário e define seu perfil para Morador." href="{{ route('usuarios.resetar', [$usuario->id]) }}">
+                                <i class="fas fa-reply-all"></i>
+                            </a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
               <div class="row bordered-row">
                 <div class="col-12">
                     <div class="card">

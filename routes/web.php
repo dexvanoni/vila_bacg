@@ -169,8 +169,14 @@ Route::get('/docs/{doc}/delete', 'DocsController@delete')->name('docs.delete')->
 Route::delete('/delete_massa_docs','DocsController@delete_massa_docs')->name('docs.delete_massa_docs')->middleware('auth');
 Route::get('/docs/{doc}/download', 'DocsController@download_doc')->name('docs.download')->middleware('auth');
 
-
+//rota para envio de email na página usuarios.show
 use App\Http\Controllers\EmailController;
-
-//Route::get('usuario/{id}/show', [EmailController::class, 'show'])->name('usuario.show');
 Route::post('usuario/{id}/send-email', [EmailController::class, 'sendEmail'])->name('usuario.sendEmail');
+
+//funções para os usuários
+
+Route::get('/usuarios/{usuario}/administrador', 'UsuariosController@administrador')->name('usuarios.administrador')->middleware('auth');
+Route::get('/usuarios/{usuario}/apemei', 'UsuariosController@apemei')->name('usuarios.apemei')->middleware('auth');
+Route::get('/usuarios/{usuario}/apyjuca', 'UsuariosController@apyjuca')->name('usuarios.apyjuca')->middleware('auth');
+Route::get('/usuarios/{usuario}/apin', 'UsuariosController@apin')->name('usuarios.apin')->middleware('auth');
+Route::get('/usuarios/{usuario}/resetar', 'UsuariosController@resetar')->name('usuarios.resetar')->middleware('auth');

@@ -234,4 +234,75 @@ class UsuariosController extends Controller
                     ->with('success', 'Usuário HABILITADO com sucesso!');
 
     }
+
+    public function administrador($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'autorizacao' => 'ad',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Perfil atualizado para Administrador.');
+    }
+
+    public function apemei($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'funcao' => 'APEMEI',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Perfil atualizado para Aprovador da EMEI.');
+    }
+
+    public function apyjuca($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'funcao' => 'APYJUCA',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Perfil atualizado para Aprovador da ESCOLA Y-JUCA PYRAMA.');
+    }
+
+    public function apin($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'funcao' => 'in',
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Perfil atualizado para Aprovador da SINT da BACG.');
+    }
+
+    public function resetar($usuario)
+    {
+        $u = User::find($usuario);
+        
+        DB::table('users')
+            ->where('id', $u->id)
+            ->update([
+                        'funcao' => null,
+                        'autorizacao' => 'mo'
+                    ]);        
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Perfil atualizado. Todas as funções foram retiradas!');
+    }
 }
