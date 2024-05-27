@@ -87,4 +87,44 @@ class SendEmailController extends Controller
                     ->route('home')
                     ->with('success', 'Visitante liberado e email encaminhado!');
  }
+
+
+ public function sendmail_meuqr($usuario){
+
+
+        $usuarios = User::find($usuario);
+
+        //$data["email"]=$request->get("email");
+        $data["email"]= $usuarios->email;
+        //$data["client_name"]=$request->get("client_name");
+        $data["client_name"]= $usuarios->name;
+        //$data["subject"]=$request->get("subject");
+        $data["subject"]='Seu QR-Code do SISVila chegou!';
+
+        // $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
+        $pdf = PDF::loadView('mails.meuqr', compact('usuarios'));
+ 
+        try{
+            Mail::send('mails.meumail', $data, function($message)use($data,$pdf) {
+            $message->to($data["email"], $data["client_name"])
+            ->subject($data["subject"])
+            ->attachData($pdf->output(), "cartao_de_acesso.pdf");
+            });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (Mail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+ 
+        }else{
+ 
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+        return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Email encaminhado!');
+ }
 }

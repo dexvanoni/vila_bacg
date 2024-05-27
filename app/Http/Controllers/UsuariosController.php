@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use App\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use App\Movimentacao;
 
 class UsuariosController extends Controller
 {
@@ -23,8 +24,16 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->get();
+        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->where('status', '<>', '2')->get();
         return view('usuarios.index', ['usuarios' => $usuarios]);
+    }
+
+    public function index_desabilitados()
+    {
+        //$usuarios = User::all();
+
+        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->where('status', '=', '2')->get();
+        return view('usuarios.index_desabilitados', ['usuarios' => $usuarios]);
     }
 
     /**
@@ -115,12 +124,44 @@ class UsuariosController extends Controller
     {
         $usuarios = User::find($usuario);
 
-        $usuarios->delete();   
-        
-        return redirect()
-                    ->route('usuarios.index')
-                    ->with('success', 'Usuário excluído com sucesso!');
+        $movimentacao = Movimentacao::where('morador_id', $usuarios->cpf)->get();
 
+        if($movimentacao->isEmpty()){
+            $usuarios->delete();
+            return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Usuário excluído com sucesso!');    
+        } else {
+            return redirect()
+                    ->route('usuarios.index')
+                    ->with('erro', 'Usuário não pode ser excluído! Existem movimentações deste usuário nas portarias.'); 
+        }
+    }
+
+    public function desativa($usuario)
+    {
+        $usuarios = User::find($usuario);
+
+            $usuarios->update([
+                'status' => "2"
+            ]);  
+            return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Usuário DESATIVADO com sucesso! Incluído na lista de Inativados.');    
+        
+    }
+
+    public function reativa($usuario)
+    {
+        $usuarios = User::find($usuario);
+
+            $usuarios->update([
+                'status' => "1"
+            ]);  
+            return redirect()
+                    ->route('usuarios.index')
+                    ->with('success', 'Usuário REATIVADO com sucesso!');    
+        
     }
 
     public function reset($usuario)

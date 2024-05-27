@@ -250,7 +250,6 @@ body {
   font-variant: normal;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background: 0 0;
   position: absolute;
@@ -275,8 +274,7 @@ body {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
   margin-right: 10px;
   font-size: 8px;
 }
@@ -379,12 +377,6 @@ body {
   background: #525965;
   border: 0px none #ffffff;
   border-radius: 0px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #525965;
-}
-::-webkit-scrollbar-thumb:active {
-  background: #525965;
 }
 ::-webkit-scrollbar-track {
   background: transparent;

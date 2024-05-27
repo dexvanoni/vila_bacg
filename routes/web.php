@@ -79,6 +79,9 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
+Route::get('/usuarios/index/desabilitados', 'UsuariosController@index_desabilitados')->name('usuarios.index_desabilitados')->middleware('auth');
+Route::get('/usuarios/{usuario}/desativa', 'UsuariosController@desativa')->name('usuarios.desativa')->middleware('auth');
+Route::get('/usuarios/{usuario}/reativa', 'UsuariosController@reativa')->name('usuarios.reativa')->middleware('auth');
 Route::get('/usuarios/{usuario}/reset', 'UsuariosController@reset')->name('usuarios.reset')->middleware('auth');
 
 //Ações em massa
@@ -117,6 +120,7 @@ use App\Http\Controllers\SendEmailController;
 
 Route::get('send-email-pdf/{convidado}', [SendEmailController::class, 'sendmail'])->name('email_qrcode');
 Route::get('send-email-pdf_cadastro/{convidado}', [SendEmailController::class, 'sendmail_cadastro'])->name('email_qrcode_cadastro');
+Route::get('send-email-pdf/meuqr/{usuario}', [SendEmailController::class, 'sendmail_meuqr'])->name('email_qrcode_meuqr');
 
 Route::resource('pets', PetsController::class)->middleware('auth');
 Route::get('/pets/{pets}/delete', 'PetsController@delete')->name('pets.delete')->middleware('auth');

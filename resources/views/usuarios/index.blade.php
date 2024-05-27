@@ -20,6 +20,12 @@
         </div>
         <hr>
     @endif
+    @if(session('erro'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('erro') }}
+        </div>
+        <hr>
+    @endif
     <div class="row">
         <h4>Ações para vários registros</h4>
     </div>
@@ -34,8 +40,12 @@
                 <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
             </div>
     </div>
+
+    <div class="row">
+        
+
     
-    <table id="lista_usuarios" class="table table-striped table-bordered" style="width:100%">
+    <table id="lista_usuarios" class="table table-striped table-bordered display" style="width:100%">
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
@@ -53,12 +63,7 @@
             @foreach($usuarios as $l)
                 <tr>
                     <td><input type="checkbox" name="selected[]" value="{{ $l->id }}"></td>
-                    <td style="color: 
-                        @if($l->status == "0")
-                            red
-                        @endif
-                            ">
-                            {{$l->name}}</td>
+                    <td>{{$l->name}}</td>
                     <td>{{$l->cpf}}</td>
                     <td>{{$l->local}}</td>
                     <td>
@@ -109,10 +114,13 @@
                     @if (Auth::user()->autorizacao <> 'po')
                     <td>
                         <a title="Ver Usuário" style="color: black" href="{{ route('usuarios.show', [$l->id]) }}">
-                            <i class="fas fa-home" style="blue"></i>
+                            <i class="fas fa-home" ></i>
                         </a>
                         <a title="Deletar Usuário" style="color: darkred;" href="{{ route('usuarios.delete', [$l->id]) }}">
-                            <i class="fas fa-trash-alt btn-delete" style="blue"></i>
+                            <i class="fas fa-trash-alt btn-delete" ></i>
+                        </a>
+                        <a title="DESATIVAR Usuário" style="color: saddlebrown;" href="{{ route('usuarios.desativa', [$l->id]) }}">
+                            <i class="fas fa-user-slash btn-desabilita"></i>
                         </a>
                         @if ($l->status == "0")
                             <a title="Habilitar Usuário" style="color: green" href="{{ route('usuarios.hab', [$l->id]) }}">
@@ -128,6 +136,11 @@
                                         <i class="fas fa-user-secret" style="color: blue;"></i>
                             </a>
                         @endif
+                        @if ($l->status == "1")
+                            <a title="Enviar EMAIL ao Usuário com seu QR-Code" style="color: green" href="{{ route('email_qrcode_meuqr', [$l->id]) }}">
+                                        <i class="far fa-envelope btn-mail"></i>
+                            </a>
+                        @endif
                     </td>
                     @endif
                 </tr>
@@ -135,12 +148,20 @@
             @endforeach
         </tbody>
     </table>
+        </div>
 
-    <a title="Imprimir Crachás em Massa" href="{{ route('crachas') }}">
-        <i class="fas fa-print"></i> Impressão de Crachás
-    </a>
+        <div class="row">
+            <div class="col">
+                <a title="Ver usuários DESABILITADOS do SisVila" href="{{ route('usuarios.index_desabilitados') }}">
+                    <i class="fas fa-user-slash"></i> Usuários DESABILITADOS
+                </a>
+            </div>
+            <div class="col">
+                <div id="btn-place"></div>
+            </div>
+        </div>
+    
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.querySelectorAll('.btn-delete');
@@ -152,6 +173,30 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var desabilitaButtons = document.querySelectorAll('.btn-desabilita');
+        desabilitaButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                if (!confirm('Tem certeza que deseja DESABILITAR este usuário?')) {
+                    event.preventDefault(); // Cancela o evento de clique se o usuário escolher "Cancelar"
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var mailButtons = document.querySelectorAll('.btn-mail');
+        mailButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                if (!confirm('Tem certeza que deseja ENVIAR O CARTÃO DE ACESSO NO EMAIL deste usuário?')) {
+                    event.preventDefault(); // Cancela o evento de clique se o usuário escolher "Cancelar"
+                }
+            });
+        });
+    });
+
+
 </script>
 
 @endsection
