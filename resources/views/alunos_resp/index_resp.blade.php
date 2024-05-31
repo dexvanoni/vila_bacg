@@ -95,7 +95,7 @@
                     </td>
                         <td>
                             @if (Auth::user()->autorizacao == 'ad')
-                            <a title="Ver Usuário" href="{{ route('aluno_resp.show', [$r->id]) }}">
+                            <a title="Ver Usuário" href="{{ route('aluno_resp.show_resp', [$r->id]) }}">
                                 <i class="fas fa-home" style="blue"></i>
                             </a>
                             <a title="Deletar Responsável" style="color: darkred;" href="{{ route('aluno_resp.delete', [$r->id]) }}">
@@ -125,6 +125,11 @@
                             @if (Auth::user()->funcao == 'APEMEI')
                             <a title="Aprovação EMEI" style="color: orange" href="{{ route('aluno_resp.parecer_escola_aluno', [$r->id]) }}">
                                         <i class="fas fa-baby"></i>
+                            </a>
+                            @endif
+                            @if ($r->status_aluno == "1")
+                            <a title="Enviar EMAIL ao aluno com seu QR-Code" style="color: green" href="{{ route('email_qrcode_meuqr_aluno', [$r->id]) }}">
+                                        <i class="far fa-envelope btn-mail"></i>
                             </a>
                             @endif
                         </td>

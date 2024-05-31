@@ -125,7 +125,6 @@ img {
                     <div class="row bordered-row">
                       <!-- Coluna da esquerda com duas imagens -->
                       <div class="col-4 d-flex flex-column justify-content-center align-items-center">
-
                          <div class="d-flex flex-column justify-content-between" >
                             Foto de rosto:
                             <div class="h-50 d-flex align-items-center justify-content-center bordered-row">

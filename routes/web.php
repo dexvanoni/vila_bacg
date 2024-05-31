@@ -121,6 +121,7 @@ use App\Http\Controllers\SendEmailController;
 Route::get('send-email-pdf/{convidado}', [SendEmailController::class, 'sendmail'])->name('email_qrcode');
 Route::get('send-email-pdf_cadastro/{convidado}', [SendEmailController::class, 'sendmail_cadastro'])->name('email_qrcode_cadastro');
 Route::get('send-email-pdf/meuqr/{usuario}', [SendEmailController::class, 'sendmail_meuqr'])->name('email_qrcode_meuqr');
+Route::get('send-email-pdf/meuqr_aluno/{aluno}', [SendEmailController::class, 'sendmail_meuqr_aluno'])->name('email_qrcode_meuqr_aluno');
 
 Route::resource('pets', PetsController::class)->middleware('auth');
 Route::get('/pets/{pets}/delete', 'PetsController@delete')->name('pets.delete')->middleware('auth');
@@ -153,6 +154,7 @@ Route::get('/aluno_resp', 'CadAlunoController@index')->name('aluno_resp.index')-
 Route::get('/aluno_resp_resp', 'CadAlunoController@index_resp')->name('aluno_resp.index_resp')->middleware('auth');
 
 Route::get('/aluno_resp/{aluno_resp}', 'CadAlunoController@show')->name('aluno_resp.show')->middleware('auth');
+Route::get('/aluno_resp_resp/{aluno_resp}', 'CadAlunoController@show_resp')->name('aluno_resp.show_resp')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/delete', 'CadAlunoController@delete')->name('aluno_resp.delete')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/desab', 'CadAlunoController@desabilitar')->name('aluno_resp.desab')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/hab', 'CadAlunoController@habilitar')->name('aluno_resp.hab')->middleware('auth');

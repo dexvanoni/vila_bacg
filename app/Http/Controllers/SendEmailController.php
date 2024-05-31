@@ -6,6 +6,7 @@ use Mail;
 use PDF;
 use App\Liberar;
 use App\User;
+use App\CadAluno;
  
 class SendEmailController extends Controller
 {
@@ -125,6 +126,53 @@ class SendEmailController extends Controller
         }
         return redirect()
                     ->route('usuarios.index')
+                    ->with('success', 'Email encaminhado!');
+ }
+
+ public function sendmail_meuqr_aluno($aluno){
+
+
+        $alunos = CadAluno::find($aluno);
+        
+
+        if(is_null($alunos->email_resp)){
+            return redirect()
+                    ->route('aluno_resp.index_resp')
+                    ->with('success', 'Email não encaminhado! Este usuário não tem email cadastrado.');
+        }
+
+
+        //$data["email"]=$request->get("email");
+        $data["email"]= $alunos->email_resp;
+        //$data["client_name"]=$request->get("client_name");
+        $data["client_name"]= $alunos->nome_resp;
+        //$data["subject"]=$request->get("subject");
+        $data["subject"]='Seu QR-Code do SISVila chegou!';
+
+        // $pdf = PDF::loadView('mails.qr_convidado_email', compact('convidado'));
+        $pdf = PDF::loadView('mails.meuqr_aluno', compact('alunos'));
+ 
+        try{
+            Mail::send('mails.meumail_aluno', $data, function($message)use($data,$pdf) {
+            $message->to($data["email"], $data["client_name"])
+            ->subject($data["subject"])
+            ->attachData($pdf->output(), "cartao_de_acesso.pdf");
+            });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (Mail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+ 
+        }else{
+ 
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+        return redirect()
+                    ->route('aluno_resp.index_resp')
                     ->with('success', 'Email encaminhado!');
  }
 }

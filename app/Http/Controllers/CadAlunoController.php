@@ -353,6 +353,12 @@ class CadAlunoController extends Controller
         return view('alunos_resp.show', compact('alunos_resp'));
     }
 
+    public function show_resp($id)
+    {
+        $alunos_resp = CadAluno::find($id);
+        return view('alunos_resp.show_resp', compact('alunos_resp'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

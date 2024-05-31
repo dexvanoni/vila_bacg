@@ -99,12 +99,17 @@ img {
                     <div class="row bordered-row">
                       <!-- Coluna da esquerda com duas imagens -->
                       <div class="col-4 d-flex flex-column justify-content-center align-items-center">
-
-                         <div class="d-flex flex-column justify-content-between" >
-                            <div class="h-50 d-flex align-items-center justify-content-center">
-                                <img id="foto" src="{{ asset('storage/alunos/'.$alunos_resp->arquivo_aluno) }}" alt="Sem imagem de perfil"  class="img-fluid" style="max-width: 80%;">
+                        <div class="d-flex flex-column justify-content-between" >
+                            Foto de rosto:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="foto" src="{{ asset('storage/alunos/'.$alunos_resp->arquivo_resp) }}" alt="Sem imagem de perfil"  class="img-fluid" style="max-width: 80%;">
                             </div>
                             <div id="foto_resultado" class="img-zoom-result"></div>
+                            CNH ou Identidade:
+                            <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
+                                <img id="cnh" src="{{ asset('storage/alunos/'.$alunos_resp->arquivo_cnh_resp) }}" alt="Sem imagem da CNH ou Identidade" class="img-fluid" style="max-width: 60%;">
+                            </div>
+                            <div id="cnh_resultado" class="img-zoom-result"></div>
                          </div>
                     </div>
                     <!-- Coluna da direita com mais 12 linhas -->
@@ -112,43 +117,22 @@ img {
                         <!-- Você pode adicionar qualquer conteúdo aqui -->
                         <div class="row">
                           <div class="col">
-                              <p><strong>Nome:</strong> <span id="confirm-name">{{$alunos_resp->nome_aluno}}</span></p>
+                              <p><strong>Nome:</strong> <span id="confirm-name">{{$alunos_resp->nome_resp}}</span></p>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col">
-                              <p><strong>RG:</strong> <span id="confirm-rg">{{$alunos_resp->rg_aluno}}</span></p>
+                              <p><strong>RG:</strong> <span id="confirm-rg">{{$alunos_resp->rg_resp}}</span></p>
                           </div>
                       </div>
                       <div class="row">
                           <div class="col">
-                              <p><strong>CPF:</strong> <span id="confirm-cpf">{{$alunos_resp->cpf_aluno}}</span></p>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento">{{date('d/m/Y', strtotime($alunos_resp->dt_nascimento_aluno))}}</span>
-                                  @php
-                                    $dataNascimento = Carbon\Carbon::parse($alunos_resp->dt_nascimento_aluno);
-                                    $idade = $dataNascimento->age;
-                                  @endphp
-                                   - <strong>Idade:</strong> {{ $idade }} anos
-                              </p>
+                              <p><strong>CPF:</strong> <span id="confirm-cpf">{{$alunos_resp->cpf_resp}}</span></p>
                           </div>
                       </div>
                        <div class="row">
                           <div class="col">
                              <hr>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>Instituição:</strong><span id="confirm-name"> {{$alunos_resp->local_aluno}}</span></p>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col">
-                              <p><strong>Série/Grupo:</strong><span id="confirm-name"> {{$alunos_resp->serie_aluno}}</span></p>
                           </div>
                       </div>
                       <div class="row">
@@ -168,9 +152,44 @@ img {
                       </div>
                       <div class="row">
                               <div class="col">
-                                  <p><strong>Endereço:</strong> {{ $alunos_resp->rua_aluno }}, {{ $alunos_resp->num_casa_aluno }} - {{ $alunos_resp->bairro_aluno }} / {{ $alunos_resp->cidade_aluno }} - CEP: {{ $alunos_resp->cep_aluno }}</p>
+                                  <p><strong>Endereço:</strong> {{ $alunos_resp->rua_resp }}, {{ $alunos_resp->num_casa_resp }} - {{ $alunos_resp->bairro_resp }} / {{ $alunos_resp->cidade_resp }} - CEP: {{ $alunos_resp->cep_resp }}</p>
                               </div>
                           </div>
+
+                          @if (!is_null($alunos_resp->num_cnh_resp))
+                      <div class="row">
+                          <div class="col">
+                             <hr>
+                          </div>
+                      </div>
+                      <div id="condutores">
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>N° CNH:</strong> <span id="confirm-num_cnh">{{$alunos_resp->num_cnh_resp}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh">{{$alunos_resp->tipo_cnh_resp}}</span></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col">
+                                  <p><strong>Validade CNH:</strong> <span id="confirm-validade_cnh">{{date('d/m/Y', strtotime($alunos_resp->validade_cnh_resp))}}</span>
+                                    @php
+                                      $dataValidade = Carbon\Carbon::parse($alunos_resp->validade_cnh_resp);
+                                      $validade = $dataValidade->isFuture();
+                                    @endphp
+                                    @if($validade)
+                                       - <strong style="color: green;">CNH Válida!</strong>
+                                    @else
+                                       - <strong style="color: red;">CNH Vencida!</strong>
+                                    @endif
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                      @endif
                       
                       @if ($alunos_resp->parecer_sint != null)
                       <hr>
@@ -231,7 +250,7 @@ img {
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                         {!! QrCode::size(300)->generate($alunos_resp->cpf_aluno) !!}
+                                         {!! QrCode::size(300)->generate($alunos_resp->cpf_resp) !!}
                                          
                                       </div>
                                       <div class="modal-footer">
