@@ -290,17 +290,21 @@
               <li>
                 <a href="{{route('usuarios.index')}}">Lista</a>
               </li>
-              @endif
-              @if(!in_array('fe', $userProfiles))
               <li>
-                <a href="{{route('pets.index')}}">Animais de estimação</a>
+                <a href="{{route('escolas.index')}}">Email Funcional EMEI e Escola</a>
               </li>
               @endif
+              @if(!in_array('fe', $userProfiles))
               <li>
                 <a href="{{route('aluno_resp.index')}}">Alunos (EMEI e Escola)</a>
               </li>
               <li>
                 <a href="{{route('aluno_resp.index_resp')}}">Responsáveis por Alunos (EMEI e Escola)</a>
+              </li>
+              
+              @endif
+              <li>
+                <a href="{{route('pets.index')}}">Animais de estimação</a>
               </li>
             </ul>
           </div>

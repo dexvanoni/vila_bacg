@@ -186,3 +186,5 @@ Route::get('/usuarios/{usuario}/apemei', 'UsuariosController@apemei')->name('usu
 Route::get('/usuarios/{usuario}/apyjuca', 'UsuariosController@apyjuca')->name('usuarios.apyjuca')->middleware('auth');
 Route::get('/usuarios/{usuario}/apin', 'UsuariosController@apin')->name('usuarios.apin')->middleware('auth');
 Route::get('/usuarios/{usuario}/resetar', 'UsuariosController@resetar')->name('usuarios.resetar')->middleware('auth');
+
+Route::resource('escolas', MailEscolaController::class)->middleware('auth');

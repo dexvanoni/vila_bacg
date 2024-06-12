@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use App\Movimentacao;
+use App\Local;
 
 class UsuariosController extends Controller
 {
@@ -83,7 +84,8 @@ class UsuariosController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
-        return view('usuarios.edit', compact('usuario'));
+        $locais = Local::all();
+        return view('usuarios.edit', compact('usuario', 'locais'));
     }
 
     /**
@@ -95,17 +97,68 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        // Encontre o registro no banco de dados
         $usuario = User::find($id);
-        $usuario->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'autorizacao' => $request->autorizacao,
-            'local' => $request->local,
-            'telefone' => $request->telefone,
-            'cpf' => $request->cpf,
-            'rg' => $request->rg,
-            'status' => $request->status,
-        ]);
+
+        // Verifique se o registro existe
+        if (!$usuario) {
+            return response()->json(['error' => 'Registro não encontrado'], 404);
+        }
+
+        // Obtenha todos os dados da requisição, exceto _method e _token
+        $dados = $request->except(['_method', '_token']);
+
+        //atualizar FOTOS
+        // Handle File Upload
+        if(request()->hasFile('arquivo')){
+            // Get filename with the extension
+            $filenameWithExt = request()->file('arquivo')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = request()->file('arquivo')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            // Upload Image
+            $path = request()->file('arquivo')->storeAs('/usuarios', $fileNameToStore);
+            // Adiciona o nome do arquivo ao array de dados
+            $dados['arquivo'] = $fileNameToStore;
+
+        } else {
+            $fileNameToStore = 'noimage.png';
+        };
+
+        if(request()->hasFile('arquivo_cnh')){
+            // Get filename with the extension
+            $filenameWithExt_cnh = request()->file('arquivo_cnh')->getClientOriginalName();
+            // Get just filename
+            $filename_cnh = pathinfo($filenameWithExt_cnh, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_cnh = request()->file('arquivo_cnh')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_cnh= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_cnh.'_'.time().'.'.$extension_cnh))));
+            // Upload Image
+            $path_cnh = request()->file('arquivo_cnh')->storeAs('/usuarios_cnh', $fileNameToStore_cnh);
+
+            // Adiciona o nome do arquivo ao array de dados
+            $dados['arquivo_cnh'] = $fileNameToStore_cnh;
+        } else {
+            $fileNameToStore_cnh = 'noimage_cnh.png';
+        };
+
+        // Filtre os dados para remover campos com valor null
+        $dados = array_filter($dados, function ($valor) {
+            return !is_null($valor);
+        });
+
+
+
+        // Atualize o registro com os dados filtrados
+        $usuario->update($dados);
+
+        session()->flash('update', 'Usuário ATUALIZADO com sucesso!');
+
         return view('usuarios.show', compact('usuario'));
     }
 

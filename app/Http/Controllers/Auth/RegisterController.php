@@ -113,36 +113,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        /*
-        $validator = Validator::make($data, [
-            'email' => ['unique:users,email'],
-            'cpf' => ['unique:users,cpf'],
-        ]);
         
-        if ($validator->fails()) {
-            // Extrai todos os erros do validador
-                $errors = $validator->errors();
-
-                // Apenas para exemplo: logar erros para depuração
-                $erros = $errors->toArray();
-
-                // Opcionalmente, verifique se um campo específico tem erros
-                if ($errors->has('email')) {
-                    return redirect('/dup_email');
-                    //return view('cadastros.dup_email');
-                    echo "SisVila Informa:<br><br>Erro no campo EMAIL!<br>Este EMAIL já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. <br> <button id='backBtn'>Voltar</button>";
-                }
-                if ($errors->has('cpf')) {
-                    return redirect('/dup_cpf');
-                    //return view('cadastros.dup_cpf');
-                    echo "SisVila Informa:<br><br>Erro no campo CPF! <br>Este CPF já existe. <br>Volte a tela de cadastro e repita o preenchimento.<br>Dúvidas contate o Administrador. <br> <button id='backBtn'>Voltar</button>";
-                }
-
-                //exit;
-        }
-        */
-    
-
         // Handle File Upload
         if(request()->hasFile('arquivo')){
             // Get filename with the extension
@@ -204,6 +175,81 @@ class RegisterController extends Controller
     
         //return redirect()
                     //->route('email_qrcode_cadastro', $onesignal_id);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Handle File Upload for Profile Image
+        if($request->hasFile('arquivo')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('arquivo')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('arquivo')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            // Upload Image
+            $path = $request->file('arquivo')->storeAs('/usuarios', $fileNameToStore);
+            
+            // Delete old image if exists and is not the default image
+            if($user->arquivo != 'noimage.png'){
+                Storage::delete('/usuarios/'.$user->arquivo);
+            }
+            // Update user image
+            $user->arquivo = $fileNameToStore;
+        }
+
+        // Handle File Upload for CNH Image
+        if($request->hasFile('arquivo_cnh')){
+            // Get filename with the extension
+            $filenameWithExt_cnh = $request->file('arquivo_cnh')->getClientOriginalName();
+            // Get just filename
+            $filename_cnh = pathinfo($filenameWithExt_cnh, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_cnh = $request->file('arquivo_cnh')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_cnh = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_cnh.'_'.time().'.'.$extension_cnh))));
+            // Upload Image
+            $path_cnh = $request->file('arquivo_cnh')->storeAs('/usuarios_cnh', $fileNameToStore_cnh);
+            
+            // Delete old image if exists and is not the default image
+            if($user->arquivo_cnh != 'noimage_cnh.png'){
+                Storage::delete('/usuarios_cnh/'.$user->arquivo_cnh);
+            }
+            // Update user CNH image
+            $user->arquivo_cnh = $fileNameToStore_cnh;
+        }
+
+        // Update other user fields
+        $user->name = $request->input('name');
+        $user->nascimento = $request->input('nascimento');
+        $user->email = $request->input('email');
+        // Atualize outros campos conforme necessário
+        $user->autorizacao = $request->input('autorizacao');
+        $user->local = $request->input('local');
+        $user->telefone = $request->input('telefone');
+        $user->ramal = $request->input('ramal');
+        $user->password = Hash::make($request->input('password'));
+        $user->cpf = $request->input('cpf');
+        $user->rg = $request->input('rg');
+        $user->status = $request->input('status');
+        $user->condutor = $request->input('condutor');
+        $user->num_cnh = $request->input('num_cnh');
+        $user->validade_cnh = $request->input('validade_cnh');
+        $user->categoria_cnh = $request->input('categoria_cnh');
+        $user->cep_func = $request->input('cep_func');
+        $user->rua_func = $request->input('rua_func');
+        $user->num_casa_func = $request->input('num_casa_func');
+        $user->cidade_func = $request->input('cidade_func');
+        $user->bairro_func = $request->input('bairro_func');
+
+        // Save the updated user
+        $user->save();
+
+        return redirect()->route('usuario.show', $user->id)->with('success', 'Usuário atualizado com sucesso!');
     }
 
     
