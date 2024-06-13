@@ -25,8 +25,8 @@
             <div class="conteudo" style="text-align: center;">
                 {!! QrCode::size(250)->generate($alunos->cpf_resp) !!}
             </div>
-                <p style="font-size: 12px;"><strong>Nome:</strong> {{$alunos->nome_resp}}</p>
-                <p style="font-size: 12px;"><strong>CPF:</strong> {{ $alunos->cpf_resp }}</p>
+                <p style="font-size: 12px;"><strong>Nome:</strong> {{$alunos->nome_aluno}}</p>
+                <p style="font-size: 12px;"><strong>CPF:</strong> {{ $alunos->cpf_aluno }}</p>
                 <p style="font-size: 12px;"><strong>Local de Acesso:</strong> {{ $alunos->local_aluno }}</p>
                 <p style="font-size: 9px;">Apresentar este cartão no leitor de QR-Code na portaria para entrada na Vila da Base Aérea</p>
     </div>

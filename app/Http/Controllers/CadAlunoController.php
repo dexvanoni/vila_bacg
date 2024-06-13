@@ -24,6 +24,7 @@ class CadAlunoController extends Controller
             $alunos_resp = DB::table('alunos')
                 ->where('tipo_aluno', 'ALUNO')
                 ->where('local_aluno', 'EMEI Maria Josefina')
+                ->where('status_aluno', '<>', '2')
                 ->get();
             return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
 
@@ -31,10 +32,11 @@ class CadAlunoController extends Controller
             $alunos_resp = DB::table('alunos')
                 ->where('tipo_aluno', 'ALUNO')
                 ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->where('status_aluno', '<>', '2')
                 ->get();
             return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);  
         } else {
-            $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->get();
+            $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->where('status_aluno', '<>', '2')->get();
             return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
         }        
     }
@@ -61,6 +63,29 @@ class CadAlunoController extends Controller
 
         $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
         return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
+    }
+
+    public function index_desabilitados()
+    {
+        if (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'EMEI Maria Josefina') {
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'ALUNO')
+                ->where('local_aluno', 'EMEI Maria Josefina')
+                ->where('status_aluno', '=', '2')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+
+        }elseif (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'ESCOLA Y-JUCA PIRAMA'){
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'ALUNO')
+                ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->where('status_aluno', '=', '2')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);  
+        } else {
+            $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->where('status_aluno', '=', '2')->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+        }        
     }
 
     public function delete_massa_aluno(Request $request)
@@ -207,6 +232,26 @@ class CadAlunoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function desativa($aluno_resp)
+    {
+        $aluno_resp = CadAluno::find($aluno_resp);
+
+            $aluno_resp->update([
+                'status_aluno' => "2"
+            ]); 
+            return redirect()->back()->with('success', 'Aluno/Responsável DESATIVADO com sucesso! Incluído na lista de Inativados.');
+    }
+
+    public function reativa($aluno_resp)
+    {
+        $aluno_resp = CadAluno::find($aluno_resp);
+
+            $aluno_resp->update([
+                'status_aluno' => "1"
+            ]);  
+            return redirect()->back()->with('success', 'Aluno/Responsável REATIVADO com sucesso! Incluído na lista de ativos.');  
+        
+    }
     
 
     public function store(Request $request)

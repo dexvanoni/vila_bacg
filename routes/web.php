@@ -80,8 +80,10 @@ Route::get('/locais/{local}/delete', 'LocaisController@delete')->name('locais.de
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
 Route::get('/usuarios/{usuario}/delete', 'UsuariosController@delete')->name('usuarios.delete')->middleware('auth');
 Route::get('/usuarios/index/desabilitados', 'UsuariosController@index_desabilitados')->name('usuarios.index_desabilitados')->middleware('auth');
+Route::get('/aluno_resp/index/desabilitados', 'CadAlunoController@index_desabilitados')->name('aluno_resp.index_desabilitados')->middleware('auth');
 Route::get('/usuarios/{usuario}/desativa', 'UsuariosController@desativa')->name('usuarios.desativa')->middleware('auth');
 Route::get('/usuarios/{usuario}/reativa', 'UsuariosController@reativa')->name('usuarios.reativa')->middleware('auth');
+Route::get('/aluno_resp/{aluno_resp}/reativa', 'CadAlunoController@reativa')->name('aluno_resp.reativa')->middleware('auth');
 Route::get('/usuarios/{usuario}/reset', 'UsuariosController@reset')->name('usuarios.reset')->middleware('auth');
 
 //Ações em massa
@@ -91,8 +93,7 @@ Route::post('/desativa_massa','UsuariosController@desativa_massa')->name('usuari
 Route::delete('/delete_massa_aluno','CadAlunoController@delete_massa_aluno')->name('aluno_resp.delete_massa_aluno')->middleware('auth');
 Route::post('/ativa_massa_aluno','CadAlunoController@ativa_massa_aluno')->name('aluno_resp.ativa_massa_aluno')->middleware('auth');
 Route::post('/desativa_massa_aluno','CadAlunoController@desativa_massa_aluno')->name('aluno_resp.desativa_massa_aluno')->middleware('auth');
-
-
+Route::get('/aluno_resp/{aluno_resp}/desativa', 'CadAlunoController@desativa')->name('aluno_resp.desativa')->middleware('auth');
 //Ações em massa
 Route::post('/motivo_sint','UsuariosController@motivo_sint')->name('usuarios.motivo_sint')->middleware('auth');
 Route::get('/usuarios/{usuario}/parecer_sint', 'UsuariosController@parecer_sint')->name('usuarios.parecer_sint')->middleware('auth');

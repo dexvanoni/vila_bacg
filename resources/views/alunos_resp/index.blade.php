@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@php
-
-@endphp
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-2">
@@ -98,6 +95,15 @@
                             <a title="Deletar Aluno" style="color: darkred;" href="{{ route('aluno_resp.delete', [$l->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
+                            @if($l->status_aluno == '2')
+                                <a title="REATIVAR Aluno/Resp" style="color: saddlebrown;" href="{{ route('aluno_resp.reativa', [$l->id]) }}">
+                                    <i class="fas fa-user-plus btn-reativa"></i>
+                                </a>
+                                @else
+                                <a title="DESATIVAR Aluno/Resp" style="color: saddlebrown;" href="{{ route('aluno_resp.desativa', [$l->id]) }}">
+                                    <i class="fas fa-user-slash btn-desabilita"></i>
+                                </a>
+                            @endif
                                 @if ($l->status_aluno == "0")
                                     <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$l->id]) }}">
                                                 <i class="fas fa-thumbs-up"></i> 
@@ -123,6 +129,11 @@
                                         <i class="fas fa-baby"></i>
                             </a>
                             @endif
+                            @if ($l->status_aluno == "1")
+                                <a title="Enviar EMAIL a Escola/EMEI com QR-Code deste Aluno/Resp." style="color: green" href="{{ route('email_qrcode_meuqr_aluno', [$l->id]) }}">
+                                            <i class="far fa-envelope btn-mail"></i>
+                                </a>
+                            @endif
 
                         </td>
                     </tr>
@@ -130,9 +141,16 @@
         </tbody>
     </table>
 
-    <a title="Imprimir Crachás em Massa" href="{{ route('crachas') }}">
-        <i class="fas fa-print"></i> Impressão de Crachás dos Alunos e Responsáveis
-    </a>
+    <div class="row">
+            <div class="col">
+                <a title="Ver usuários DESABILITADOS do SisVila" href="{{ route('aluno_resp.index_desabilitados') }}">
+                    <i class="fas fa-user-slash"></i> Alunos DESABILITADOS
+                </a>
+            </div>
+            <div class="col">
+                <div id="btn-place"></div>
+            </div>
+        </div>
 </div>
 
 <script type="text/javascript">
