@@ -101,6 +101,7 @@ Route::get('/usuarios/{usuario}/parecer_sint', 'UsuariosController@parecer_sint'
 Route::post('/motivo_sint_aluno','CadAlunoController@motivo_sint_aluno')->name('aluno_resp.motivo_sint_aluno')->middleware('auth');
 Route::post('/motivo_sint_resp','CadAlunoController@motivo_sint_resp')->name('aluno_resp.motivo_sint_resp')->middleware('auth');
 Route::get('/aluno_resp/{aluno_resp}/parecer_sint_aluno', 'CadAlunoController@parecer_sint_aluno')->name('aluno_resp.parecer_sint_aluno')->middleware('auth');
+Route::put('/aluno_resp/{aluno_resp}', 'CadAlunoController@update')->name('aluno_resp.update')->middleware('auth');
 
 Route::post('/motivo_escola_aluno','CadAlunoController@motivo_escola_aluno')->name('aluno_resp.motivo_escola_aluno')->middleware('auth');
 Route::post('/motivo_escola_resp','CadAlunoController@motivo_escola_resp')->name('aluno_resp.motivo_escola_resp')->middleware('auth');

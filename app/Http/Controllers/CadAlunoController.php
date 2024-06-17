@@ -412,7 +412,8 @@ class CadAlunoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $alunos_resp = CadAluno::find($id);
+        return view('alunos_resp.edit', compact('alunos_resp'));
     }
 
     /**
@@ -424,7 +425,50 @@ class CadAlunoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // Encontre o registro no banco de dados
+        $alunos_resp = CadAluno::find($id);
+
+        // Verifique se o registro existe
+        if (!$alunos_resp) {
+            return response()->json(['error' => 'Registro não encontrado'], 404);
+        }
+
+        // Obtenha todos os dados da requisição, exceto _method e _token
+        $dados = $request->except(['_method', '_token']);
+
+        //atualizar FOTOS
+        // Handle File Upload
+        if(request()->hasFile('arquivo_aluno')){
+            // Get filename with the extension
+            $filenameWithExt = request()->file('arquivo_aluno')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = request()->file('arquivo_aluno')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+            // Upload Image
+            $path = request()->file('arquivo_aluno')->storeAs('/alunos', $fileNameToStore);
+            // Adiciona o nome do arquivo ao array de dados
+            $dados['arquivo_aluno'] = $fileNameToStore;
+
+        } else {
+            $fileNameToStore = 'noimage.png';
+        };
+
+        // Filtre os dados para remover campos com valor null
+        $dados = array_filter($dados, function ($valor) {
+            return !is_null($valor);
+        });
+
+
+
+        // Atualize o registro com os dados filtrados
+        $alunos_resp->update($dados);
+
+        session()->flash('update', 'Aluno ATUALIZADO com sucesso!');
+
+        return view('alunos_resp.show', compact('alunos_resp'));
     }
 
     /**
