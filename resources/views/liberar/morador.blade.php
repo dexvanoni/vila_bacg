@@ -16,6 +16,13 @@ body {
     padding: 20px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3); /* Sombra */
 }
+#reader_entrada {
+            display: none; /* Esconde a div inicialmente */
+        }
+
+#reader_saida {
+            display: none; /* Esconde a div inicialmente */
+        }
 
 @endsection
 
@@ -229,15 +236,31 @@ body {
                                     <div class="col">
                                         
                                         <div class="form-group">
-                                            <label style="color: green" for="entrada">QR-Code - ENTRADA <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Leitura do QR-Code para ENTRADA de morador!"></i></label>
-                                            <input class="form-control" id="entrada" name="entrada" style="color: green;" onchange="envia();" autofocus>
+                                            <label style="color: green" for="entrada">QR-Code - ENTRADA</label>
+                                            
+                                            <div class="input-group">
+                                                <input class="form-control" id="entrada" name="entrada" style="color: green;" onchange="envia()" autofocus>
+                                                <div class="input-group-append">
+                                                  <button style="color: green;" title="Clique aqui para abrir a câmera" id="start-scan_entrada" class="btn btn-outline-secondary" type="button"><i class="fas fa-qrcode"></i></button>
+                                                </div>
+                                            </div>
+                                            <div id="reader_entrada" style="width: 200px; height: 200px; margin-top: 2px;"></div>
+
                                         </div>
                                     </div>
                                     <div class="col">
 
                                         <div class="form-group">
-                                            <label style="color: red" for="saida">QR-Code - SAÍDA <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Leitura do QR-Code para SAÍDA de morador!"></i></label>
-                                            <input class="form-control" id="saida" name="saida" style="color: red;" onchange="envia();">
+                                            <label style="color: red" for="saida">QR-Code - SAÍDA </label>
+
+                                            <div class="input-group">
+                                                <input class="form-control" id="saida" name="saida" style="color: green;" onchange="envia()" autofocus>
+                                                <div class="input-group-append">
+                                                  <button style="color: red;" title="Clique aqui para abrir a câmera" id="start-scan_saida" class="btn btn-outline-secondary" type="button"><i class="fas fa-qrcode"></i></button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div id="reader_saida" style="width: 200px; height: 200px; margin-top: 2px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -254,5 +277,65 @@ body {
         function envia(){
           document.querySelector('#morador').submit();  
       };
+
+      //leitor do qurcode da ENTRADA
+
+      document.getElementById('start-scan_entrada').addEventListener('click', function() {
+        const qrCodeReader = new Html5Qrcode("reader_entrada");
+        const readerElement_entrada = document.getElementById('reader_entrada');
+
+        qrCodeReader.start(
+            { facingMode: "environment" }, // Configuração da câmera
+            {
+                fps: 10,    // Frames por segundo
+                qrbox: 250  // Tamanho da caixa de QR Code (quadrado)
+            },
+            qrCodeMessage => {
+                // O QR Code foi lido com sucesso
+                document.getElementById('entrada').value = qrCodeMessage;
+                qrCodeReader.stop();  // Para a câmera após leitura
+                envia();
+                readerElement_entrada.style.display = 'none';
+            },
+            errorMessage => {
+                // Lida com erros ou leituras não válidas
+                console.log(`QR Code no detectado. Error: ${errorMessage}`);
+            })
+        .catch(err => {
+            // Lida com erros ao iniciar a câmera
+            console.log(`Erro ao iniciar a câmera. Error: ${err}`);
+        });
+        readerElement_entrada.style.display = 'block';
+    });
+
+      //leitor do qurcode da SAÍDA
+
+      document.getElementById('start-scan_saida').addEventListener('click', function() {
+        const qrCodeReader = new Html5Qrcode("reader_saida");
+        const readerElement_saida = document.getElementById('reader_saida');
+
+        qrCodeReader.start(
+            { facingMode: "environment" }, // Configuração da câmera
+            {
+                fps: 10,    // Frames por segundo
+                qrbox: 250  // Tamanho da caixa de QR Code (quadrado)
+            },
+            qrCodeMessage => {
+                // O QR Code foi lido com sucesso
+                document.getElementById('saida').value = qrCodeMessage;
+                qrCodeReader.stop();  // Para a câmera após leitura
+                envia();
+                readerElement_saida.style.display = 'none';
+            },
+            errorMessage => {
+                // Lida com erros ou leituras não válidas
+                console.log(`QR Code no detectado. Error: ${errorMessage}`);
+            })
+        .catch(err => {
+            // Lida com erros ao iniciar a câmera
+            console.log(`Erro ao iniciar a câmera. Error: ${err}`);
+        });
+        readerElement_saida.style.display = 'block';
+    });
   </script>
 

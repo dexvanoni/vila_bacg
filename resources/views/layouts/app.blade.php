@@ -69,6 +69,10 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+  <!--SCRIPT PARA LEITOR DE QRCODE-->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
+
 
   <!-- Styles -->
 
@@ -2302,6 +2306,7 @@ dropdown1.addEventListener('change', function() {
     // ==============  FECHA FORMULÁRIO DE CADASTRO DE EFETIVO EM register (CADASTROS\EF.BLADE.PHP)
     //---------------------------------------------------------------------------------------------------
   });
+
   // TERMINA READY
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
