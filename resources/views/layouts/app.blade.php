@@ -294,6 +294,23 @@
               <li>
                 <a href="{{route('usuarios.index')}}">Lista</a>
               </li>
+              @endif
+              <li>
+                <a href="{{route('pets.index')}}">Animais de estimação</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        @endif
+        @if(in_array('ad', $userProfiles) || in_array('fe', $userProfiles))
+        <li class="sidebar-dropdown">
+          <a href="#">
+            <i class="fas fa-school"></i>
+            <span>Instituições de Ensino</span>
+          </a>
+          <div class="sidebar-submenu">
+            <ul>
+              @if(in_array('ad', $userProfiles))
               <li>
                 <a href="{{route('escolas.index')}}">Email Funcional EMEI e Escola</a>
               </li>
@@ -305,11 +322,7 @@
               <li>
                 <a href="{{route('aluno_resp.index_resp')}}">Responsáveis por Alunos (EMEI e Escola)</a>
               </li>
-              
               @endif
-              <li>
-                <a href="{{route('pets.index')}}">Animais de estimação</a>
-              </li>
             </ul>
           </div>
         </li>

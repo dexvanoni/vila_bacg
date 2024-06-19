@@ -47,6 +47,7 @@ class CadAlunoController extends Controller
             $alunos_resp = DB::table('alunos')
                 ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
                 ->where('local_aluno', 'EMEI Maria Josefina')
+                ->where('status_aluno', '<>', '2')
                 ->get();
             return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
 
@@ -54,14 +55,15 @@ class CadAlunoController extends Controller
             $alunos_resp = DB::table('alunos')
                 ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
                 ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->where('status_aluno', '<>', '2')
                 ->get();
             return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);  
         } else {
-            $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
+            $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->where('status_aluno', '<>', '2')->get();
             return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
         } 
 
-        $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->get();
+        $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->where('status_aluno', '<>', '2')->get();
         return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
     }
 
@@ -85,6 +87,29 @@ class CadAlunoController extends Controller
         } else {
             $alunos_resp = CadAluno::where('tipo_aluno', "ALUNO")->where('status_aluno', '=', '2')->get();
             return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+        }        
+    }
+
+    public function index_desabilitados_resp()
+    {
+        if (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'EMEI Maria Josefina') {
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
+                ->where('local_aluno', 'EMEI Maria Josefina')
+                ->where('status_aluno', '=', '2')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);
+
+        }elseif (Auth::user()->autorizacao == 'fe' && Auth::user()->local == 'ESCOLA Y-JUCA PIRAMA'){
+            $alunos_resp = DB::table('alunos')
+                ->where('tipo_aluno', 'RESPONSÁVEL POR ALUNO')
+                ->where('local_aluno', 'ESCOLA Y-JUCA PIRAMA')
+                ->where('status_aluno', '=', '2')
+                ->get();
+            return view('alunos_resp.index', ['alunos_resp' => $alunos_resp]);  
+        } else {
+            $alunos_resp = CadAluno::where('tipo_aluno', "RESPONSÁVEL POR ALUNO")->where('status_aluno', '=', '2')->get();
+            return view('alunos_resp.index_resp', ['alunos_resp' => $alunos_resp]);
         }        
     }
 
@@ -376,7 +401,8 @@ class CadAlunoController extends Controller
             'status_aluno' => $request['status_aluno'],
             'tipo_aluno' => $request['tipo_aluno'],
             'arquivo_aluno' => $fileNameToStore,
-            'arquivo_cnh_resp' => $fileNameToStore_cnh_resp
+            'arquivo_cnh_resp' => $fileNameToStore_cnh_resp,
+            'controle_email' => 0
             
         ]);
 
@@ -413,7 +439,12 @@ class CadAlunoController extends Controller
     public function edit($id)
     {
         $alunos_resp = CadAluno::find($id);
-        return view('alunos_resp.edit', compact('alunos_resp'));
+        if ($alunos_resp->tipo_aluno == 'ALUNO') {
+            return view('alunos_resp.edit', compact('alunos_resp'));
+        } else {
+            return view('alunos_resp.edit_resp', compact('alunos_resp'));
+        }
+        
     }
 
     /**
@@ -436,39 +467,72 @@ class CadAlunoController extends Controller
         // Obtenha todos os dados da requisição, exceto _method e _token
         $dados = $request->except(['_method', '_token']);
 
-        //atualizar FOTOS
-        // Handle File Upload
-        if(request()->hasFile('arquivo_aluno')){
-            // Get filename with the extension
-            $filenameWithExt = request()->file('arquivo_aluno')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = request()->file('arquivo_aluno')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
-            // Upload Image
-            $path = request()->file('arquivo_aluno')->storeAs('/alunos', $fileNameToStore);
-            // Adiciona o nome do arquivo ao array de dados
-            $dados['arquivo_aluno'] = $fileNameToStore;
+        //se aluno faz:
+                //atualizar FOTOS
+            // Handle File Upload
+            if(request()->hasFile('arquivo_aluno')){
+                // Get filename with the extension
+                $filenameWithExt = request()->file('arquivo_aluno')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                // Get just ext
+                $extension = request()->file('arquivo_aluno')->getClientOriginalExtension();
+                // Filename to store
+                $fileNameToStore= str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename.'_'.time().'.'.$extension))));
+                // Upload Image
+                $path = request()->file('arquivo_aluno')->storeAs('/alunos', $fileNameToStore);
+                // Adiciona o nome do arquivo ao array de dados
+                $dados['arquivo_aluno'] = $fileNameToStore;
 
-        } else {
-            $fileNameToStore = 'noimage.png';
-        };
+            } else {
+                $fileNameToStore = 'noimage.png';
+            };
+
+            //se responsável faz:
+
+        if(request()->hasFile('arquivo_resp')){
+            // Get filename with the extension
+            $filenameWithExt_resp = request()->file('arquivo_resp')->getClientOriginalName();
+            // Get just filename
+            $filename_resp = pathinfo($filenameWithExt_resp, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_resp = request()->file('arquivo_resp')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_resp = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_resp.'_'.time().'.'.$extension_resp))));
+            // Upload Image
+            $path_resp = request()->file('arquivo_resp')->storeAs('/alunos', $fileNameToStore_resp);
+            // Adiciona o nome do arquivo ao array de dados
+                $dados['arquivo_resp'] = $fileNameToStore_resp;
+          } else {
+            $fileNameToStore_resp = 'noimage.png';
+          }
+
+          if(request()->hasFile('arquivo_cnh_resp')){
+            // Get filename with the extension
+            $filenameWithExt_cnh_resp = request()->file('arquivo_cnh_resp')->getClientOriginalName();
+            // Get just filename
+            $filename_cnh_resp = pathinfo($filenameWithExt_cnh_resp, PATHINFO_FILENAME);
+            // Get just ext
+            $extension_cnh_resp = request()->file('arquivo_cnh_resp')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore_cnh_resp = str_replace(" ","_",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($filename_cnh_resp.'_'.time().'.'.$extension_cnh_resp))));
+            // Upload Image
+            $path_cnh_resp = request()->file('arquivo_cnh_resp')->storeAs('/usuarios_cnh', $fileNameToStore_cnh_resp);
+            // Adiciona o nome do arquivo ao array de dados
+            $dados['arquivo_cnh_resp'] = $fileNameToStore_cnh_resp;
+          } else {
+            $fileNameToStore_cnh_resp = 'noimage.png';
+          }  
 
         // Filtre os dados para remover campos com valor null
         $dados = array_filter($dados, function ($valor) {
             return !is_null($valor);
         });
 
-
-
         // Atualize o registro com os dados filtrados
         $alunos_resp->update($dados);
 
-        session()->flash('update', 'Aluno ATUALIZADO com sucesso!');
-
-        return view('alunos_resp.show', compact('alunos_resp'));
+        return redirect()->back()->with('success', 'Aluno/Responsável ATUALIZADO com sucesso!');
     }
 
     /**

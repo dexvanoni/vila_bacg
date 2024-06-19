@@ -24,7 +24,7 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->where('status', '<>', '2')->get();
+        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint', 'controle_email')->where('status', '<>', '2')->get();
         return view('usuarios.index', ['usuarios' => $usuarios]);
     }
 
@@ -32,7 +32,7 @@ class UsuariosController extends Controller
     {
         //$usuarios = User::all();
 
-        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint')->where('status', '=', '2')->get();
+        $usuarios = DB::table('users')->select('id', 'local', 'name', 'cpf', 'status', 'autorizacao', 'parecer_sint', 'motivo_sint', 'controle_email')->where('status', '=', '2')->get();
         return view('usuarios.index_desabilitados', ['usuarios' => $usuarios]);
     }
 

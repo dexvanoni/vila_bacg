@@ -101,7 +101,15 @@
                             <a title="Deletar Responsável" style="color: darkred;" href="{{ route('aluno_resp.delete', [$r->id]) }}">
                                 <i class="fas fa-trash-alt btn-delete" style="blue"></i>
                             </a>
-
+                            @if($r->status_aluno == '2')
+                                <a title="REATIVAR Aluno/Resp" style="color: saddlebrown;" href="{{ route('aluno_resp.reativa', [$r->id]) }}">
+                                    <i class="fas fa-user-plus btn-reativa"></i>
+                                </a>
+                                @else
+                                <a title="DESATIVAR Aluno/Resp" style="color: saddlebrown;" href="{{ route('aluno_resp.desativa', [$r->id]) }}">
+                                    <i class="fas fa-user-slash btn-desabilita"></i>
+                                </a>
+                            @endif
                                 @if ($r->status_aluno == "0")
                                     <a title="Habilitar Usuário" style="color: green" href="{{ route('aluno_resp.hab', [$r->id]) }}">
                                                 <i class="fas fa-thumbs-up"></i> 
@@ -138,9 +146,16 @@
         </tbody>
     </table>
 
-    <a title="Imprimir Crachás em Massa" href="{{ route('crachas') }}">
-        <i class="fas fa-print"></i> Impressão de Crachás dos Alunos e Responsáveis
-    </a>
+        <div class="row">
+            <div class="col">
+                <a title="Ver Responsáveis por alunos DESABILITADOS do SisVila" href="{{ route('aluno_resp.index_desabilitados_resp') }}">
+                    <i class="fas fa-user-slash"></i> Responsáveis DESABILITADOS
+                </a>
+            </div>
+            <div class="col">
+                <div id="btn-place"></div>
+            </div>
+        </div>
 </div>
 
 <script type="text/javascript">

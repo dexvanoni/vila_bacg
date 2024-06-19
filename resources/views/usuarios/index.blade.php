@@ -134,9 +134,15 @@
                             </a>
                         @endif
                         @if ($l->status == "1")
+                            @if($l->controle_email > 0)
+                            <a title="Enviar EMAIL ao Usuário com seu QR-Code" style="color: purple;" href="{{ route('email_qrcode_meuqr', [$l->id]) }}">
+                                        <i class="far fa-envelope btn-mail">+{{ $l->controle_email }}</i>
+                            </a>
+                            @else
                             <a title="Enviar EMAIL ao Usuário com seu QR-Code" style="color: green" href="{{ route('email_qrcode_meuqr', [$l->id]) }}">
                                         <i class="far fa-envelope btn-mail"></i>
                             </a>
+                            @endif
                         @endif
                     </td>
                     @endif

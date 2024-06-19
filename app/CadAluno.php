@@ -24,7 +24,6 @@ class CadAluno extends Model
             'status_aluno',
             'tipo_aluno',
             'arquivo_aluno',
-            
             'nome_resp', 
             'nome_aluno_resp',
             'cpf_aluno_resp',
@@ -43,6 +42,7 @@ class CadAluno extends Model
             'email_resp',
             'arquivo_cnh_resp',
             'parecer_sint',
-            'motivo_sint'
+            'motivo_sint',
+            'controle_email'
     ];
 }

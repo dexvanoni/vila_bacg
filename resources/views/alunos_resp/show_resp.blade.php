@@ -72,7 +72,7 @@ img {
 <div class="container">
     <div class="row align-items-center">
         <div class="col-md-10">
-            <h5>Controle de Usuário do SisVila</h5>
+            <h5>Controle de Responsáveis por Alunos do SisVila</h5>
         </div>
     </div>
     <hr>
@@ -107,7 +107,7 @@ img {
                             <div id="foto_resultado" class="img-zoom-result"></div>
                             CNH ou Identidade:
                             <div class="h-50 d-flex align-items-center justify-content-center bordered-row">
-                                <img id="cnh" src="{{ asset('storage/alunos/'.$alunos_resp->arquivo_cnh_resp) }}" alt="Sem imagem da CNH ou Identidade" class="img-fluid" style="max-width: 60%;">
+                                <img id="cnh" src="{{ asset('storage/usuarios_cnh/'.$alunos_resp->arquivo_cnh_resp) }}" alt="Sem imagem da CNH ou Identidade" class="img-fluid" style="max-width: 60%;">
                             </div>
                             <div id="cnh_resultado" class="img-zoom-result"></div>
                          </div>
@@ -128,6 +128,11 @@ img {
                       <div class="row">
                           <div class="col">
                               <p><strong>CPF:</strong> <span id="confirm-cpf">{{$alunos_resp->cpf_resp}}</span></p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col">
+                              <p><strong>Email:</strong> <span id="confirm-cpf">{{$alunos_resp->email_resp}}</span></p>
                           </div>
                       </div>
                        <div class="row">

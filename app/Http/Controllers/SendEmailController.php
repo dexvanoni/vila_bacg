@@ -112,6 +112,9 @@ class SendEmailController extends Controller
             ->subject($data["subject"])
             ->attachData($pdf->output(), "cartao_de_acesso.pdf");
             });
+
+            User::where('id', $usuarios->id)->increment('controle_email');
+
         }catch(JWTException $exception){
             $this->serverstatuscode = "0";
             $this->serverstatusdes = $exception->getMessage();
@@ -165,6 +168,9 @@ class SendEmailController extends Controller
             ->subject($data["subject"])
             ->attachData($pdf->output(), "cartao_de_acesso.pdf");
             });
+
+            CadAluno::where('id', $alunos->id)->increment('controle_email');
+
         }catch(JWTException $exception){
             $this->serverstatuscode = "0";
             $this->serverstatusdes = $exception->getMessage();
