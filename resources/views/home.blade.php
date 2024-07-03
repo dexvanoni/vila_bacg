@@ -116,6 +116,16 @@
       vertical-align: middle;
       padding-top: 19px;
     }
+
+    .md {
+      width: 160px !important;
+      height: 80px !important;
+      font-size: 11px;
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 19px;
+    }
+
     .visitante {
       width: 80px !important;
       height: 80px !important;

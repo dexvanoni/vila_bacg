@@ -664,6 +664,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -678,6 +683,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -694,6 +704,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -708,6 +723,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -724,6 +744,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -738,6 +763,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -754,6 +784,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -768,6 +803,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -784,6 +824,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -798,6 +843,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -814,6 +864,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -828,6 +883,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -844,6 +904,11 @@
           return;
         }
 
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
+
         // Bloqueia outras teclas
         e.preventDefault();
       });
@@ -858,6 +923,11 @@
         if (e.which >= 48 && e.which <= 57) {
           return;
         }
+
+        // Permitir teclas numéricas do teclado numérico
+            if (e.which >= 96 && e.which <= 105) {
+                return;
+            }
 
         // Bloqueia outras teclas
         e.preventDefault();
@@ -1687,7 +1757,7 @@ dropdown1.addEventListener('change', function() {
         $('#confirm-email_resp').text(email_resp);
         $('#confirm-rg_resp').text(rg_resp);
         $('#confirm-cpf_resp').text(cpf_resp);
-        $('#confirm-telefone_resp').text(telefone_resp);
+        $('#confirm-telefone_resp').text(tel_resp);
         $('#confirm-condutor_resp').text(condutor);
         $('#confirm-num_cnh_resp').text(num_cnh_resp);
         $('#confirm-categoria_cnh_resp').text(categoria_cnh_resp);

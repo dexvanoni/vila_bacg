@@ -10,6 +10,20 @@
     </div>
 </p>
 @endif
+<div class="row">
+        <div class="col-lg-12 d-flex justify-content-center text-center">
+          <p>
+            <a href="{{ route('aluno_resp.index') }}" class="btn md" style="background-color: orange; border-color: black; color: black;">
+              <i class="fas fa-user-graduate"></i><br/>
+                ALUNOS
+            </a>
+            <a href="{{ route('aluno_resp.index_resp') }}" class="btn md" style="background-color: grey; border-color: black; color: white;">
+              <i class="fas fa-people-arrows"></i><br/>
+                RESPONSÁVEIS
+            </a>
+          </p>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>
@@ -32,6 +46,7 @@
           </p>
         </div>
     </div>
+    
     @php
     // Obter o horário atual
     $currentDateTime = now(); // ou \Carbon\Carbon::now();
