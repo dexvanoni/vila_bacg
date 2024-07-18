@@ -27,7 +27,7 @@
               <i class="fa fa-user-secret fa-2x"></i><br/>
                 Usuários
             </a>
-            <a href="{{route('usuarios.index')}}" class="btn btn-secondary pq" style="background-color: #3e3e3e; border-color: #000000;">
+            <a href="{{route('docs.index')}}" class="btn btn-secondary pq" style="background-color: #3e3e3e; border-color: #000000;">
               <i class="fas fa-file-alt fa-2x"></i><br/>
                 Documentos
             </a>
@@ -75,7 +75,7 @@
               <i class="fa fa-key fa-2x"></i><br/>
                 SENHA
             </a>
-            <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: white; border-color: black; color: black;">
+            <a href="{{ route('usuarios.edit', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: white; border-color: black; color: black;">
               <i class="fas fa-user-edit fa-2x"></i><br/>
                 Meus dados
             </a>

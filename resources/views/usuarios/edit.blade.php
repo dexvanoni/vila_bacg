@@ -63,6 +63,11 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    @if (session('update'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('update') }}
+                        </div>
+                    @endif
                 <form method="POST" action="{{ route('usuarios.update', ['id' => $usuario->id])}}" enctype="multipart/form-data" id="update-form">
                         @csrf
                         @method('PUT')
@@ -123,6 +128,7 @@
                           <div class="col">
                               <p><strong>Data de Nascimento:</strong> <span id="confirm-nascimento"><input id="nascimento" type="date" class="form-control" name="nascimento" value="{{date('Y-m-d', strtotime($usuario->nascimento))}}" required></span></p>
                           </div>
+                          @if (Auth::user()->autorizacao == 'ad')
                           <div class="col">
                               <p><strong>Status do Usuário:</strong>                              
                                 <select class="form-control" id="status" name="status" required>
@@ -131,6 +137,7 @@
                                   <option value="2" {{ $usuario->status == 2 ? 'selected' : '' }}>DESABILITADO</option>
                               </select></p>
                           </div>
+                          @endif
                       </div>
                       <div class="row">
                         <div class="col">

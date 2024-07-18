@@ -113,6 +113,7 @@ foreach(explode(',',  $alunos_resp->autorizacao) as $info){
           </div>
 
         </div>
+        @if (Auth::user()->autorizacao == 'ad')
         <div class="row">
           <div class="col">
             <p><strong>Status do Usuário:</strong>                              
@@ -124,6 +125,7 @@ foreach(explode(',',  $alunos_resp->autorizacao) as $info){
             </div>
           </div>
           <hr>
+          @endif
           <div class="row">
             <div class="col-3">
               <label for="cep_resp">CEP</label>

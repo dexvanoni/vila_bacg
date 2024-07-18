@@ -55,7 +55,7 @@
               <i class="fa fa-key fa-2x"></i><br/>
                 SENHA
             </a>
-            <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: white; border-color: black; color: black;">
+            <a href="{{ route('usuarios.edit', [Auth::user()->id]) }}" class="btn qrcode" style="background-color: white; border-color: black; color: black;">
               <i class="fas fa-user-edit fa-2x"></i><br/>
                 Meus dados
             </a>

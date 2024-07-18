@@ -9,10 +9,6 @@
               <i class="fa fa-key fa-2x"></i><br/>
                 SENHA
             </a>
-            <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn pq" style="background-color: white; border-color: black; color: black;">
-              <i class="fas fa-user-edit fa-2x"></i><br/>
-                Meus dados
-            </a>
             <a href="{{ route('sair') }}" class="btn btn-warning pq" style="background-color: red; border-color: red;">
               <i class="fa fa-door-open fa-2x"></i><br/>
               Sair

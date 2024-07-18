@@ -302,7 +302,8 @@
           </div>
         </li>
         @endif
-        @if(in_array('ad', $userProfiles) || in_array('fe', $userProfiles))
+        
+        @if(in_array('ad', $userProfiles) || in_array('fe', $userProfiles) || Auth::user()->funcao == 'in'))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-school"></i>
@@ -378,7 +379,7 @@
           </div>
         </li>
         @endif
-        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('so', $userProfiles) || in_array('mo', $userProfiles))
+        @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('mo', $userProfiles))
         <li class="sidebar-dropdown">
           <a href="#">
             <i class="fas fa-newspaper"></i>
@@ -394,12 +395,12 @@
           </a>
           <div class="sidebar-submenu">
             <ul>
-              @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
+              @if(in_array('ad', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles) || in_array('mo', $userProfiles))
               <li>
                 <a href="{{route('ocorrencias.create')}}">Novo</a>
               </li>
               @endif
-              @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles))
+              @if(in_array('ad', $userProfiles) || in_array('si', $userProfiles) || in_array('po', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('fe', $userProfiles) || in_array('ps', $userProfiles) || in_array('mo', $userProfiles))
               <li>
                 <a href="{{route('ocorrencias.index')}}">Lista</a>
               </li>

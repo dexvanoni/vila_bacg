@@ -2,9 +2,9 @@
 <p>
     <div class="row justify-content-center text-center">
         <div class="col-lg-4 d-flex justify-content-center text-center" style="width: 370px;">
-            <a href="{{route('usuarios.index')}}" class="btn visitante2 btn-secondary" style="background-color: indianred; border-color: indianred;">
+            <a href="{{route('aluno_resp.index_resp')}}" class="btn visitante2 btn-secondary" style="background-color: indianred; border-color: indianred;">
               <i class="fa fa-user-secret fa-2x"></i><br/>
-                Usuários
+                Emitir Parecer
             </a>
         </div>
     </div>
@@ -21,7 +21,7 @@
               <i class="fa fa-key fa-2x"></i><br/>
                 SENHA
             </a>
-            <a href="{{ route('form.senha', [Auth::user()->id]) }}" class="btn pq" style="background-color: white; border-color: black; color: black;">
+            <a href="{{ route('usuarios.edit', [Auth::user()->id]) }}" class="btn pq" style="background-color: white; border-color: black; color: black;">
               <i class="fas fa-user-edit fa-2x"></i><br/>
                 Meus dados
             </a>

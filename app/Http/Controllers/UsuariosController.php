@@ -158,7 +158,8 @@ class UsuariosController extends Controller
 
         session()->flash('update', 'Usuário ATUALIZADO com sucesso!');
 
-        return view('usuarios.show', compact('usuario'));
+        return redirect()->back()->with('update', 'Usuário ATUALIZADO com sucesso!');
+        //return view('usuarios.show', compact('usuario'));
     }
 
     /**
