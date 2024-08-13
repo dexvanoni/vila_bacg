@@ -47,7 +47,7 @@ img {
 .btn-custom-size {
     padding: 10px 20px;
     font-size: 16px;
-    width: 170px; /* largura fixa */
+    width: 150px; /* largura fixa */
     text-align: center; /* centralizar texto */
 }
 
@@ -148,7 +148,7 @@ img {
                         <!-- Você pode adicionar qualquer conteúdo aqui -->
                         <div class="row">
                           <div class="col">
-                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}} ({{ $perfis[0] }})</span></p>
+                              <p><strong>Nome:</strong> <span id="confirm-name">{{$usuario->name}}</span></p>
                           </div>
                       </div>
                       <div class="row">
@@ -269,13 +269,13 @@ img {
                           </div>
                         @endif
                     <hr>
-                    @if($usuario->autorizacao == 'ad')
+                    
                       <div class="row">
                         <div class="col">
-                                    <p><strong>Perfil no SisVila:</strong> ADMINISTRADOR</p>
+                                    <p><strong>Perfil no SisVila:</strong> {{ $perfis[0] }}</p>
                         </div>
                       </div>    
-                    @endif
+
                     <div class="row">
                         <div class="col-md-12">
                             <a class="btn btn-danger" title="Excluir Usuário" href="{{ route('usuarios.delete', [$usuario->id]) }}">
@@ -320,7 +320,7 @@ img {
                       <div class="card-body">
                         <div class="col-md-12">
                             <a class="btn btn-danger btn-custom-size" title="Tornar este usuário ADMINISTRADOR do SisVila" href="{{ route('usuarios.administrador', [$usuario->id]) }}">
-                                <i class="fas fa-user-secret"></i> Administrador
+                                <i class="fas fa-user-secret"></i> Admin
                             </a>
                             <a class="btn btn-warning btn-custom-size" title="Tornar este usuário APROVADOR de cadastros DA EMEI" href="{{ route('usuarios.apemei', [$usuario->id]) }}">
                                 <i class="fas fa-baby-carriage"></i> EMEI
@@ -331,8 +331,8 @@ img {
                             <a class="btn btn-secondary btn-custom-size" title="Tornar este usuário APROVADOR da Inteligência (SINT) da BACG" href="{{ route('usuarios.apin', [$usuario->id]) }}">
                                 <i class="fas fa-user-shield"></i> Inteligência
                             </a>
-                            <a class="btn btn-dark" title="Retira todas as funções administrativas deste usuário e define seu perfil para Morador." href="{{ route('usuarios.resetar', [$usuario->id]) }}">
-                                <i class="fas fa-reply-all"></i>
+                            <a class="btn btn-dark btn-custom-size" title="Definir o perfil para Morador." href="{{ route('usuarios.resetar', [$usuario->id]) }}">
+                               <i class="fas fa-house-user"></i> Morador
                             </a>
                         </div>
                       </div>

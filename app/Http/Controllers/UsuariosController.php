@@ -392,7 +392,6 @@ class UsuariosController extends Controller
         DB::table('users')
             ->where('id', $u->id)
             ->update([
-                        'funcao' => null,
                         'autorizacao' => 'mo'
                     ]);        
         return redirect()

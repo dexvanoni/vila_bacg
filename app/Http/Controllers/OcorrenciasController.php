@@ -20,8 +20,12 @@ class OcorrenciasController extends Controller
      */
     public function index()
     {
-        $ocorrencias = Ocorrencia::all();
-        return view('ocorrencias.index', compact('ocorrencias'));
+        if (Auth::user()->autorizacao == 'ad') {
+            $ocorrencias = Ocorrencia::all();
+        } else {
+            $ocorrencias = Ocorrencia::where('dono', Auth::user()->name)->get();
+        }
+            return view('ocorrencias.index', compact('ocorrencias'));
     }
 
     /**

@@ -1,15 +1,26 @@
 @if(Auth::user()->funcao == 'in')
-<p>
-    <div class="row justify-content-center text-center">
-        <div class="col-lg-4 d-flex justify-content-center text-center" style="width: 280px;">
-            <a href="{{route('aluno_resp.index_resp')}}" class="btn visitante2 btn-secondary" style="background-color: indianred; border-color: indianred;">
-              <i class="fa fa-user-secret fa-2x"></i><br/>
-                Emitir Parecer
+<div class="row">
+  <div class="col-lg-12 d-flex justify-content-center text-center">
+    <h5>EMITIR PARECER (SINT)</h5>
+  </div>
+</div>
+<div class="row">
+        <div class="col-lg-12 d-flex justify-content-center text-center">
+          <p>
+            <a href="{{ route('aluno_resp.index') }}" class="btn md" style="background-color: orange; border-color: black; color: black;">
+              <i class="fas fa-user-graduate"></i><br/>
+                ALUNOS
             </a>
+            <a href="{{ route('aluno_resp.index_resp') }}" class="btn md" style="background-color: grey; border-color: black; color: white;">
+              <i class="fas fa-people-arrows"></i><br/>
+                RESPONSÁVEIS
+            </a>
+          </p>
         </div>
     </div>
-</p>
+    <hr>
 @endif
+
     <div class="row">
         <div class="col-lg-12 d-flex justify-content-center text-center">
           <p>

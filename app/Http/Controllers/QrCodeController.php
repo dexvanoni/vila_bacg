@@ -19,16 +19,18 @@ class QrCodeController extends Controller
 
     public function qr_organico($usuario)
     {
-        $usuario = DB::table('users')->where('cpf', '=', $usuario)->first();
+        $usuario = DB::table('users')->where('id', '=', $usuario)->first();
         return view('usuarios.print_qr', compact('usuario'));
     }
 
     public function qr_alunos($usuario)
     {
+
+        
         $usuario = DB::table('alunos')
-            ->where('cpf_aluno', '=', $usuario)
-            ->orWhere('cpf_resp', '=', $usuario)
+            ->where('id', '=', $usuario)
             ->first();
+
         return view('usuarios.print_qr_alunos', compact('usuario'));
     }
 
