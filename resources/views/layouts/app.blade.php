@@ -501,6 +501,7 @@
         <li class="header-menu">
           <span>Portaria</span>
         </li>
+        
         <li>
           <a href="{{route('liberacao.create')}}">
             <i class="fas fa-door-open"></i>
@@ -519,6 +520,7 @@
         </li>
         @endif
         @if(in_array('ad', $userProfiles) || in_array('de', $userProfiles) || in_array('pe', $userProfiles) || in_array('st', $userProfiles) || in_array('sd', $userProfiles))
+        <!--
         <li>
           <a href="{{route('lista_ingresso.index')}}">
             <i class="fas fa-address-book"></i>
@@ -526,6 +528,7 @@
             <span class="badge badge-pill badge-warning">New</span>
           </a>
         </li>
+      -->
         @endif
       </ul>
     </div>

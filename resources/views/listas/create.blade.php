@@ -37,7 +37,7 @@
                     <form method="POST" action="{{ route('liberacao.import') }}" enctype="multipart/form-data">
                         @csrf
                         <h6>Após o preenchimento da lista, salve o aquivo e faça upload aqui</h6>
-                        <small class="form-text text-muted">**Importante: Somente arquivos XLSX (Excel) preenchidos conforme modelo!</small>
+                        <small class="form-text text-muted">**Importante: Somente arquivos XLSX (Excel) preenchidos conforme modelo</small>
                         <div class="row">
                             <div class="col-md-12">
                                  <div class="form-group">

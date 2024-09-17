@@ -24,7 +24,7 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{route('liberacao.completa')}}">Moradores</a>
                 <a class="dropdown-item" href="{{route('liberacao.completa_visitantes')}}">Visitantes</a>
-                <a class="dropdown-item" href="{{route('lista_ingresso.lista')}}">Listas de Ingresso</a>
+                <!--<a class="dropdown-item" href="{{route('lista_ingresso.lista')}}">Listas de Ingresso</a>-->
               </div>
             </div>
             <!--<div class="col-md-6 align-self-end">
