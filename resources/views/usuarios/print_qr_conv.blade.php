@@ -23,7 +23,7 @@
 <body>
 	<div class="cartao" id="cartao">
 			<div class="conteudo" style="text-align: center;">
-				{!! QrCode::size(250)->generate($convidado->cpf) !!}
+				{!! QrCode::size(250)->generate($convidado->doc) !!}
 			</div>
 				<p style="font-size: 12px;"><strong>Nome:</strong> {{$convidado->nome_completo}}</p>
 				<p style="font-size: 12px;"><strong>CPF:</strong> {{$convidado->doc}}</p>

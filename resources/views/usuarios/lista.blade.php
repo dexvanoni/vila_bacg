@@ -106,7 +106,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                         {!! QrCode::size(300)->generate($l->id) !!}
+                                         {!! QrCode::size(300)->generate($l->cpf) !!}
                                          
                                       </div>
                                       <div class="modal-footer">

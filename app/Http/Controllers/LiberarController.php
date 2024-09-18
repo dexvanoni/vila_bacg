@@ -346,10 +346,11 @@ class LiberarController extends Controller
 
     public function convidado(Request $request)
     {
+
         $onesignal_id = DB::table('cad_vis_entrada')->insertGetId([
           'apelido' => $request->nome_completo,
           'nome_completo' => $request->nome_completo,
-          'doc' => 'Sem função',
+          'doc' => $request->doc,
           'funcao' => 'Convidado de Evento',
           'veiculo' => $request->veiculo,
           'cor_veiculo' => $request->cor_veiculo,

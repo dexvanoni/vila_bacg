@@ -47,7 +47,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                         {!! QrCode::size(180)->generate($a->id) !!}
+                                         {!! QrCode::size(180)->generate($a->doc) !!}
                                          
                                       </div>
                                       <div class="modal-footer">

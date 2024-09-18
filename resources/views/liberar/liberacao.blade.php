@@ -457,7 +457,16 @@
                             </div>  
                         </div>
                         <div class="row">
-                                <div class="col-md-12">
+                            <div class="col-md-3">
+                                    <label for="doc">CPF</label>
+                                      <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                          <div class="input-group-text"><i class="fas fa-id-card"></i></div>
+                                        </div>
+                                        <input type="text" class="form-control" id="doc" name="doc" placeholder="Digite o CPF" required>
+                                      </div>
+                                </div>
+                                <div class="col-md-9">
                                      <label for="observacao">Observação</label>
                                       <div class="input-group mb-2">
                                         <div class="input-group-prepend">

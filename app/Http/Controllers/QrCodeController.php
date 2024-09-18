@@ -60,8 +60,9 @@ class QrCodeController extends Controller
             $morador = DB::table('users')->where('cpf', '=', $request->entrada)->first();
             $aluno = DB::table('alunos')->where('cpf_aluno', '=', $request->entrada)->first();
             $responsavel = DB::table('alunos')->where('cpf_resp', '=', $request->entrada)->first();
+            $convidado = DB::table('cad_vis_entrada')->where('doc', '=', $request->entrada)->first();
 
-            if (is_null($morador) && is_null($aluno) && is_null($responsavel)) {
+            if (is_null($morador) && is_null($aluno) && is_null($responsavel) && is_null($convidado)) {
                 return redirect()->back()->with('neg_encontrado', 'Entrada NÃO AUTORIZADA!');
             }
 
@@ -77,6 +78,33 @@ class QrCodeController extends Controller
                                 'success' => 'a',
                                 'nome' => $morador->name,
                                 'local' => $morador->local]);
+                    }else{
+                        return redirect()->back()->with('neg_usuario_bloqueado', 'Entrada NÃO AUTORIZADA!');
+                    };
+
+
+            };
+
+///se for convidado
+            if(!is_null($convidado)){
+               
+               if ($convidado->status == "Liberado") {
+
+                        // ATUALIZA A TABELA EM DATA E HORA DE ENTRADA E ATUALIZA A COLUNA "movimentacao" PARA "E"
+        $dt_entrou = Carbon::now()->format('Y-m-d');
+        $hr_entrou = Carbon::now()->format('H:i');
+
+        DB::table('cad_vis_entrada')
+            ->where('doc', $convidado->doc)
+                ->update([
+                    'movimentacao' => 'E', 
+                    'dt_entrou' => $dt_entrou,
+                    'hr_entrou' => $hr_entrou,
+                ]);     
+                        return redirect()->back()->with([
+                                'success' => 'a',
+                                'nome' => $convidado->nome_completo,
+                                'local' => $convidado->destino]);
                     }else{
                         return redirect()->back()->with('neg_usuario_bloqueado', 'Entrada NÃO AUTORIZADA!');
                     };
@@ -169,8 +197,9 @@ if (!is_null($request->saida)) {
             $morador = DB::table('users')->where('cpf', '=', $request->saida)->first();
             $aluno = DB::table('alunos')->where('cpf_aluno', '=', $request->saida)->first();
             $responsavel = DB::table('alunos')->where('cpf_resp', '=', $request->saida)->first();
+            $convidado = DB::table('cad_vis_entrada')->where('doc', '=', $request->saida)->first();
 
-            if (is_null($morador) && is_null($aluno) && is_null($responsavel)) {
+            if (is_null($morador) && is_null($aluno) && is_null($responsavel) && is_null($convidado)) {
                 return redirect()->back()->with('neg_encontrado', 'Entrada NÃO AUTORIZADA!');
             }
 ///se for morador
@@ -187,6 +216,33 @@ if (!is_null($request->saida)) {
                                 'local' => $morador->local]);
                     }else{
                         return redirect()->back()->with('sai_neg_usuario_bloqueado', 'Entrada NÃO AUTORIZADA!');
+                    };
+
+
+            };
+
+///se for convidado
+            if(!is_null($convidado)){
+               
+               if ($convidado->status == "Liberado") {
+
+                        // ATUALIZA A TABELA EM DATA E HORA DE ENTRADA E ATUALIZA A COLUNA "movimentacao" PARA "E"
+        $dt_saiu = Carbon::now()->format('Y-m-d');
+        $hr_saiu = Carbon::now()->format('H:i');
+
+        DB::table('cad_vis_entrada')
+            ->where('doc', $convidado->doc)
+                ->update([
+                    'movimentacao' => 'S', 
+                    'dt_saiu' => $dt_saiu,
+                    'hr_saiu' => $hr_saiu,
+                ]);     
+                        return redirect()->back()->with([
+                                'sai_success' => 'a',
+                                'nome' => $convidado->nome_completo,
+                                'local' => $convidado->destino]);
+                    }else{
+                        return redirect()->back()->with('neg_usuario_bloqueado', 'Entrada NÃO AUTORIZADA!');
                     };
 
 
