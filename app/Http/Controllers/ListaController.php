@@ -223,6 +223,6 @@ class ListaController extends Controller
 
     public function download_modelo()
     {
-        return Storage::download('docs/modelo_lista.xlsx');
+        return Storage::download('docs/modelo_lista.xls');
     }
 }

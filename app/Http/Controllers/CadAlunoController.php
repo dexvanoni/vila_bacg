@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Auth;
+use App\Rules\ValidCpf;
 
 class CadAlunoController extends Controller
 {
@@ -282,24 +283,32 @@ class CadAlunoController extends Controller
     public function store(Request $request)
     {
 
-        $rules = [
-            'cpf_aluno' => ['unique:alunos,cpf_aluno'],
-         ];
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), [
+            'email' => ['unique:users,email'],
+            'cpf_aluno' => ['unique:alunos,cpf_aluno', 'regex:/^\d{11}$/', new ValidCpf],
+            'cpf_resp' => ['unique:alunos,cpf_resp', 'regex:/^\d{11}$/', new ValidCpf],
+        ], [
+            'cpf_aluno.regex' => 'O CPF deve conter apenas 11 números.',
+            'cpf_resp.regex' => 'O CPF deve conter apenas 11 números.',
+            ]);
 
         if ($validator->fails()) {
-            // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
-            return redirect()->route('dup_cpf');
-        }
 
-        $rules_resp = [
-            'cpf_resp' => ['unique:alunos,cpf_resp'],
-         ];
-        $validator_resp = Validator::make($request->all(), $rules_resp);
-
-        if ($validator_resp->fails()) {
             // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
-            return redirect()->route('dup_cpf');
+            if ($validator->errors()->has('cpf_aluno')) {
+                return redirect()->route('dup_cpf')
+                         ->withErrors($validator)
+                         ->withInput();
+            }
+
+            if ($validator->errors()->has('cpf_resp')) {
+                return redirect()->route('dup_cpf')
+                         ->withErrors($validator)
+                         ->withInput();
+            }
+
+            // Se houver falha em outros campos, redireciona para 'register'
+            return redirect()->route('register')->withErrors($validator)->withInput();
         }
 
         // Handle File Upload

@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Redirect;
 use Auth;
 use Illuminate\Http\Request;
+use App\Rules\ValidCpf;
 
 class RegisterController extends Controller
 {
@@ -76,8 +77,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'email' => ['unique:users,email'],
-            'cpf' => ['unique:users,cpf'],
-        ]);
+            'cpf' => ['unique:users,cpf', 'regex:/^\d{11}$/', new ValidCpf],
+        ], [
+            'cpf.regex' => 'O CPF deve conter apenas 11 números.',
+            ]);
     }
 
     /**
@@ -98,7 +101,9 @@ class RegisterController extends Controller
 
             // Se houver falha na validação do cpf, redireciona para 'dup_cpf'
             if ($validator->errors()->has('cpf')) {
-                return redirect()->route('dup_cpf');
+                return redirect()->route('dup_cpf')
+                         ->withErrors($validator)
+                         ->withInput();
             }
 
             // Se houver falha em outros campos, redireciona para 'register'
