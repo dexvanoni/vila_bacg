@@ -939,10 +939,31 @@
 
     $('.dropdown-toggle').dropdown();
 
-    $('#lista_usuarios').DataTable({
+   var table_usuarios = $('#lista_usuarios').DataTable({
       dom: 'Bfrtip',
       paging: true, // Ativar paginação
       pageLength: 15, // Número de itens por página
+      ordering: true, // Ativar ordenação
+      searching: true, // Ativar barra de pesquisa
+      responsive: true,
+    });
+
+   var table_alunos = $('#lista_alunos').DataTable({
+      dom: 'Bfrtip',
+      paging: true, // Ativar paginação
+      pageLength: 10, // Número de itens por página
+      ordering: true, // Ativar ordenação
+      searching: true, // Ativar barra de pesquisa
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+      responsive: true,
+    });
+
+   var table_resp = $('#lista_resp').DataTable({
+      dom: 'Bfrtip',
+      paging: true, // Ativar paginação
+      pageLength: 10, // Número de itens por página
       ordering: true, // Ativar ordenação
       searching: true, // Ativar barra de pesquisa
       buttons: [
@@ -958,7 +979,11 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+        var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_alunos.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#deleteSelected').click(function () {
@@ -1007,7 +1032,11 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+        var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_usuarios.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#deleteSelected').click(function () {
@@ -1056,7 +1085,12 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+        var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_alunos.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+            $('input[name="selected[]"]', table_resp.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#deleteSelected').click(function () {
@@ -1103,7 +1137,11 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+      var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_usuarios.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#ativaSelected').click(function () {
@@ -1151,7 +1189,12 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+        var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_alunos.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+            $('input[name="selected[]"]', table_resp.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#ativaSelected').click(function () {
@@ -1199,7 +1242,11 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+       var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_usuarios.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#desativaSelected').click(function () {
@@ -1247,7 +1294,12 @@
 
         // Selecionar todos os checkboxes quando o checkbox "Select All" é clicado
     $('#selectAll').on('change', function () {
-        $('input[name="selected[]"]').prop('checked', this.checked);
+        var isChecked = this.checked;
+
+            // Aplica a seleção/desseleção apenas nas linhas visíveis na página atual
+            $('input[name="selected[]"]', table_alunos.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+            $('input[name="selected[]"]', table_resp.rows({ page: 'current' }).nodes()).prop('checked', isChecked);
+        //$('input[name="selected[]"]').prop('checked', this.checked);
     });
 
     $('#desativaSelected').click(function () {
@@ -1290,29 +1342,7 @@
 @endif
 
 
-    $('#lista_alunos').DataTable({
-      dom: 'Bfrtip',
-      paging: true, // Ativar paginação
-      pageLength: 10, // Número de itens por página
-      ordering: true, // Ativar ordenação
-      searching: true, // Ativar barra de pesquisa
-      buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-      responsive: true,
-    });
-
-    $('#lista_resp').DataTable({
-      dom: 'Bfrtip',
-      paging: true, // Ativar paginação
-      pageLength: 10, // Número de itens por página
-      ordering: true, // Ativar ordenação
-      searching: true, // Ativar barra de pesquisa
-      buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-      responsive: true,
-    });
+    
 
     $('#listas').DataTable({
       dom: 'Bfrtip',

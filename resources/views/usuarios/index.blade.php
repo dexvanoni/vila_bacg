@@ -37,6 +37,12 @@
                 <button id="deleteSelected" title="APAGAR TODOS SELECIONADOS" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
             </div>
     </div>
+<hr>
+    <div class="row">
+        <div class="col-12">
+            <input type="checkbox" id="selectAll" /> Selecionar tudo
+        </div>
+    </div>
 
     <div class="row">
         
@@ -45,7 +51,7 @@
     <table id="lista_usuarios" class="table table-striped table-bordered display" style="width:100%">
         <thead>
             <tr>
-                <th><input type="checkbox" id="selectAll"></th>
+                <th></th>
                 <th>Nome Completo</th>
                 <th>CPF</th>
                 <th>Local</th>

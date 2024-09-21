@@ -34,15 +34,18 @@
                 </div>
         </div>
         <hr>
+    <div class="row">
+        <div class="col-12">
+            <input type="checkbox" id="selectAll" /> Selecionar tudo
+        </div>
+    </div>
     @endif
 
     
     <table id="lista_alunos" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                @if (Auth::user()->autorizacao == 'ad')
-                    <th><input type="checkbox" id="selectAll"></th>
-                @endif
+                <th></th>
                 <th>Nome Completo</th>
                 <th>Instituição</th>
                 <th>Série / Grupo</th>

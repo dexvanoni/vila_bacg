@@ -223,6 +223,10 @@ class ListaController extends Controller
 
     public function download_modelo()
     {
-        return Storage::download('docs/modelo_lista.xls');
+        $filePath2 = storage_path('app/public/docs/lista.xlsx');
+        ob_end_clean(); // Limpa qualquer buffer de saída
+        return response()->download($filePath2);
+        //return response()->download(storage_path('app/public/docs/teste.png'));
+        //return Storage::download('/lista.xlsx');
     }
 }
