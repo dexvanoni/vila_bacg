@@ -34,7 +34,7 @@ class VisitanteImport implements ToModel, WithHeadingRow
                 'required',
                 'string',
             ],
-            'documento' => [
+            'cpf' => [
                 'required',
             ],
         ];
@@ -67,7 +67,7 @@ class VisitanteImport implements ToModel, WithHeadingRow
         return new Liberar([
           'apelido' => $row['nome_completo'],
           'nome_completo' => $row['nome_completo'],
-          'doc' => $row['documento'],
+          'doc' => $row['cpf'],
           'contato' => $row['contato'],
           'funcao' => 'Convidado de Evento',
           'veiculo' => 'Lista',

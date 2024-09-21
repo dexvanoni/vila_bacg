@@ -154,6 +154,7 @@
                             </div>
                             <br>
                             <!--FIM-->
+                            <input type="hidden" name="documento" value="uploadLista">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary">
