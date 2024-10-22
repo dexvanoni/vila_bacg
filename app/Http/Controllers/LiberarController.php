@@ -249,7 +249,8 @@ class LiberarController extends Controller
           'status' => $request->status,
           'observacao' => $request->observacao,
           'onesignal_id' => Auth::user()->id,
-          'movimentacao' => 'A'
+          'movimentacao' => 'A',
+          'created_at' => now()
         ]);
 
 
@@ -560,6 +561,17 @@ class LiberarController extends Controller
         return redirect()
                     ->route('liberacao.index')
                     ->with('success', 'Entrada do visitante INVALIDADA!');
+    }
+
+     public function liberados_pnr($pnr){
+
+        $liberados = DB::table('cad_vis_entrada')
+                        ->where('destino', '=', $pnr)
+                        ->where('status', 'Liberado')
+                        ->get();
+
+        return view('liberar.liberados_pnr', compact('liberados'));
+
     }
 
 }

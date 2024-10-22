@@ -61,6 +61,8 @@ Route::get('/notificar_entrada/{onesignal}/{id}', 'LiberarController@notificar_e
 Route::get('/notificar_saida/{onesignal}/{id}', 'LiberarController@notificar_saida')->name('notificar_saida')->middleware('auth');
 Route::get('/invalidar_entrada/{onesignal}/{id}', 'LiberarController@invalidar_entrada')->name('invalidar_entrada')->middleware('auth');
 
+Route::get('/liberados_pnr/{pnr}', 'LiberarController@liberados_pnr')->name('liberados_pnr')->middleware('auth');
+
 //Inserir convidados por lista de ingresso via excel import
 Route::post('/liberacao/import', 'LiberarController@import')->name('liberacao.import')->middleware('auth');
 

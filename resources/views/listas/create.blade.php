@@ -63,11 +63,13 @@
                                 <div class="form-group">
                                     <label for="lista">Local do Evento</label>
                                     <select class="form-control" id="destino" name="destino">
-                                      <option>Selecione...</option>  
+                                      <option>Selecione...</option>
+                                      <option>{{Auth::user()->local}}</option>  
                                       <option>ALOF</option>  
                                       <option>ALSS</option>
                                       <option>ALCTS</option>
                                       <option>CASARÃO</option>
+                                      <option>GINÁSIO</option>
                                     </select>
                                   </div>
                             </div>

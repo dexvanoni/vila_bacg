@@ -60,7 +60,7 @@ class QrCodeController extends Controller
             $morador = DB::table('users')->where('cpf', '=', $request->entrada)->first();
             $aluno = DB::table('alunos')->where('cpf_aluno', '=', $request->entrada)->first();
             $responsavel = DB::table('alunos')->where('cpf_resp', '=', $request->entrada)->first();
-            $convidado = DB::table('cad_vis_entrada')->where('doc', '=', $request->entrada)->first();
+            $convidado = DB::table('cad_vis_entrada')->where('doc', '=', $request->entrada)->orderBy('created_at', 'desc')->first();
 
             if (is_null($morador) && is_null($aluno) && is_null($responsavel) && is_null($convidado)) {
                 return redirect()->back()->with('neg_encontrado', 'Entrada NÃO AUTORIZADA!');
@@ -96,6 +96,8 @@ class QrCodeController extends Controller
 
         DB::table('cad_vis_entrada')
             ->where('doc', $convidado->doc)
+            ->orderBy('created_at', 'desc')
+            ->limit(1)
                 ->update([
                     'movimentacao' => 'E', 
                     'dt_entrou' => $dt_entrou,

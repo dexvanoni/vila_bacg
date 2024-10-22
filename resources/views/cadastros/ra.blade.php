@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email_resp">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Este será o login no sistema."></i></label>
+                    <label for="email_resp">Email</label>
                     <input class="form-control" type="email_resp" id="email_resp" name="email_resp" value="{{ old('email_resp') }}" required >
                 </div>
                 @if ($errors->has('email_resp'))

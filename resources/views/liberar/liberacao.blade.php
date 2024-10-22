@@ -11,6 +11,14 @@
         </div>
     </div>
     <hr>
+    @if (Auth::user()->autorizacao == 'mo' || Auth::user()->autorizacao == 'de' || Auth::user()->autorizacao == 'ad')
+    <div class="row">
+        <div class="col-md-12">
+            <i class="fas fa-clipboard-list"></i> Ver liberações realizadas para o meu PNR<a href="{{ route('liberados_pnr', [Auth::user()->local]) }}"> clique aqui!</a>     
+        </div>
+    </div>
+    <hr>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -71,6 +79,7 @@
                             <i class="fas fa-clipboard-list"></i> Para envio de lista de convidados,<a href="{{route('lista_ingresso.index')}}"> clique aqui!</a>        
                         </div>
                     </div>
+
 
                     <hr>
 
@@ -425,6 +434,7 @@
                                       <option>ALSS</option>
                                       <option>ALCTS</option>
                                       <option>CASARÃO</option>
+                                      <option>GINÁSIO</option>
                                     </select>
                                   </div>
                             </div>
@@ -579,7 +589,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label for="funcao">Função</label>
+                                    <label for="funcao">Função</label><label style="color: red;">*</label>
                                       <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                           <div class="input-group-text"><i class="fas fa-id-card-alt"></i></div>
@@ -590,7 +600,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <label for="doc">CPF</label>
+                                    <label for="doc">CPF</label><label style="color: red;">*</label>
                                       <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                           <div class="input-group-text"><i class="fas fa-id-card"></i></div>

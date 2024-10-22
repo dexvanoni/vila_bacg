@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="email">Email <i class="fas fa-comment" data-toggle="tooltip" data-placement="right" title="Este será o login no sistema."></i></label>
+                    <label for="email">Email</label>
                     <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" required >
                 </div>
                 @if ($errors->has('email'))
