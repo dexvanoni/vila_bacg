@@ -136,6 +136,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <h6 style="color: red;">*Vire o celular para ver todos os dados!</h6>
                 <div class="mt-4" style="margin: 20px; height: 500px; width: 500px;">
                     <div class="row bordered-row">
                       <!-- Coluna da esquerda com duas imagens -->

@@ -171,6 +171,9 @@
                                   <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh"><select class="form-control" id="categoria_cnh" name="categoria_cnh">
                                     <option value="A" {{ $usuario->categoria_cnh == 'A' ? 'selected' : '' }}>A</option>
                                     <option value="B" {{ $usuario->categoria_cnh == 'B'? 'selected' : '' }}>B</option>
+                                    <option value="C" {{ $usuario->categoria_cnh == 'C'? 'selected' : '' }}>C</option>
+                                    <option value="D" {{ $usuario->categoria_cnh == 'D'? 'selected' : '' }}>D</option>
+                                    <option value="E" {{ $usuario->categoria_cnh == 'E'? 'selected' : '' }}>E</option>
                                     <option value="AB" {{ $usuario->categoria_cnh == 'AB' ? 'selected' : '' }}>AB</option>
                                     <option value="AC" {{ $usuario->categoria_cnh == 'AC' ? 'selected' : '' }}>AC</option>
                                     <option value="AD" {{ $usuario->categoria_cnh == 'AD' ? 'selected' : '' }}>AD</option>

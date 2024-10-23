@@ -161,6 +161,9 @@ foreach(explode(',',  $alunos_resp->autorizacao) as $info){
                                   <p><strong>Categoria CNH:</strong> <span id="confirm-categoria_cnh_resp"><select class="form-control" id="categoria_cnh_resp" name="categoria_cnh_resp">
                                     <option value="A" {{ $alunos_resp->categoria_cnh_resp == 'A' ? 'selected' : '' }}>A</option>
                                     <option value="B" {{ $alunos_resp->categoria_cnh_resp == 'B'? 'selected' : '' }}>B</option>
+                                    <option value="C" {{ $alunos_resp->categoria_cnh_resp == 'C'? 'selected' : '' }}>C</option>
+                                    <option value="D" {{ $alunos_resp->categoria_cnh_resp == 'D'? 'selected' : '' }}>D</option>
+                                    <option value="E" {{ $alunos_resp->categoria_cnh_resp == 'E'? 'selected' : '' }}>E</option>
                                     <option value="AB" {{ $alunos_resp->categoria_cnh_resp == 'AB' ? 'selected' : '' }}>AB</option>
                                     <option value="AC" {{ $alunos_resp->categoria_cnh_resp == 'AC' ? 'selected' : '' }}>AC</option>
                                     <option value="AD" {{ $alunos_resp->categoria_cnh_resp == 'AD' ? 'selected' : '' }}>AD</option>

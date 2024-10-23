@@ -156,6 +156,9 @@
                         <select class="form-control" id="tipo_cnh_resp" name="tipo_cnh_resp">
                             <option>A</option>
                             <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                            <option>E</option>
                             <option>AB</option>
                             <option>AC</option>
                             <option>AD</option>
@@ -226,6 +229,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <h6 style="color: red;">*Vire o celular para ver todos os dados!</h6>
                 <div class="mt-4" style="margin: 20px; height: 600px; width: 500px;">
                     <div class="row bordered-row">
                       <!-- Coluna da esquerda com duas imagens -->
